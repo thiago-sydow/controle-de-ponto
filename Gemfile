@@ -14,6 +14,9 @@ gem 'thin'
 gem 'devise'
 gem 'jquery-rails'
 gem 'mailcatcher'
+gem 'minitest'
+gem 'kaminari'
+gem 'time_diff'
 
 # Gems used only for assets and not required
 # in production environments by default.

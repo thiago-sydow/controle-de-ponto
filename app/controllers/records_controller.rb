@@ -3,11 +3,12 @@ class RecordsController < ApplicationController
   before_filter :authenticate_user!
 
 	def index
-		@records = Record.all
+		@records = Record.asc(:time).where(time: (Date.today)..(Date.today + 1.day)).page(params[:page])
+    @total = Record.total_worked_hours(@records)
 	end
 
   def show
-    @record = Record.find(params[:id])    
+    @record = Record.find(params[:id])
   end
 
 	def new
@@ -16,7 +17,7 @@ class RecordsController < ApplicationController
   end
 
   def edit
-    @fraternity = Record.find(params[:id])
+    @record = Record.find(params[:id])
   end
 
   def create
@@ -25,7 +26,7 @@ class RecordsController < ApplicationController
     @record.user = current_user
 
     if @record.save
-    	redirect_to @record, notice: 'O registro foi criado com suceso.'
+    	redirect_to records_path, notice: 'O registro foi criado com suceso.'
     end
 
   end
@@ -34,7 +35,7 @@ class RecordsController < ApplicationController
     @record = Record.find(params[:id])
 
     if @record.update_attributes(params[:record])
-			redirect_to @record, notice: 'O registro foi atualizado com sucesso.'
+			redirect_to records_path, notice: 'O registro foi atualizado com sucesso.'
 		else
 			render action: "edit"
     end

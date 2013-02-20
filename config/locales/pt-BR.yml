@@ -1,4 +1,8 @@
 pt-BR:
+  site_name: 'Controle de Ponto'
+  sign_in: 'Entrar'
+  sign_out: 'Sair'
+  sign_up: 'Registrar'
   date:
     abbr_day_names:
     - Dom
@@ -197,17 +201,25 @@ pt-BR:
       default: ! '%a, %d de %B de %Y, %H:%M:%S %z'
       long: ! '%d de %B de %Y, %H:%M'
       short: ! '%d de %B, %H:%M'
+      minimal: ! '%H:%M'
     pm: ''
   activemodel:
     errors:
       <<: *errors
   mongoid:
     errors:
-      models:
-        record: "Registro"
+    models:
+      record: "Registro"
     attributes:
       user:
         email: "Email"
         password: "Senha"
       record:
         time: "Horário"
+  views:
+    pagination:
+      first: "&laquo; Primeira"
+      last: "Última &raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Próxima &rsaquo;"
+      truncate: "..."
