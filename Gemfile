@@ -1,6 +1,4 @@
-require 'rubygems'
-require 'mongo'
-source 'http://gemcutter.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
