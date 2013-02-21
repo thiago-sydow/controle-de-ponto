@@ -3,7 +3,7 @@ class RecordsController < ApplicationController
   before_filter :authenticate_user!
 
 	def index
-		@records = Record.asc(:time).where(time: (Date.today)..(Date.today + 1.day)).page(params[:page])
+		@records = Record.asc(:time).where(time: (Date.today)..(Date.today + 1.day), user: current_user).page(params[:page])
     @total = Record.total_worked_hours(@records)
 	end
 

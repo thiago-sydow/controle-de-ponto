@@ -9,7 +9,7 @@ gem 'rails', '3.2.11'
 
 gem 'therubyracer'
 gem 'mongoid'
-gem 'mongo_mapper'
+
 gem 'thin'
 gem 'devise'
 gem 'jquery-rails'
@@ -17,11 +17,11 @@ gem 'mailcatcher'
 gem 'minitest'
 gem 'kaminari'
 gem 'time_diff'
+gem 'twitter-bootstrap-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'twitter-bootstrap-rails'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes

@@ -13,29 +13,10 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-
-    <!-- For third-generation iPad with high-resolution Retina display: -->
-    <!-- Size should be 144 x 144 pixels -->
-    <%= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
-
-    <!-- For iPhone with high-resolution Retina display: -->
-    <!-- Size should be 114 x 114 pixels -->
-    <%= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
-
-    <!-- For first- and second-generation iPad: -->
-    <!-- Size should be 72 x 72 pixels -->
-    <%= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
-
-    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <!-- Size should be 57 x 57 pixels -->
-    <%= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
-
-    <!-- For all other devices -->
-    <!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+   
   </head>
   <body>
-    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1035;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>  
+    <a href="https://github.com/thiago-sydow/controle-ponto-eletronico"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1035;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>  
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -47,7 +28,7 @@
           <% if user_signed_in? %>
           <%= link_to t('site_name'), records_path, class: 'brand' %>          
           <div class="container nav-collapse">
-            <ul class="nav">
+            <ul class="nav pull-right">
               <li><%= link_to "Sobre", about_url  %></li>              
               <li><%= link_to t('sign_out'), destroy_user_session_path, method: :delete %></li>              
             </ul>
@@ -55,7 +36,7 @@
           <% else %>
             <%= link_to t('site_name'), root_path, class: 'brand' %>          
             <div class="container nav-collapse">
-              <ul class="nav">
+              <ul class="nav pull-right">
                 <li><%= link_to "Sobre", about_url  %></li>
                 <li><%= link_to t('sign_in'), new_user_session_path %></li>
                 <li><%= link_to t('sign_up'), new_user_registration_path %></li>              
@@ -91,10 +72,7 @@
           <% end %>
         </div><!--/row-->
 
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
-
+      
     </div> <!-- /container -->
 
     <!-- Javascripts

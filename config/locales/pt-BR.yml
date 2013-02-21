@@ -3,6 +3,11 @@ pt-BR:
   sign_in: 'Entrar'
   sign_out: 'Sair'
   sign_up: 'Registrar'
+  forgot_password: 'Esqueceu sua senha?'
+  didnt_receive_confirmation: 'Não recebeu o email de confirmação?'
+  resend_confirmation: 'Reenviar email de confirmação'
+  remember_me: 'Lembrar-me neste computador'
+  send_password_instructions: 'Me envie as instruções de redefinição de senha'
   date:
     abbr_day_names:
     - Dom
@@ -214,6 +219,7 @@ pt-BR:
       user:
         email: "Email"
         password: "Senha"
+        password_confirmation: "Confirme sua Senha"
       record:
         time: "Horário"
   views:
