@@ -1,6 +1,10 @@
 ControlePontoEletronico::Application.routes.draw do
   devise_for :users
 
+  authenticated :user do
+    root :to => "records#index"
+  end
+
   root :to => 'site#index'
 
   match '/sobre' => 'site#about', as: :about
