@@ -22,12 +22,18 @@ class RecordsController < ApplicationController
 
   def create
     @record = Record.new(params[:record])
-    
-    @record.user = current_user
 
-    if @record.save
-    	redirect_to records_path, notice: 'O registro foi criado com suceso.'
-    end
+    @records = Record.where(time: @record.time, user: current_user).count
+
+    if @records > 0
+      redirect_to new_record_path, alert: 'Foi econtrado um registro com os mesmos valores.'
+    else
+      @record.user = current_user
+
+      if @record.save
+        redirect_to records_path, notice: 'O registro foi criado com suceso.'
+      end
+    end   
 
   end
 
