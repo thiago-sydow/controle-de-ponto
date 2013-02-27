@@ -12,6 +12,9 @@ pt-BR:
   new_password: 'Nova senha'
   confirm_new_password: 'Confirme sua nova senha'
   change_my_password: 'Mudar minha senha'
+  filter: 'Filtrar'
+  filter_day: 'Filtrar dia'
+  daily_report_title: 'Relatório para o dia'
   date:
     abbr_day_names:
     - Dom
@@ -211,6 +214,7 @@ pt-BR:
       long: ! '%d de %B de %Y, %H:%M'
       short: ! '%d de %B, %H:%M'
       minimal: ! '%H:%M'
+      only_date: '%d de %B'
     pm: ''
   activemodel:
     errors:

@@ -21,7 +21,11 @@ ControlePontoEletronico::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  resources :records  
+  resources :records
+
+  match '/filtrar-data' => 'records#filter_day_daily_report', as: :filter_date
+
+  match '/relatorio-diario' => 'records#daily_report', as: :daily_report
 
   # Sample resource route with options:
   #   resources :products do

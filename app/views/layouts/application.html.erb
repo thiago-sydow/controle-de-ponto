@@ -52,11 +52,11 @@
           <% if user_signed_in? %>
             <div class="span3">
               <div class="well sidebar-nav">
-                <h3>Sidebar</h3>
-                <ul class="nav nav-list">                
-                  <li><%= link_to "Link1", "/path1"  %></li>
-                  <li><%= link_to "Link2", "/path2"  %></li>
-                  <li><%= link_to "Link3", "/path3"  %></li>
+                <h3>Ir para</h3>
+                <ul class="nav nav-list">
+                  <li><%= link_to "Registros de hoje", records_path %> </li>
+                  <li><%= link_to "Relatório por dia", filter_date_path  %></li>
+                  <li><%= link_to "Relatório mensal", "/path2"  %></li>                  
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->

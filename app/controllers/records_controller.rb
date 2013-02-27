@@ -54,4 +54,15 @@ class RecordsController < ApplicationController
     redirect_to records_path
   end
 
+  def filter_day_daily_report
+    @record = Record.new
+    @record.time = Time.now
+  end
+
+  def daily_report
+    @record = Record.new(params[:record])
+    @records = Record.asc(:time).where(time: (@record.time.to_date)..(@record.time.to_date + 1.day), user: current_user).page(params[:page])
+    @total = Record.total_worked_hours(@records)
+  end
+
 end

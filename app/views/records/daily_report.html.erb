@@ -1,0 +1,21 @@
+<%- model_class = Record -%>
+<div class="page-header">
+  <h1><%=t 'daily_report_title' %></h1>
+  <h2><%= l @record.time, :format => :only_date %></h2>
+</div>
+<p class="pull-right">Tempo total trabalhado <%= l @total, :format => :minimal %></p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:time) %></th>      
+    </tr>
+  </thead>
+  <tbody>
+    <% @records.each do |record| %>
+      <tr>        
+        <td><%= l record.time, :format => :short %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @records %>
