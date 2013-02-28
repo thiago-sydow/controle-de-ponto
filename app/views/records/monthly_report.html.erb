@@ -1,0 +1,40 @@
+<%- model_class = Record -%>
+<div class="page-header">
+  <h1><%=t 'monthly_report_title' %></h1>  
+    <h2 data-toggle="collapse" data-target="#filter"><a href="#"><%= l @record.time, :format => :only_month %></a></h2>
+    <div id="filter" class="collapse">
+      <%= form_for @record, :url => { :action => 'monthly_report' }, :html => { :class => 'form-horizontal' } do |f| %>  
+        <div class="control-group">
+          <%= f.label t('datetime.prompts.month'), :class => 'control-label' %>
+          <div class="controls">
+            <%= date_select('record','time', discard_day: true) %>
+          </div>
+        </div>
+        <div class="form-actions">
+          <%= f.submit t('filter'), :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>  
+</div>
+<table class="table table-striped collapsible-table" >
+  <thead>
+    <tr>
+      <th><%= t('datetime.prompts.day') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @records.each do |record| %>
+      <% @records_array = record.second %> 
+      <tr>
+        <td>
+          <h4><%= l @records_array.first.time, :format => :no_time %><a class="btn btn-small pull-right" href="#">+</a></h4>
+          <div class="hide">
+            <% @records_array.each do |rec| %>
+              <div><%= l rec.time, :format => :minimal %></div>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

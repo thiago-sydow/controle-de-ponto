@@ -5,7 +5,7 @@ class RecordsController < ApplicationController
 	def index
 		@records = Record.asc(:time).where(time: (Date.today)..(Date.today + 1.day), user: current_user).page(params[:page])    
     @total = Record.sum_total_to_current_time(@records, Record.total_worked_hours(@records))
-    @leaving_time = Record.preview_leaving_time(@records.first, @total)
+    @leaving_time = Record.preview_leaving_time(@records.first, Record.lazy_time(@records))
 	end
 
   def show
@@ -71,6 +71,20 @@ class RecordsController < ApplicationController
 
     @records = Record.asc(:time).where(time: (@record.time.to_date)..(@record.time.to_date + 1.day), user: current_user).page(params[:page])
     @total = Record.total_worked_hours(@records)
+  end
+
+  def monthly_report
+
+    @record = Record.new(params[:record])
+    if @record.time.nil?
+      @records = Record.asc(:time).where(time: (Date.today.at_beginning_of_month)..(Date.today.at_end_of_month), user: current_user).page(params[:page])
+      @records = @records.all.group_by{ |item| item.time.day }.sort
+      @record.time = Time.new
+    else
+      @records = Record.asc(:time).where(time: (@record.time.at_beginning_of_month)..(@record.time.at_end_of_month), user: current_user).page(params[:page])      
+      @records = @records.all.group_by{ |item| item.time.day }.sort
+    end    
+    
   end
 
 end

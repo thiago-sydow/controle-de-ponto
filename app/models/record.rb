@@ -6,18 +6,18 @@ class Record
   belongs_to :user
 
   def self.total_worked_hours(records)
-  	@firstRecord = records.first
+  	@previousRecord = records.first
     @totalHours = Time.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 0, 0)    
 
     records.each_with_index do |record, index|
-      @time_diff_components = Time.diff(Time.parse(@firstRecord.time.to_s), Time.parse(record.time.to_s))
+      @time_diff_components = Time.diff(Time.parse(@previousRecord.time.to_s), Time.parse(record.time.to_s))
 
       if index.odd?
         @totalHours += @time_diff_components[:hour].hours
         @totalHours += @time_diff_components[:minute].minutes
       end
 
-      @firstRecord = record
+      @previousRecord = record
     end
     
     @totalHours
@@ -34,8 +34,28 @@ class Record
     totalHours
   end
 
-  def self.preview_leaving_time(entrance_record, totalHours)    
-    @leaving_time = entrance_record.time + 8.hours - totalHours.hour - totalHours.min    
+  def self.preview_leaving_time(entrance_record, lazy_time)
+    @leaving_time = entrance_record.time + 8.hours
+    @leaving_time += lazy_time.hour.hours
+    @leaving_time += lazy_time.min.minutes
+  end
+
+  def self.lazy_time(records)
+    @first_record = records.first
+    @lazy_time = Time.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 0, 0)
+
+    records.each_with_index do |record, index|
+      @time_diff_components = Time.diff(Time.parse(@first_record.time.to_s), Time.parse(record.time.to_s))
+
+      if index.even?
+        @lazy_time += @time_diff_components[:hour].hours
+        @lazy_time += @time_diff_components[:minute].minutes
+      end
+
+      @first_record = record
+    end
+    
+    @lazy_time
   end
 
 end

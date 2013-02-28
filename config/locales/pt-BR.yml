@@ -215,6 +215,8 @@ pt-BR:
       short: ! '%d de %B, %H:%M'
       minimal: ! '%H:%M'
       only_date: '%d de %B'
+      no_time: '%d de %B de %Y'
+      only_month: '%B'
     pm: ''
   activemodel:
     errors:

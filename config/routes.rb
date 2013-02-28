@@ -24,6 +24,7 @@ ControlePontoEletronico::Application.routes.draw do
   resources :records  
 
   match '/relatorio-diario' => 'records#daily_report', as: :daily_report
+  match '/relatorio-mensal' => 'records#monthly_report', as: :monthly_report
 
   # Sample resource route with options:
   #   resources :products do
