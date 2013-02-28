@@ -3,7 +3,8 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
 <%= link_to t('.new', :default => t("helpers.links.new")), new_record_path, :class => 'btn btn-primary' %>
-<p class="pull-right">Tempo total trabalhado <%= l @total, :format => :minimal %></p>
+<p class="pull-right">Tempo total trabalhado <%= l @total, :format => :minimal %></p> <br />
+<p class="pull-right">Previsão Horário de saída <%= l @leaving_time, :format => :minimal %></p>
 <table class="table table-striped">
   <thead>
     <tr>

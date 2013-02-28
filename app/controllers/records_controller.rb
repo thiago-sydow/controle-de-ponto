@@ -3,8 +3,9 @@ class RecordsController < ApplicationController
   before_filter :authenticate_user!
 
 	def index
-		@records = Record.asc(:time).where(time: (Date.today)..(Date.today + 1.day), user: current_user).page(params[:page])
-    @total = Record.total_worked_hours(@records)
+		@records = Record.asc(:time).where(time: (Date.today)..(Date.today + 1.day), user: current_user).page(params[:page])    
+    @total = Record.sum_total_to_current_time(@records, Record.total_worked_hours(@records))
+    @leaving_time = Record.preview_leaving_time(@records.first, @total)
 	end
 
   def show
@@ -33,7 +34,7 @@ class RecordsController < ApplicationController
       if @record.save
         redirect_to records_path, notice: 'O registro foi criado com suceso.'
       end
-    end   
+    end
 
   end
 
@@ -60,7 +61,14 @@ class RecordsController < ApplicationController
   end
 
   def daily_report
-    @record = Record.new(params[:record])
+       
+    if params[:record].blank?
+      @record = Record.new
+      @record.time = Time.now
+    else
+      @record = Record.new(params[:record])
+    end        
+
     @records = Record.asc(:time).where(time: (@record.time.to_date)..(@record.time.to_date + 1.day), user: current_user).page(params[:page])
     @total = Record.total_worked_hours(@records)
   end
