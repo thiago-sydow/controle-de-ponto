@@ -77,11 +77,11 @@ class RecordsController < ApplicationController
 
     @record = Record.new(params[:record])
     if @record.time.nil?
-      @records = Record.asc(:time).where(time: (Date.today.at_beginning_of_month)..(Date.today.at_end_of_month), user: current_user).page(params[:page])
+      @records = Record.asc(:time).where(time: (Date.today.at_beginning_of_month)..(Date.today.at_end_of_month + 1.day), user: current_user).page(params[:page])
       @records = @records.all.group_by{ |item| item.time.day }.sort
       @record.time = Time.new
     else
-      @records = Record.asc(:time).where(time: (@record.time.at_beginning_of_month)..(@record.time.at_end_of_month), user: current_user).page(params[:page])      
+      @records = Record.asc(:time).where(time: (@record.time.at_beginning_of_month)..(@record.time.at_end_of_month + 1.day), user: current_user).page(params[:page])      
       @records = @records.all.group_by{ |item| item.time.day }.sort
     end    
     

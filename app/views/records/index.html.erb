@@ -4,7 +4,9 @@
 </div>
 <%= link_to t('.new', :default => t("helpers.links.new")), new_record_path, :class => 'btn btn-primary' %>
 <p class="pull-right">Tempo total trabalhado <%= l @total, :format => :minimal %></p> <br />
-<p class="pull-right">Previsão Horário de saída <%= l @leaving_time, :format => :minimal %></p>
+<% if @leaving_time.kind_of? DateTime %>
+  <p class="pull-right">Previsão Horário de saída <%= l @leaving_time, :format => :minimal %></p>
+<% end %>
 <table class="table table-striped">
   <thead>
     <tr>

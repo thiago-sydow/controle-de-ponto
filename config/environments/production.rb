@@ -67,8 +67,8 @@ ControlePontoEletronico::Application.configure do
   config.action_mailer.default_url_options = { :host => 'controle-de-ponto.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      :user_name => "paguearep",
-      :password => '#@pgr3p#$',
+      :user_name => ENV['SMTP_USER'],
+      :password => ENV['SMTP_PASS']
       :domain => "controle-de-ponto.herokuapp.com",
       :address => "smtp.sendgrid.net",
       :port => 587,

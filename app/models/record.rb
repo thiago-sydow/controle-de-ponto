@@ -35,9 +35,15 @@ class Record
   end
 
   def self.preview_leaving_time(entrance_record, lazy_time)
-    @leaving_time = entrance_record.time + 8.hours
-    @leaving_time += lazy_time.hour.hours
-    @leaving_time += lazy_time.min.minutes
+
+    if entrance_record.blank?
+      0
+    else
+      @leaving_time = entrance_record.time + 8.hours
+      @leaving_time += lazy_time.hour.hours
+      @leaving_time += lazy_time.min.minutes
+    end
+    
   end
 
   def self.lazy_time(records)
