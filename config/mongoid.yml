@@ -82,7 +82,7 @@ test:
 production:
   sessions:
     default:
-      uri: ENV['MONGOHQ_URL']
+      uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         skip_version_check: true
         safe: true
