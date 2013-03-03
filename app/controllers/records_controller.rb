@@ -3,9 +3,16 @@ class RecordsController < ApplicationController
   before_filter :authenticate_user!
 
 	def index
-		@records = Record.asc(:time).where(time: (Date.today)..(Date.today + 1.day), user: current_user).page(params[:page])    
-    @total = Record.sum_total_to_current_time(@records, Record.total_worked_hours(@records))
-    @leaving_time = Record.preview_leaving_time(@records.first, Record.lazy_time(@records))
+
+    @record = Record.new(params[:record])
+
+    if @record.time.nil?      
+      @record.time = Time.new    
+    end
+
+    @records = Record.asc(:time).where(time: (@record.time.to_date)..(@record.time.to_date + 1.day), user: current_user).page(params[:page])
+    @total = Record.sum_total_to_current_time(@records, Record.worked_or_lazy_time(@records), (@record.time.to_date == Date.today))
+    @leaving_time = Record.preview_leaving_time(@records.first, Record.worked_or_lazy_time(@records, true)) if @record.time.to_date == Date.today
 	end
 
   def show
@@ -55,36 +62,29 @@ class RecordsController < ApplicationController
     redirect_to records_path
   end
 
-  def filter_day_daily_report
-    @record = Record.new
-    @record.time = Time.now
-  end
-
-  def daily_report
-       
-    if params[:record].blank?
-      @record = Record.new
-      @record.time = Time.now
-    else
-      @record = Record.new(params[:record])
-    end        
-
-    @records = Record.asc(:time).where(time: (@record.time.to_date)..(@record.time.to_date + 1.day), user: current_user).page(params[:page])
-    @total = Record.total_worked_hours(@records)
-  end
-
   def monthly_report
 
     @record = Record.new(params[:record])
-    if @record.time.nil?
-      @records = Record.asc(:time).where(time: (Date.today.at_beginning_of_month)..(Date.today.at_end_of_month + 1.day), user: current_user).page(params[:page])
-      @records = @records.all.group_by{ |item| item.time.day }.sort
-      @record.time = Time.new
-    else
-      @records = Record.asc(:time).where(time: (@record.time.at_beginning_of_month)..(@record.time.at_end_of_month + 1.day), user: current_user).page(params[:page])      
-      @records = @records.all.group_by{ |item| item.time.day }.sort
-    end    
     
+    if @record.time.nil?      
+      @record.time = Time.new
+    end
+
+    @records = Record.month_records(@record.time, current_user, params[:page]).all.group_by{ |item| item.time.day }.sort
+    on_month = Time.now
+    @records.each do |record|
+      worked = Record.worked_or_lazy_time(record.second)
+      on_month = (on_month + worked.hour.hours) + worked.min.minutes
+      record.insert(1, worked)
+    end
+
+    @total_on_month = Time.diff(on_month, Time.now, '%h horas e %m minutos')
+    @should_have_worked = Record.business_days_in_month(@record.time).size * 8
+
+    shoud_have_time = Time.now + @should_have_worked.hours
+    
+    @credit_debit_hours = Time.diff(shoud_have_time, on_month, '%h horas e %m minutos')
+    @credit = on_month > shoud_have_time
   end
 
 end

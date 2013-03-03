@@ -5,33 +5,18 @@ class Record
   field :time, :type => DateTime
   belongs_to :user
 
-  def self.total_worked_hours(records)
-  	@previousRecord = records.first
-    @totalHours = Time.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 0, 0)    
+  scope :month_records, lambda{|time, user, page|    
+    asc(:time).where(time: (time.at_beginning_of_month)..(time.at_end_of_month + 1.day), user: user).page(page)    
+  }
 
-    records.each_with_index do |record, index|
-      @time_diff_components = Time.diff(Time.parse(@previousRecord.time.to_s), Time.parse(record.time.to_s))
-
-      if index.odd?
-        @totalHours += @time_diff_components[:hour].hours
-        @totalHours += @time_diff_components[:minute].minutes
-      end
-
-      @previousRecord = record
-    end
+  def self.sum_total_to_current_time(records, total_hours, sum_current_time = true)
     
-    @totalHours
-  end
-
-  def self.sum_total_to_current_time(records, totalHours)
-    
-    if records.size.odd?
-      @diff = Time.diff(Time.parse(records.last.time.to_s), Time.now)
-      totalHours += @diff[:hour].hours
-      totalHours += @diff[:minute].minutes
+    if records.size.odd? && sum_current_time
+      diff = Time.diff(Time.parse(records.last.time.to_s), Time.now)
+      total_hours = (total_hours + diff[:hour].hours) + diff[:minute].minutes      
     end
 
-    totalHours
+    total_hours
   end
 
   def self.preview_leaving_time(entrance_record, lazy_time)
@@ -39,29 +24,31 @@ class Record
     if entrance_record.blank?
       0
     else
-      @leaving_time = entrance_record.time + 8.hours
-      @leaving_time += lazy_time.hour.hours
-      @leaving_time += lazy_time.min.minutes
+      @leaving_time = ((entrance_record.time + 8.hours) + lazy_time.hour.hours) + lazy_time.min.minutes      
     end
     
   end
 
-  def self.lazy_time(records)
-    @first_record = records.first
-    @lazy_time = Time.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 0, 0)
+  def self.worked_or_lazy_time(records, lazy = false)
+    first_record = records.first
+    @total = Time.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 0, 0)
+    condition = lazy ? 'index.even?' : 'index.odd?' 
 
     records.each_with_index do |record, index|
-      @time_diff_components = Time.diff(Time.parse(@first_record.time.to_s), Time.parse(record.time.to_s))
+      time_diff_components = Time.diff(Time.parse(first_record.time.to_s), Time.parse(record.time.to_s))
 
-      if index.even?
-        @lazy_time += @time_diff_components[:hour].hours
-        @lazy_time += @time_diff_components[:minute].minutes
+      if eval condition
+        @total = (@total + time_diff_components[:hour].hours) + time_diff_components[:minute].minutes        
       end
 
-      @first_record = record
+      first_record = record
     end
     
-    @lazy_time
+    @total
+  end
+
+  def self.business_days_in_month(time)
+    weekdays = ((time.at_beginning_of_month)..(time.at_end_of_month)).reject { |d| [0,6].include? d.wday}
   end
 
 end

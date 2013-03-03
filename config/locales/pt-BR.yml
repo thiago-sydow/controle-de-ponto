@@ -13,8 +13,7 @@ pt-BR:
   confirm_new_password: 'Confirme sua nova senha'
   change_my_password: 'Mudar minha senha'
   filter: 'Filtrar'
-  filter_day: 'Filtrar dia'
-  daily_report_title: 'Relatório para o dia'
+  monthly_report_title: 'Relatório mensal'
   date:
     abbr_day_names:
     - Dom
