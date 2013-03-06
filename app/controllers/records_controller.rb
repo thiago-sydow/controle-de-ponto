@@ -66,11 +66,11 @@ class RecordsController < ApplicationController
 
     @record = Record.new(params[:record])
     
-    if @record.time.nil?      
-      @record.time = Time.new
-    end
+    @record.time = Time.new unless @record.time
 
-    @records = Record.month_records(@record.time, current_user, params[:page]).all.group_by{ |item| item.time.day }.sort
+    @records = Record.month_records(@record.time, current_user).all.group_by{ |item| item.time.day }.sort
+    @records = Kaminari.paginate_array(@records).page(params[:page])
+    
     on_month = Time.now
     @records.each do |record|
       worked = Record.worked_or_lazy_time(record.second)

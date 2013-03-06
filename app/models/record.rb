@@ -5,8 +5,8 @@ class Record
   field :time, :type => DateTime
   belongs_to :user
 
-  scope :month_records, lambda{|time, user, page|    
-    asc(:time).where(time: (time.at_beginning_of_month)..(time.at_end_of_month + 1.day), user: user).page(page)    
+  scope :month_records, lambda{|time, user|    
+    asc(:time).where(time: (time.at_beginning_of_month)..(time.at_end_of_month + 1.day), user: user)   
   }
 
   def self.sum_total_to_current_time(records, total_hours, sum_current_time = true)
