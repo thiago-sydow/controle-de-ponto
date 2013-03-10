@@ -6,9 +6,7 @@ class RecordsController < ApplicationController
 
     @record = Record.new(params[:record])
 
-    if @record.time.nil?      
-      @record.time = Time.new    
-    end
+    @record.time = Time.new unless @record.time
 
     @records = Record.asc(:time).where(time: (@record.time.to_date)..(@record.time.to_date + 1.day), user: current_user).page(params[:page])
     @total = Record.sum_total_to_current_time(@records, Record.worked_or_lazy_time(@records), (@record.time.to_date == Date.today))
@@ -68,19 +66,33 @@ class RecordsController < ApplicationController
     
     @record.time = Time.new unless @record.time
 
-    @records = Kaminari.paginate_array(Record.month_records(@record.time, current_user).
+    hash_calculation = find_and_calculate_worked_hours(@record)
+
+    @records = hash_calculation[:records]
+
+    set_should_have_metrics(hash_calculation[:on_month], @record)
+  end
+
+  private 
+
+  def find_and_calculate_worked_hours(record)
+    records = Kaminari.paginate_array(Record.month_records(record.time, current_user).
       all.group_by{ |item| item.time.day }.sort).page(params[:page])
     
     on_month = Time.now
     
-    @records.each do |record|
-      worked = Record.worked_or_lazy_time(record.second)
+    records.each do |rec|
+      worked = Record.sum_total_to_current_time(rec.last, Record.worked_or_lazy_time(rec.second), (rec.last.first.time.to_date == Date.today))
       on_month = (on_month + worked.hour.hours) + worked.min.minutes
-      record.insert(1, worked)
+      rec.insert(1, worked)
     end
 
+    {records: records, on_month: on_month}
+  end
+
+  def set_should_have_metrics(on_month, record)
     @total_on_month = Time.diff(on_month, Time.now, '%h horas e %m minutos')
-    @should_have_worked = Record.business_days_in_month(@record.time).size * 8
+    @should_have_worked = Record.business_days_in_month(record.time).size * 8
 
     shoud_have_time = Time.now + @should_have_worked.hours
     

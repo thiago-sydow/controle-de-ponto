@@ -11,12 +11,10 @@ class Record
 
   def self.sum_total_to_current_time(records, total_hours, sum_current_time = true)
     
-    if records.size.odd? && sum_current_time
-      diff = Time.diff(Time.parse(records.last.time.to_s), Time.now)
-      total_hours = (total_hours + diff[:hour].hours) + diff[:minute].minutes      
-    end
+    return total_hours unless records.size.odd? && sum_current_time
 
-    total_hours
+    diff = Time.diff(Time.parse(records.last.time.to_s), Time.now)
+    total_hours = (total_hours + diff[:hour].hours) + diff[:minute].minutes
   end
 
   def self.preview_leaving_time(entrance_record, lazy_time)
