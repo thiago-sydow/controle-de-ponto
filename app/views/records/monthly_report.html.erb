@@ -40,6 +40,7 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @records %>
 <p class="pull-right span9 text-right">Total de horas trabalhadas : <%= @total_on_month[:diff] %> </p>
 <p class="pull-right span9 text-right">Total de horas que deveriam ter sido trabalhadas : <%= @should_have_worked %> <%= t('datetime.prompts.hour').pluralize %> </p>
 <p class="pull-right span9 text-right <%= @credit ? 'text-success' : 'text-error' %>"><%= @credit ? 'Crédito' : 'Débito' %> de <%= @credit_debit_hours[:diff] %> </p>
