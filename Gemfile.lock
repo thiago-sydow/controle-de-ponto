@@ -88,6 +88,7 @@ GEM
       tzinfo (~> 0.3.22)
     moped (1.4.2)
     multi_json (1.6.1)
+    newrelic_rpm (3.5.8.72)
     origin (1.0.11)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
@@ -170,6 +171,7 @@ DEPENDENCIES
   mailcatcher
   minitest
   mongoid
+  newrelic_rpm
   rails (= 3.2.11)
   therubyracer
   thin
