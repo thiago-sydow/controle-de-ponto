@@ -5,6 +5,8 @@ class Record
   field :time, :type => DateTime
   belongs_to :user
 
+  default_scope asc(:time)
+
   scope :month_records, lambda {|time, user|    
     asc(:time).where(time: (time.at_beginning_of_month)..(time.at_end_of_month + 1.day), user: user)   
   }

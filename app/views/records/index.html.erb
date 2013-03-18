@@ -1,9 +1,9 @@
 <%- model_class = Record -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-  <h2 data-toggle="collapse" data-target="#filter"><a href="#"><%= l @record.time, :format => :only_date %></a></h2>
+  <h2 data-toggle="collapse" data-target="#filter"><a href="#"><%= l @presenter.get_record.time, :format => :only_date %></a></h2>
     <div id="filter" class="collapse">
-      <%= form_for @record, :url => { :action => 'index' }, :html => { :class => 'form-horizontal' } do |f| %>  
+      <%= form_for @presenter.get_record, :url => { :action => 'index' }, :html => { :class => 'form-horizontal' } do |f| %>  
         <div class="control-group">
           <%= f.label t('datetime.prompts.day'), :class => 'control-label' %>
           <div class="controls">
@@ -18,9 +18,9 @@
     </div>
 </div>
 <%= link_to t('.new', :default => t("helpers.links.new")), new_record_path, :class => 'btn btn-primary' %>
-<p class="pull-right">Tempo total trabalhado <%= l @total, :format => :minimal %></p> <br />
-<% if @leaving_time.kind_of? DateTime %>
-  <p class="pull-right">Previsão Horário de saída <%= l @leaving_time, :format => :minimal %></p>
+<p class="pull-right">Tempo total trabalhado <%= l @presenter.total_time, :format => :minimal %></p> <br />
+<% if @presenter.leaving_time.kind_of? DateTime %>
+  <p class="pull-right">Previsão Horário de saída <%= l @presenter.leaving_time, :format => :minimal %></p>
 <% end %>
 <table class="table table-striped">
   <thead>
@@ -30,7 +30,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @records.each do |record| %>
+    <% @presenter.get_records.each do |record| %>
       <tr>        
         <td><%= l record.time, :format => :short %></td>
         <td>
@@ -46,4 +46,4 @@
     <% end %>
   </tbody>
 </table>
-<%= paginate @records %>
+<%= paginate @presenter.get_records %>
