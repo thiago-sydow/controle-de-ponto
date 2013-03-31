@@ -41,15 +41,18 @@ class SpreadSheetsController < ApplicationController
 
 	def get_records_from_sheet_row(sheet, row)
 		
-		date = get_date_from_string(sheet.cell(row, 'A'))
+		returned_date = get_date_from_string(sheet.cell(row, 'A'))
+		date = Date.new(returned_date.year, returned_date.month, returned_date.day).to_time
 		records = Array.new
 
 		'B'.upto('I') do |col|
-			record_time = (Time.now.midnight + sheet.cell(row, col).seconds) rescue nil			
-			if record_time
-				date = date.change(hour: record_time.hour, min: record_time.min, offset: '-0300')
+			record_time = (Time.now.midnight + sheet.cell(row, col).seconds) rescue nil
+			if record_time				
+
+				date = date.change(hour: record_time.hour, min: record_time.min).utc
+
 				records << {time: date, user: current_user}
-			end			
+			end
 		end
 		
 		records
