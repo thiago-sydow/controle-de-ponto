@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1><%=t 'title_upload_spreadsheet'%></h1>
+</div>
+<div class="well" >
+  <p>Se você possuia alguma planilha com registros de ponto, você pode importá-las nesta área.</p>
+  <p>Para o correto funcionamento a planilha deve seguir um padrão, que pode ser visualizado  <%= link_to 'aqui', "#exemplo", data: { toggle: "lightbox"} %>.</p>
+  <p>Você pode realizar o download de uma planilha com o padrão correto em formato <%= link_to 'ods', '/exemplo.ods' %>, <%= link_to 'xls', '/exemplo.xls' %> e <%= link_to 'xlsx', '/exemplo.xlsx' %>. </p>
+</div>
+<div id="exemplo" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class='lightbox-header'>
+    <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true">&times;</button>
+  </div>
+  <div class='lightbox-content'>
+    <%= image_tag 'exemplo.png' %>
+    <div class="lightbox-caption"><p>Colunas em verde são obrigatórias. Atente para a linha 2 que é pulada.</p></div>
+  </div>
+</div>
+<%= form_for @sheet, :html => { :class => 'form-horizontal' } do |f| %>  
+  <div class="control-group">
+    <%= f.label 'Arquivo', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :file, required: true %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Enviar Arquivo', :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), records_path, :class => 'btn' %>
+  </div>
+<% end %>

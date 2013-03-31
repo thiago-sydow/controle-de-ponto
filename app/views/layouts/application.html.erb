@@ -15,8 +15,8 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
 
-    <%= stylesheet_link_tag "application", :media => "all" %>
-   
+    <%= stylesheet_link_tag "application", "http://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.4/bootstrap-lightbox.min.css", :media => "all" %>
+
   </head>
   <body>
     <a href="https://github.com/thiago-sydow/controle-ponto-eletronico"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1035;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>  
@@ -57,6 +57,7 @@
               <div class="well sidebar-nav">
                 <h3>Ir para</h3>
                 <ul class="nav nav-list">
+                  <li><%= link_to "Enviar Planilha", send_sheet_path %> </li>
                   <li><%= link_to "Registros", records_path %> </li>
                   <li><%= link_to "Relatório mensal", monthly_report_path  %></li>                  
                 </ul>
@@ -80,7 +81,7 @@
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application", "http://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.5/bootstrap-lightbox.min.js" %>
 
   </body>
 </html>

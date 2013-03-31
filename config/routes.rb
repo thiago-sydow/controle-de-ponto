@@ -22,7 +22,8 @@ ControlePontoEletronico::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :records
-  
+  resources :spread_sheets
+  match '/enviar-planilha' => 'spread_sheets#new', as: :send_sheet
   match '/relatorio-mensal' => 'records#monthly_report', as: :monthly_report
 
   # Sample resource route with options:

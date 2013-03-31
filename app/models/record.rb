@@ -5,6 +5,8 @@ class Record
   field :time, :type => DateTime
   belongs_to :user
 
+  index({ time: 1 }, { unique: true })
+
   default_scope asc(:time)
 
   scope :month_records, lambda {|time, user|    

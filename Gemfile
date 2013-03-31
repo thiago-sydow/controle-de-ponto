@@ -18,6 +18,8 @@ gem 'kaminari'
 gem 'time_diff'
 gem 'twitter-bootstrap-rails'
 gem 'newrelic_rpm'
+gem 'roo'
+gem 'google-spreadsheet-ruby'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -14,6 +14,7 @@ pt-BR:
   change_my_password: 'Mudar minha senha'
   filter: 'Filtrar'
   monthly_report_title: 'Relatório mensal'
+  title_upload_spreadsheet: 'Enviar planilha'
   date:
     abbr_day_names:
     - Dom
