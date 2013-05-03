@@ -8,6 +8,7 @@ ControlePontoEletronico::Application.routes.draw do
   root :to => 'site#index'
 
   match '/sobre' => 'site#about', as: :about
+  match '/alteracoes' => 'site#changelog', as: :changelog
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

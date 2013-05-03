@@ -2,7 +2,8 @@ class Record
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
   
-  field :time, :type => DateTime
+  field :time, type: DateTime
+  field :consider, type: Boolean
   belongs_to :user
 
   index({ time: 1 }, { unique: true })
@@ -33,7 +34,7 @@ class Record
     records.each_with_index do |record, index|
       time_diff_components = Time.diff(Time.parse(first_record.time.to_s), Time.parse(record.time.to_s))
 
-      if eval condition
+      if eval condition        
         @total = (@total + time_diff_components[:hour].hours) + time_diff_components[:minute].minutes        
       end
 
@@ -43,15 +44,15 @@ class Record
     @total
   end
 
-  def self.business_days_in_month(time)
+  def self.business_days_in_month(time, not_considered)
 
     range = if time.month == Time.now.month
       (time.at_beginning_of_month)..(Time.now)
     else
       (time.at_beginning_of_month)..(time.at_end_of_month)
     end
-
-    weekdays = range.reject { |d| [0,6].include? d.wday}
+    
+    weekdays = range.reject { |d| ([0,6].include? d.wday) || (not_considered.include? d.day)}
   end
 
 end

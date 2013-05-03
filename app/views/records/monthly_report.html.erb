@@ -27,9 +27,12 @@
       <% @records_array = record.third 
          @total_of_day = record.second
       %>
-      <tr class="<%= @total_of_day.hour >= 8 ? 'success' : 'error' %>">
+      <tr class="<%= ((@total_of_day.hour >= 8) || (not @records_array.first.consider?)) ? 'success' : 'error' %>">
         <td>
           <h4><%= l @records_array.first.time, :format => :no_time %><a class="btn btn-small pull-right" href="#">+</a><p class="pull-right span3">Total trabalhado: <%= l @total_of_day, format: :minimal %></p></h4>
+
+          <% next unless @records_array.first.consider? %>
+
           <div class="hide">
             <% @records_array.each do |rec| %>
               <p class="text-black"><%= l rec.time, :format => :minimal %></p>

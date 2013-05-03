@@ -6,4 +6,7 @@ class SiteController < ApplicationController
 	def about
 	end
 
+	def changelog
+	end
+
 end

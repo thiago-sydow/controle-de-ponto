@@ -232,6 +232,7 @@ pt-BR:
         password_confirmation: "Confirme sua Senha"
       record:
         time: "Horário"
+        consider: "Considerar?"
   views:
     pagination:
       first: "&laquo; Primeira"

@@ -13,6 +13,7 @@ class RecordsController < ApplicationController
 	def new
     @record = Record.new
     @record.time = Time.now
+    @record.consider = true
   end
 
   def edit

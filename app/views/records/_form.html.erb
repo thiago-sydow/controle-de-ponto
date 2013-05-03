@@ -10,6 +10,12 @@
       <%= datetime_select('record','time') %>
     </div>
   </div>
+  <div class="control-group">
+    <%= f.label :consider, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :consider %>
+    </div>
+  </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
