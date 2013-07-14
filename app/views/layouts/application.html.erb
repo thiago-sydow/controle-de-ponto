@@ -32,8 +32,16 @@
           <%= link_to t('site_name'), records_path, class: 'brand' %>          
           <div class="container nav-collapse">
             <ul class="nav pull-right">
-              <li><%= link_to "Sobre", about_url  %></li>              
-              <li><%= link_to t('sign_out'), destroy_user_session_path, method: :delete %></li>              
+              <li><%= link_to "Sobre", about_url %></li>
+              <li class="divider-vertical"></li>            
+              <li class="dropdown">
+                <%= link_to raw("Olá #{current_user.email} <b class=\"caret\"></b>"), "#", class: "dropdown-toggle", data: {toggle: "dropdown"} %>                
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Editar usuário", edit_user_registration_path  %></li>
+                  <li class="divider"></li>
+                  <li><%= link_to t('sign_out'), destroy_user_session_path, method: :delete %></li>
+                </ul>
+              </li>              
             </ul>
           </div><!--/.nav-collapse -->
           <% else %>

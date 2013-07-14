@@ -45,7 +45,7 @@ class Record
   end
 
   def self.business_days_in_month(time, not_considered)
-
+    
     range = if time.month == Time.now.month
       (time.at_beginning_of_month)..(Time.now)
     else

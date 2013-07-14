@@ -225,11 +225,13 @@ pt-BR:
     errors:
     models:
       record: "Registro"
+      user: "Usuário"
     attributes:
       user:
         email: "Email"
         password: "Senha"
         password_confirmation: "Confirme sua Senha"
+        current_password: "Senha atual"
       record:
         time: "Horário"
         consider: "Considerar?"
