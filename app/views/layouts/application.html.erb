@@ -1,95 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <%= favicon_link_tag "/favicon.ico" %>
+<html>
+<head>
+  <title>ControlePontoEletronico</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-    <title><%= content_for?(:title) ? yield(:title) : "ControlePontoEletronico" %></title>
-    <%= csrf_meta_tags %>
+<%= yield %>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
-    <![endif]-->
-
-    <%= stylesheet_link_tag "application", "http://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.4/bootstrap-lightbox.min.css", :media => "all" %>
-
-  </head>
-  <body>
-    <a href="https://github.com/thiago-sydow/controle-ponto-eletronico"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1035;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>  
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <% if user_signed_in? %>
-          <%= link_to t('site_name'), records_path, class: 'brand' %>          
-          <div class="container nav-collapse">
-            <ul class="nav pull-right">
-              <li><%= link_to "Sobre", about_url %></li>
-              <li class="divider-vertical"></li>            
-              <li class="dropdown">
-                <%= link_to raw("Olá #{current_user.email} <b class=\"caret\"></b>"), "#", class: "dropdown-toggle", data: {toggle: "dropdown"} %>                
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Editar usuário", edit_user_registration_path  %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to t('sign_out'), destroy_user_session_path, method: :delete %></li>
-                </ul>
-              </li>              
-            </ul>
-          </div><!--/.nav-collapse -->
-          <% else %>
-            <%= link_to t('site_name'), root_path, class: 'brand' %>          
-            <div class="container nav-collapse">
-              <ul class="nav pull-right">
-                <li><%= link_to "Sobre", about_url  %></li>
-                <li><%= link_to t('sign_in'), new_user_session_path %></li>
-                <li><%= link_to t('sign_up'), new_user_registration_path %></li>              
-              </ul>
-            </div><!--/.nav-collapse -->
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-        <div class="row" style="margin-top: 90px;">
-          <% if user_signed_in? %>
-            <div class="span3">
-              <div class="well sidebar-nav">
-                <h3>Ir para</h3>
-                <ul class="nav nav-list">
-                  <li><%= link_to "Registros", records_path %> </li>
-                  <li><%= link_to "Relatório mensal", monthly_report_path  %></li>
-                  <li><%= link_to "Historico de mudanças", changelog_path %> </li>
-                </ul>
-              </div><!--/.well -->
-            </div><!--/span-->
-            <div class="span9">
-              <%= bootstrap_flash %>
-              <%= yield %>
-            </div>          
-          <% else %>
-            <div class="span12">
-              <%= bootstrap_flash %>
-              <%= yield %>
-            </div>
-          <% end %>
-        </div><!--/row-->
-
-      
-    </div> <!-- /container -->
-
-    <!-- Javascripts
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application", "http://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.5/bootstrap-lightbox.min.js" %>
-
-  </body>
+</body>
 </html>

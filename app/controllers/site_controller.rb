@@ -1,12 +1,5 @@
 class SiteController < ApplicationController
-  
-	def index
-	end
+  def index
 
-	def about
-	end
-
-	def changelog
-	end
-
+  end
 end
