@@ -27,6 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     better_errors (1.1.0)
@@ -73,9 +74,17 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.4.1)
+      factory_girl (~> 4.4.0)
+      railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     gherkin (2.12.2)
@@ -90,6 +99,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (1.0.0)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -106,11 +117,15 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (5.4.0)
+    mongo_session_store-rails4 (5.1.0)
+      actionpack (>= 3.1)
     mongoid (4.0.0)
       activemodel (~> 4.0)
       moped (~> 2.0.0)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
+    mongoid-enum (0.2.0)
+      mongoid (~> 4.0)
     moped (2.0.0)
       bson (~> 2.2)
       connection_pool (~> 2.0)
@@ -223,8 +238,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.2.2)
-      coffee-rails
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
@@ -241,13 +254,19 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  capybara
   coffee-rails (~> 4.0.0)
   cucumber-rails
   database_cleaner
   devise
+  email_spec
+  factory_girl_rails
   jquery-rails
+  launchy
   mailcatcher
+  mongo_session_store-rails4
   mongoid
+  mongoid-enum
   omniauth-facebook
   omniauth-gplus
   omniauth-twitter
@@ -257,5 +276,4 @@ DEPENDENCIES
   spring
   sqlite3
   thin
-  turbolinks
   uglifier (>= 1.3.0)

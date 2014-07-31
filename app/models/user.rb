@@ -7,22 +7,22 @@ class User
          :omniauthable, :omniauth_providers => [:facebook, :twitter, :gplus]
 
   ## Database authenticatable
-  field :email,              type: String, default: ""
+  field :email, type: String, default: ""
   field :encrypted_password, type: String, default: ""
 
   ## Recoverable
-  field :reset_password_token,   type: String
+  field :reset_password_token, type: String
   field :reset_password_sent_at, type: Time
 
   ## Rememberable
   field :remember_created_at, type: Time
 
   ## Trackable
-  field :sign_in_count,      type: Integer, default: 0
+  field :sign_in_count, type: Integer, default: 0
   field :current_sign_in_at, type: Time
-  field :last_sign_in_at,    type: Time
+  field :last_sign_in_at, type: Time
   field :current_sign_in_ip, type: String
-  field :last_sign_in_ip,    type: String
+  field :last_sign_in_ip, type: String
 
   ## Confirmable
   #field :confirmation_token,   type: String
@@ -41,10 +41,12 @@ class User
   field :provider, type: String
   field :uid, type: String
 
+  has_many :records
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_create do |user|
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
+      user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
     end
   end

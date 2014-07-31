@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Registros de <%= l @date_to_see %><a id="calendar-link" href="#">
+      <i class="fa fa-table fa-fw"></i></a></h1>
+    <%= link_to t('helpers.links.new'), new_record_path, :class => 'btn btn-primary btn-lg' %>
+    <div id="datepicker"></div>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th><%= t 'mongoid.models.record' %></th>
+          <th><%= t 'helpers.actions' %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @records.each do |record| %>
+            <tr>
+              <td><%= l record.time, format: :short %></td>
+              <td>
+                <%= link_to t('helpers.links.edit'),
+                            edit_record_path(record), :class => 'btn btn-primary' %>
+                <%= link_to t('helpers.links.destroy'),
+                            record,
+                            method: :delete,
+                            :data => {:confirm => t('helpers.links.confirm')},
+                            :class => 'btn btn-danger' %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
