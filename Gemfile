@@ -48,6 +48,7 @@ group :test do
   gem 'database_cleaner'
   gem 'email_spec'
   gem 'launchy'
+  gem 'simplecov'
 end
 
 # Use Capistrano for deployment
