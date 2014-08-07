@@ -370,6 +370,21 @@ table.dataTable thead .sorting:after {
     display: inline-block;
 }
 
+#user_birthday_3i {
+    width: 70px;
+    display: inline-block;
+}
+
+#user_birthday_2i {
+    width: 130px;
+    display: inline-block;
+}
+
+#user_birthday_1i {
+    width: 80px;
+    display: inline-block;
+}
+
 .ui-datepicker {
     font-size: 90% !important;
 }

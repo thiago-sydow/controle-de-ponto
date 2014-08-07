@@ -1,8 +1,14 @@
 class User
+  include Gravtastic
   include Mongoid::Document
+  include Mongoid::Enum
+  include Mongoid::MultiParameterAttributes
+
+  gravtastic size: 40
+
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :twitter, :gplus]
 
@@ -25,10 +31,10 @@ class User
   field :last_sign_in_ip, type: String
 
   ## Confirmable
-  #field :confirmation_token,   type: String
-  #field :confirmed_at,         type: Time
-  #field :confirmation_sent_at, type: Time
-  # field :unconfirmed_email,    type: String # Only if using reconfirmable
+  field :confirmation_token, type: String
+  field :confirmed_at, type: Time
+  field :confirmation_sent_at, type: Time
+  field :unconfirmed_email, type: String # Only if using reconfirmable
 
 
   ## Lockable
@@ -37,6 +43,11 @@ class User
   # field :locked_at,       type: Time
 
   field :name, type: String
+
+  enum :gender, [:male, :female], default: :male
+  field :birthday, type: Date
+
+  field :job, type: String
 
   field :provider, type: String
   field :uid, type: String
@@ -48,6 +59,8 @@ class User
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
+      user.birthday = auth.info.birthday.to_date
+      user.gender = auth.info.gender
     end
   end
 

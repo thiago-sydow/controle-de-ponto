@@ -13,4 +13,5 @@
 //= require jquery_ujs
 //= require datepicker
 //= require datepicker-pt-BR
+//= require plugins/dataTables/jquery.dataTables
 //= require_tree .

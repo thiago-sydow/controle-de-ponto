@@ -20,6 +20,7 @@ gem 'thin'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-gplus'
+gem 'gravtastic'
 
 
 # Use jquery as the JavaScript library
@@ -30,6 +31,9 @@ gem "mongo_session_store-rails4"
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring', group: :development
+
+gem 'apotomo'
+gem 'time_diff'
 
 group :development do
   gem 'mailcatcher'

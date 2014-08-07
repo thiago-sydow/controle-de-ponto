@@ -32,7 +32,7 @@ module ControlePontoEletronico
 
     config.to_prepare do
       Devise::SessionsController.layout 'sessions_layout'
-      Devise::RegistrationsController.layout 'sessions_layout'
+      Devise::RegistrationsController.layout proc { |controller| user_signed_in? ? 'application' : 'sessions_layout' }
     end
 
   end

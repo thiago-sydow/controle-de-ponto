@@ -50,6 +50,7 @@ pt-BR:
       default: ! '%d/%m/%Y'
       long: ! '%d de %B de %Y'
       short: ! '%d de %B'
+      with_time: ! '%d/%m/%Y %H:%M'
     month_names:
     -
     - Janeiro
@@ -216,6 +217,7 @@ pt-BR:
       only_date: '%d de %B'
       no_time: '%d de %B de %Y'
       only_month: '%B'
+      with_date: ! '%d/%m/%Y %H:%M'
     pm: ''
   activemodel:
     errors:
@@ -230,6 +232,8 @@ pt-BR:
         name: "Nome"
         email: "Email"
         password: "Senha"
+        gender: "Sexo"
+        birthday: "Data de  nascimento"
         password_confirmation: "Confirme sua Senha"
         current_password: "Senha atual"
       record:
@@ -259,3 +263,6 @@ pt-BR:
   record_types:
         normal: "Normal"
         extra_hour: "Hora Extra"
+  genders:
+    male: Masculino
+    female: Feminino
