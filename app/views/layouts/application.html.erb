@@ -27,26 +27,28 @@
     </div>
     <!-- /.navbar-header -->
 
-    <ul class="nav navbar-top-links navbar-right">
-      <!-- /.dropdown -->
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <%= image_tag current_user.gravatar_url %>
-          <%= current_user.name.nil? ? current_user.email : current_user.name %>
-          <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user">
-          <li>
-            <%= link_to edit_user_registration_path do %>
-                <i class="fa fa-user fa-fw"></i> Minha Conta
-            <% end %>
-          </li>
-          <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
-          </li>
-          <li class="divider"></li>
-          <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-          </li>
-        </ul>
+    <% if current_user  %>
+      <ul class="nav navbar-top-links navbar-right">
+        <!-- /.dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= image_tag current_user.gravatar_url %>
+            <%= current_user.name.nil? ? current_user.email : current_user.name %>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-user">
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                  <i class="fa fa-user fa-fw"></i> Minha Conta
+              <% end %>
+            </li>
+            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            </li>
+          </ul>
+      <% end %>
         <!-- /.dropdown-user -->
       </li>
       <!-- /.dropdown -->
