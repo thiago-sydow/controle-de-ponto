@@ -1,3 +1,5 @@
+== RUNNING
+To run the project, first clone the repo. After that, copy the config/secrets.yml.example to config/secrets.yml . Execute the rake secret and put the value in config/secrets.yml .
 == README
 
 This README would normally document whatever steps are necessary to get the
