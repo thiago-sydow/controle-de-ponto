@@ -1,49 +1,35 @@
-<%- model_class = Record -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-  <h2 data-toggle="collapse" data-target="#filter"><a href="#"><%= l @presenter.get_record.time, :format => :only_date %></a></h2>
-    <div id="filter" class="collapse">
-      <%= form_for @presenter.get_record, :url => { :action => 'index' }, :html => { :class => 'form-horizontal' } do |f| %>  
-        <div class="control-group">
-          <%= f.label t('datetime.prompts.day'), :class => 'control-label' %>
-          <div class="controls">
-            <%= date_select('record','time') %>
-          </div>
-        </div>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Registros de <span id="date-to-see"><%= l @date_to_see %></span>
+      <a id="calendar-link" href="#">
+        <i class="fa fa-calendar fa-fw"></i>
+      </a>
+    </h1>
 
-        <div class="form-actions">
-          <%= f.submit t('filter'), :class => 'btn btn-primary' %>          
-        </div>
-      <% end %>
+    <div class="row pull-right">
+      <%= render_widget :record, :total_worked_hours %>
+      <%= render_widget :record, :remaining_hours %>
     </div>
+    <%= link_to t('helpers.links.new'), new_record_path, :class => 'btn btn-primary btn-lg' %>
+    <div id="datepicker"></div>
+  </div>
+  <!-- /.col-lg-12 -->
 </div>
-<%= link_to t('.new', :default => t("helpers.links.new")), new_record_path, :class => 'btn btn-primary' %>
-<p class="pull-right">Tempo total trabalhado <%= l @presenter.total_time, :format => :minimal %></p> <br />
-<% if @presenter.leaving_time.kind_of? DateTime %>
-  <p class="pull-right">Previsão Horário de saída <%= l @presenter.leaving_time, :format => :minimal %></p>
-<% end %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:time) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @presenter.get_records.each do |record| %>
-      <tr>        
-        <td><%= l record.time, :format => :short %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_record_path(record), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      record_path(record),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @presenter.get_records %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table class="table" id="records-table">
+        <thead>
+        <tr>
+          <th><%= t 'mongoid.models.record' %></th>
+          <th><%= t 'helpers.actions' %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <%= render partial: "records_list", records: @records %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

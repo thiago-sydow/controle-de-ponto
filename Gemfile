@@ -1,54 +1,59 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-ruby "2.0.0"
-gem 'rails', '3.2.11'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.1.4'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.3'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails', '~> 4.0.0'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer',  platforms: :ruby
 
-gem 'therubyracer'
 gem 'mongoid'
-
-gem 'thin'
 gem 'devise'
+gem 'thin'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-gplus'
+gem 'gravtastic'
+
+
+# Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'mailcatcher'
-gem 'minitest'
-gem 'kaminari'
+gem 'mongoid-enum'
+
+gem "mongo_session_store-rails4"
+
+# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+gem 'spring', group: :development
+
+gem 'apotomo'
 gem 'time_diff'
-gem 'twitter-bootstrap-rails'
-gem 'newrelic_rpm'
-gem 'roo'
-gem 'google-spreadsheet-ruby'
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
-end
 
 group :development do
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'mailcatcher'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+end
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+group :test do
+  gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'email_spec'
+  gem 'launchy'
+  gem 'simplecov'
+end
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development

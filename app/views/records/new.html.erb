@@ -1,5 +1,7 @@
-<%- model_class = Record -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human %></h1>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Criar Registro</h1>
+  </div>
+  <!-- /.col-lg-12 -->
 </div>
-<%= render :partial => 'form' %>
+<%= render partial: 'form' %>

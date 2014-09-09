@@ -1,44 +1,58 @@
-<h2>Editar Usuário</h2>
+<div class="row">
+  <div class="col-lg-12"><h2>Edit <%= resource_name.to_s.humanize %></h2></div>
+  <div class="col-lg-8">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+        <%= devise_error_messages! %>
+        <fieldset>
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, class: 'form-control' %>
+          </div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+          <div class="form-group">
+            <%= f.label :gender %>
+            <%= f.collection_radio_buttons(:gender, User::GENDER, :first, :last) do |b| %>
+                <div class="radio">
+                  <%= b.label { b.radio_button + t("genders.#{b.text.to_s}") } %>
+                </div>
+            <% end %>
+          </div>
+          <div class="form-group">
+            <%= f.label :birthday %>
+            <div class="col-bg-12"></div>
+            <%= date_select('user', 'birthday', {}, {class: 'form-control'}) %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+          </div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: "form-horizontal well" }) do |f| %>
-  <%= devise_error_messages! %>
+          <div class="form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+          </div>
 
-  <div class="control-group">
-    <%= f.label :email , class: "control-label" %>
-    <div class="controls">
-      <%= f.email_field :email, :autofocus => true, class: "input-xlarge" %>
+          <div class="form-group">
+            <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+            <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
+          </div>
+
+          <div><%= f.submit "Update", class: 'btn btn-lg btn-primary btn-block' %></div>
+        </fieldset>
+    <% end %>
+  </div>
+  <div class="col-lg-4 pull-right">
+    <div class="panel panel-danger">
+      <div class="panel-heading">Cancel my account</div>
+      <div class="panel-body">
+        <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-outline btn-danger' %></p>
+      </div>
     </div>
   </div>
-
-  <div class="control-group">
-    <%= f.label :password , class: "control-label" %>
-    <div class="controls">
-      <%= f.password_field :password, :autocomplete => "off", class: "input-xlarge" %>
-      <p class="help-block">(deixe em branco se não quiser alterá-la)</p>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :password_confirmation, class: "control-label" %>
-    <div class="controls">
-      <%= f.password_field :password_confirmation, class: "input-xlarge" %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :current_password, class: "control-label" %>
-    <div class="controls">
-      <%= f.password_field :current_password, class: "input-xlarge" %>
-      <p class="help-block">(nós precisamos de sua senha atual para confirmar as alterações)</p>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit "Atualizar", class: "btn btn-primary" %>
-    <button type="reset" class="btn">Cancel</button>
-  </div>
-<% end %>
-<div class="well">
-  <h3>Cancelar conta</h3>
-  <p>Não está contente? <%= button_to "Cancelar minha Conta", registration_path(resource_name), :data => { :confirm => "Você tem certeza? Todos seu registros serão apagados" }, :method => :delete, class: "btn btn-danger" %>.</p>
 </div>

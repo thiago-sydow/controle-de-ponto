@@ -5,37 +5,30 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: controle-ponto-eletronico
+      database: controle_ponto_eletronico_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
         - localhost:27017
       options:
-        # Change whether the session persists in safe mode by default.
-        # (default: false)
-        # safe: false
+        # Change the default write concern. (default = { w: 1 })
+        # write:
+        # w: 1
 
-        # Change the default consistency model to :eventual or :strong.
-        # :eventual will send reads to secondaries, :strong sends everything
-        # to master. (default: :eventual)
-        # consistency: :eventual
+        # Change the default consistency model to primary, secondary.
+        # 'secondary' will send reads to secondaries, 'primary' sends everything
+        # to master. (default: primary)
+        # read: secondary_preferred
 
         # How many times Moped should attempt to retry an operation after
-        # failure. (default: 30)
-        # max_retries: 30
+        # failure. (default: The number of nodes in the cluster)
+        # max_retries: 20
 
         # The time in seconds that Moped should wait before retrying an
-        # operation on failure. (default: 1)
-        # retry_interval: 1
+        # operation on failure. (default: 0.25)
+        # retry_interval: 0.25
   # Configure Mongoid specific options. (optional)
   options:
-    # Configuration for whether or not to allow access to fields that do
-    # not have a field definition on the model. (default: true)
-    # allow_dynamic_fields: true
-
-    # Enable the identity map, needed for eager loading. (default: false)
-    # identity_map_enabled: false
-
     # Includes the root model name in json serialization. (default: false)
     # include_root_in_json: false
 
@@ -57,11 +50,7 @@ development:
     # existing method. (default: false)
     # scope_overwrite_exception: false
 
-    # Skip the database version check, used when connecting to a db without
-    # admin access. (default: false)
-    # skip_version_check: false
-
-    # User Active Support's time zone in conversions. (default: true)
+    # Use Active Support's time zone in conversions. (default: true)
     # use_activesupport_time_zone: true
 
     # Ensure all times are UTC in the app side. (default: false)
@@ -73,16 +62,8 @@ test:
       hosts:
         - localhost:27017
       options:
-        consistency: :strong
+        read: primary
         # In the test environment we lower the retries and retry interval to
         # low amounts for fast failures.
         max_retries: 1
         retry_interval: 0
-
-production:
-  sessions:
-    default:
-      uri: <%= ENV['MONGOHQ_URL'] %>
-      options:
-        skip_version_check: true
-        safe: true

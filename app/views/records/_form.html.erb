@@ -1,24 +1,25 @@
-<%= form_for @record, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">    
-    <div class="controls">
-      <%= f.hidden_field :id, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :time, :class => 'control-label' %>
-    <div class="controls">
-      <%= datetime_select('record','time') %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :consider, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.check_box :consider %>
-    </div>
-  </div>
+<div class="row">
+  <div class="col-lg-12">
+    <%= form_for @record do |f| %>
+        <fieldset>
+          <%= f.hidden_field :id, class: 'text_field' %>
+          <div class="form-group">
+            <%= f.label :time %>
+            <%= datetime_select('record', 'time', {}, {class: 'form-control'}) %>
+          </div>
 
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), records_path, :class => 'btn' %>
+          <div class="form-group">
+            <%= f.label :record_type %>
+            <%= f.collection_radio_buttons(:record_type, Record::RECORD_TYPE, :first, :last) do |b| %>
+                <div class="radio">
+                  <%= b.label { b.radio_button + t("record_types.#{b.text.to_s}") } %>
+                </div>
+            <% end %>
+          </div>
+
+          <%= f.submit class: 'btn btn-lg btn-success btn-block' %>
+        </fieldset>
+    <% end %>
   </div>
-<% end %>
+  <!-- /.col-lg-12 -->
+</div>

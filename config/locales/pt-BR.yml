@@ -25,7 +25,7 @@ pt-BR:
     - Sex
     - Sáb
     abbr_month_names:
-    - 
+    -
     - Jan
     - Fev
     - Mar
@@ -50,8 +50,9 @@ pt-BR:
       default: ! '%d/%m/%Y'
       long: ! '%d de %B de %Y'
       short: ! '%d de %B'
+      with_time: ! '%d/%m/%Y %H:%M'
     month_names:
-    - 
+    -
     - Janeiro
     - Fevereiro
     - Março
@@ -145,7 +146,6 @@ pt-BR:
       prompt: Por favor selecione
     submit:
       create: Criar %{model}
-      submit: Salvar %{model}
       update: Atualizar %{model}
   number:
     currency:
@@ -206,7 +206,7 @@ pt-BR:
     array:
       last_word_connector: ! ' e '
       two_words_connector: ! ' e '
-      words_connector: ! ', '
+      words_connector: ! ', \'
   time:
     am: ''
     formats:
@@ -217,6 +217,7 @@ pt-BR:
       only_date: '%d de %B'
       no_time: '%d de %B de %Y'
       only_month: '%B'
+      with_date: ! '%d/%m/%Y %H:%M'
     pm: ''
   activemodel:
     errors:
@@ -228,13 +229,16 @@ pt-BR:
       user: "Usuário"
     attributes:
       user:
+        name: "Nome"
         email: "Email"
         password: "Senha"
+        gender: "Sexo"
+        birthday: "Data de  nascimento"
         password_confirmation: "Confirme sua Senha"
         current_password: "Senha atual"
       record:
         time: "Horário"
-        consider: "Considerar?"
+        record_type: "Tipo de Horário"
   views:
     pagination:
       first: "&laquo; Primeira"
@@ -242,3 +246,23 @@ pt-BR:
       previous: "&lsaquo; Anterior"
       next: "Próxima &rsaquo;"
       truncate: "..."
+  helpers:
+    actions: "Ações"
+    links:
+      back: "Voltar"
+      cancel: "Cancelar"
+      confirm: "Você tem certeza?"
+      destroy: "Excluir"
+      new: "Novo"
+      edit: "Editar"
+    titles:
+      edit: "Editar"
+      save: "Salvar"
+      new: "Novo Registro"
+      delete: "Excluir"
+  record_types:
+        normal: "Normal"
+        extra_hour: "Hora Extra"
+  genders:
+    male: Masculino
+    female: Feminino

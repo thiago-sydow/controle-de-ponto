@@ -1,0 +1,23 @@
+<%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+
+        <% if provider.to_s.eql? 'twitter' %>
+            <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-social btn-twitter" do %>
+                <i class="fa fa-twitter"></i> Sign in with Twitter
+            <% end %>
+        <% end %>
+
+        <% if provider.to_s.eql? 'facebook' %>
+            <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-social btn-facebook" do %>
+                <i class="fa fa-facebook"></i> Sign in with Facebook
+            <% end %>
+        <% end %>
+
+        <% if provider.to_s.eql? 'gplus' %>
+            <%= link_to omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-social btn-google-plus" do %>
+                <i class="fa fa-google-plus"></i> Sign in with Google
+            <% end %>
+        <% end %>
+
+    <% end -%>
+<% end -%>
