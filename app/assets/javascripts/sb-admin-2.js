@@ -109,4 +109,8 @@ $(function () {
 
 $(function () {
     $("#monthly-records").dataTable({searching: false, ordering: false, language: { url: '/assets/Portuguese-Brasil.json'}});
+
+    $('.btn-toggle-records').click(function(){
+        $(this).closest('td').find('div').toggleClass('hide show');
+    });
 });
