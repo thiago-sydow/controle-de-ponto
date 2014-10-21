@@ -6,16 +6,21 @@ class RecordWidget < Apotomo::Widget
   responds_to_event :total_worked_hours, with: :total_worked_hours
   responds_to_event :remaining_hours, with: :remaining_hours
 
-  def total_worked_hours
-    date = (session[:date_to_see] if session[:date_to_see]) || Date.today
-    records = Record.where(time: (date)..(date + 1.day), user: current_user)
+  def total_worked_hours(records = nil)
+    if records
+      records = records.first.second
+    else
+      date = (session[:date_to_see] if session[:date_to_see]) || Date.today
+      records = Record.where(time: (date)..(date + 1.day), user: current_user).to_ary
+    end
+
     @total = Record.total_worked_hours(records)
     render
   end
 
   def remaining_hours
     date = (session[:date_to_see] if session[:date_to_see]) || Date.today
-    records = Record.where(time: (date)..(date + 1.day), user: current_user)
+    records = Record.where(time: (date)..(date + 1.day), user: current_user).to_ary
     total_worked = Record.total_worked_hours(records)
     @total = Time.at((8.hours - total_worked.hour.hours) - total_worked.min.minutes).utc.strftime("%H:%M:%S").to_time
     render

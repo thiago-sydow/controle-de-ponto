@@ -21,6 +21,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-gplus'
 gem 'gravtastic'
+gem 'rack-mini-profiler'
 
 
 # Use jquery as the JavaScript library

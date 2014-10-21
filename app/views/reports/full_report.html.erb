@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Relatório Anual</h1>
+  </div>
+  <div class="col-lg-12">
+    <table id="monthly-records" class="table table-striped datatable">
+      <thead>
+      <tr>
+        <th><h3>Mês</h3></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @records.each do |record| %>
+        <% year = record.first.first %>
+        <% month = record.first.second %>
+        <% records_array = record.second %>
+          <tr>
+            <td>
+              <h4>
+                <p class="pull-left"><%= month %></p>
+                <a class="btn btn-small pull-right btn-toggle-records" href="#">+</a><p class="pull-right span3"></p>
+                <%= render_widget :record, :total_worked_hours, records: records_array %>
+              </h4>
+
+              <div class="hide">
+                <hr/>
+                <% records_array.each do |rec| %>
+                    <p class="text-black"><%= l rec.time, :format => :with_date %></p>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
