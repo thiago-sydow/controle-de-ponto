@@ -27,4 +27,5 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'rspec-rails'
+  gem 'mongoid-rspec', '~> 2.1.0'
 end

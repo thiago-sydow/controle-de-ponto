@@ -101,6 +101,10 @@ GEM
       tzinfo (>= 0.3.37)
     mongoid-enum (0.2.0)
       mongoid (~> 4.0)
+    mongoid-rspec (2.1.0)
+      mongoid (~> 4.0.0)
+      rake
+      rspec (~> 3.1)
     moped (2.0.3)
       bson (~> 2.2)
       connection_pool (~> 2.0)
@@ -142,6 +146,10 @@ GEM
     rdoc (4.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
     rspec-core (3.2.0)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.0)
@@ -225,6 +233,7 @@ DEPENDENCIES
   jquery-rails
   mongoid (~> 4.0.0)
   mongoid-enum
+  mongoid-rspec (~> 2.1.0)
   rails (= 4.2.0)
   rspec-rails
   sass-rails (~> 5.0)

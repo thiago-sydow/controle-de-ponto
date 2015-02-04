@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
   it { expect(subject).to validate_presence_of :name }
   it { expect(subject).to validate_presence_of :birthday }
   it { expect(subject).to validate_presence_of :job }
+  it { expect(subject).to have_many :records }
 
   context 'authenticate user' do
     let(:user) { create(:user) }
