@@ -1,8 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Enum
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
@@ -36,5 +35,7 @@ class User
   field :job, type: String
 
   validates_presence_of :name, :birthday, :job
+
+  has_many :records
 
 end
