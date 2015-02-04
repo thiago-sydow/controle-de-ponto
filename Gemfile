@@ -12,12 +12,19 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'time_diff'
 gem 'mongoid', '~> 4.0.0'
+gem 'mongoid-enum'
 gem 'thin'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
+end
+
+group :test do
+  gem 'shoulda-matchers'
   gem 'rspec-rails'
 end
