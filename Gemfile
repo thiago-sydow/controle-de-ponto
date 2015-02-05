@@ -28,4 +28,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'rspec-rails'
   gem 'mongoid-rspec', '~> 2.1.0'
+  gem 'codeclimate-test-reporter'
 end

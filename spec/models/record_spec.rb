@@ -4,7 +4,7 @@ RSpec.describe Record, type: :model do
 
   let!(:user) { build(:user) }
 
-  let!(:base_time) { Time.current.yesterday }
+  let!(:base_time) { Time.current.yesterday.change(hour: 8) }
   let!(:record_1) { create(:record, time: base_time, user: user, ) }
   let!(:record_2) { create(:record, time: base_time + 4.hour, user: user) }
   let!(:record_3) { create(:record, time: base_time + 5.hour, user: user) }
@@ -27,7 +27,7 @@ RSpec.describe Record, type: :model do
     end
 
     context 'not today' do
-      it { expect(Record.worked_hours([records[0]])).to eq base_time.midnight }
+      it { expect(Record.worked_hours([records[0]])).to  eq base_time.midnight }
       it { expect(Record.worked_hours(records[0..1])).to eq base_time.change(hour: 4) }
       it { expect(Record.worked_hours(records[0..2])).to eq base_time.change(hour: 4) }
       it { expect(Record.worked_hours(records)).to eq base_time.change(hour: 8) }
