@@ -1,4 +1,8 @@
-## Controle de Ponto Eletrônico
+## Controle de Ponto
+[![Build Status](https://semaphoreapp.com/api/v1/projects/c9b224c0-c71b-4dba-977b-5431a129f24d/343948/badge.png)](https://semaphoreapp.com/thiagovs/controle-de-ponto)
+[![Code Climate](https://codeclimate.com/github/thiago-sydow/controle-de-ponto/badges/gpa.svg)](https://codeclimate.com/github/thiago-sydow/controle-de-ponto)
+[![Test Coverage](https://codeclimate.com/github/thiago-sydow/controle-de-ponto/badges/coverage.svg)](https://codeclimate.com/github/thiago-sydow/controle-de-ponto)
+
 
 Aplicação para controle pessoal de horas trabalhadas.
 
