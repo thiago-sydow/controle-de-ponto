@@ -5,3 +5,56 @@
   To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
   =require twitter-bootstrap-static/fontawesome
   */
+
+.inline-date div.date{
+  display: inline-block;
+}
+
+.inline-date label.date{
+  width: 100%;
+  float:left;
+  clear:both;
+}
+
+.inline-date select.date{
+  margin-right: 10px;
+  float: left;
+}
+
+.inline-date .date[id$='_3i']{
+  width: 25%;
+}
+
+.inline-date .date[id$='_2i']{
+  width: 40%;
+}
+
+.inline-date .date[id$='_1i']{
+  width: 25%;
+}
+
+#record_time_3i {
+    width: 70px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#record_time_2i {
+    width: 130px;
+    display: inline-block;
+}
+
+#record_time_1i {
+    width: 80px;
+    display: inline-block;
+}
+
+#record_time_4i {
+    width: 70px;
+    display: inline-block;
+}
+
+#record_time_5i {
+    width: 70px;
+    display: inline-block;
+}

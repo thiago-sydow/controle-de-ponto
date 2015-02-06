@@ -40,6 +40,9 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    browser-timezone-rails (0.0.8)
+      jquery-rails
+      rails (>= 3.1)
     bson (2.3.0)
     builder (3.2.2)
     byebug (3.5.1)
@@ -80,6 +83,8 @@ GEM
       railties (>= 3.0.0)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
+    haml (4.0.6)
+      tilt
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.6)
@@ -94,6 +99,16 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mailcatcher (0.2.4)
+      eventmachine
+      haml
+      i18n
+      json
+      mail
+      sinatra
+      skinny (>= 0.1.2)
+      sqlite3-ruby
+      thin
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
@@ -108,6 +123,8 @@ GEM
       mongoid (~> 4.0.0)
       rake
       rspec (~> 3.1)
+    mongoid-sadstory (0.0.2)
+      mongoid
     moped (2.0.3)
       bson (~> 2.2)
       connection_pool (~> 2.0)
@@ -119,6 +136,8 @@ GEM
     origin (2.1.1)
     orm_adapter (0.5.0)
     rack (1.6.0)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -182,11 +201,21 @@ GEM
       rdoc (~> 4.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    skinny (0.2.2)
+      eventmachine (~> 1.0)
+      thin
     slop (3.6.0)
     spring (1.2.0)
     sprockets (2.12.3)
@@ -198,6 +227,9 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    sqlite3 (1.3.10)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -232,6 +264,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  browser-timezone-rails
   byebug
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
@@ -240,14 +273,17 @@ DEPENDENCIES
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
+  mailcatcher
   mongoid (~> 4.0.0)
   mongoid-enum
   mongoid-rspec (~> 2.1.0)
+  mongoid-sadstory
   rails (= 4.2.0)
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   shoulda-matchers
+  simple_form
   spring
   thin
   time_diff
