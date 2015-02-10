@@ -1,3 +1,4 @@
+require 'rspec_candy/all'
 require 'simplecov'
 require 'codeclimate-test-reporter'
 SimpleCov.start 'rails'

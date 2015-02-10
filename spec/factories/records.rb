@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :record do
-    time Time.now
+    time Time.current
     user
   end
 

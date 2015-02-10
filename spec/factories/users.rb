@@ -4,7 +4,7 @@ FactoryGirl.define do
     password 'password'
     password_confirmation 'password'
     name 'Thiago'
-    birthday Date.today
+    birthday Date.current
     job 'Ruby Developer'
   end
 

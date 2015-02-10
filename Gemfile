@@ -33,4 +33,5 @@ group :test do
   gem 'rspec-rails'
   gem 'mongoid-rspec', '~> 2.1.0'
   gem 'codeclimate-test-reporter'
+  gem 'rspec_candy'
 end

@@ -17,7 +17,11 @@ class RecordsController < ApplicationController
     @record.user = current_user
 
     if @record.save
-      redirect_to records_path, success: 'O registro foi criado com sucesso.'
+      flash[:success] = 'O registro foi criado com sucesso.'
+      redirect_to records_path
+    else
+      flash[:error] = 'Um erro ocorreu ao criar o registro.'
+      render :new
     end
 
   end
@@ -26,16 +30,26 @@ class RecordsController < ApplicationController
   end
 
   def update
+
     if @record.update_attributes(record_params)
-      redirect_to records_path, success: 'O registro foi atualizado com sucesso.'
+      flash[:success] = 'O registro foi atualizado com sucesso.'
+      redirect_to records_path
     else
+      flash[:error] = 'Um erro ocorreu ao atualizar o registro.'
       render action: 'edit'
     end
   end
 
   def destroy
     @record.destroy
-    redirect_to records_path, success: 'O registro foi excluído com sucesso.'
+
+    if @record.destroyed?
+      flash[:success] = 'O registro foi excluído com sucesso.'
+    else
+      flash[:error] = 'Um erro ocorreu ao excluir o registro.'
+    end
+
+    redirect_to records_path
   end
 
   private
