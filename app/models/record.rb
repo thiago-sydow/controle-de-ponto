@@ -7,6 +7,14 @@ class Record
 
   default_scope -> { asc(:time) }
 
+  scope :today_records, lambda { |time, user|
+    asc(:time).
+    where(
+      time: (time.midnight)..(time.tomorrow.midnight),
+      user: user
+    )
+  }
+
   def self.worked_hours(records = [])
     return Time.current.midnight if records.empty?
 

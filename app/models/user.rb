@@ -39,7 +39,7 @@ class User
   has_many :records
 
   def self.serialize_from_session(key, salt)
-    record = to_adapter.get(key[0].to_s)
+    record = to_adapter.get(key[0].as_json["$oid"])
     record if record && record.authenticatable_salt == salt
   end
 

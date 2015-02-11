@@ -13,6 +13,7 @@ RSpec.describe RecordsController, type: :controller do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(assigns(:records)).to eq([record]) }
+      it { expect(assigns(:total_time)).not_to be_nil } 
       it { expect(response).to render_template(:index) }
     end
 

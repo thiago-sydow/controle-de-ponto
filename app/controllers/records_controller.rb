@@ -4,8 +4,8 @@ class RecordsController < ApplicationController
   before_action :find_record, only: [:edit, :update, :destroy]
 
   def index
-    @records = Record.where(time: (Time.current.midnight)..(Time.current.tomorrow.midnight),
-                            user: current_user)
+    @records = Record.today_records(Time.current, current_user)
+    @total_time = Record.worked_hours(@records)
   end
 
   def new
