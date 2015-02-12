@@ -38,4 +38,10 @@ class Record
     (total_time + now_diff[:hour].hours) + now_diff[:minute].minutes
   end
 
+  def self.preview_exit_time(records = [])
+    return Time.current.midnight if records.empty?
+
+    records.first.time + 8.hours
+  end
+
 end

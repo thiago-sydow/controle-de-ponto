@@ -22,18 +22,18 @@ RSpec.describe Record, type: :model do
 
   context 'calculate worked hours' do
 
-    context 'no records' do
+    context 'when there are no records' do
       it { expect(Record.worked_hours([])).to eq Time.current.midnight }
     end
 
-    context 'not today' do
-      it { expect(Record.worked_hours([records[0]])).to  eq base_time.midnight }
+    context 'when it is not today' do
+      it { expect(Record.worked_hours([record_1])).to  eq base_time.midnight }
       it { expect(Record.worked_hours(records[0..1])).to eq base_time.change(hour: 4) }
       it { expect(Record.worked_hours(records[0..2])).to eq base_time.change(hour: 4) }
       it { expect(Record.worked_hours(records)).to eq base_time.change(hour: 8) }
     end
 
-    context 'today' do
+    context 'when it is today' do
       let!(:base_time) { Time.current.change(hour: 8) }
 
       it { expect(Record.worked_hours([record_1])).to    eq(sum_current(base_time.midnight, record_1)) }
@@ -44,10 +44,32 @@ RSpec.describe Record, type: :model do
 
   end
 
+  context 'calculate exit time' do
+
+    context 'when there are no records' do
+      it { expect(Record.preview_exit_time([])).to eq (Time.current.midnight) }
+    end
+
+    context 'when there are records' do
+      let!(:base_time) { Time.current.change(hour: 8) }
+
+      context 'and rest ones' do
+        it { expect(Record.preview_exit_time(records[0..2])).to eq(Time.current.change(hour: 17)) }
+      end
+
+      context 'but not rest ones' do
+        it { expect(Record.preview_exit_time([record_1])).to eq(Time.current.change(hour: 16)) }
+      end
+
+    end
+
+  end
+
+  private
+
   def sum_current(total, record)
     current_sum = Time.diff(record.time, Time.current)
     (total + current_sum[:hour].hours) + current_sum[:minute].minutes
   end
-
 
 end
