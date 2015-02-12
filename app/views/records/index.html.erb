@@ -1,0 +1,44 @@
+<%- model_class = Record -%>
+
+<div class="row">
+    <div class="col-lg-12">
+      <div class="page-header">
+        <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_record_path,
+                  :class => 'btn btn-primary' %>
+      <p class="pull-right">
+        <%= t 'records.total_worked_time', :format => :minimal %> <%= l @total_time, :format => :minimal %>
+      </p> <br />
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= model_class.human_attribute_name(:time) %></th>
+            <th><%=t '.actions', :default => t("helpers.actions") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @records.each do |record| %>
+            <tr>
+              <td><%= l record.time, format: :short %></td>
+              <td>
+                <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                            edit_record_path(record), :class => 'btn btn-default btn-xs' %>
+                <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                            record_path(record),
+                            :method => :delete,
+                            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                            :class => 'btn btn-xs btn-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+</div>

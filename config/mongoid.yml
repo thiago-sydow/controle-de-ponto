@@ -5,7 +5,7 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: controle_ponto_eletronico_development
+      database: controle_de_ponto_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -58,7 +58,7 @@ development:
 test:
   sessions:
     default:
-      database: controle_ponto_eletronico_test
+      database: controle_de_ponto_test
       hosts:
         - localhost:27017
       options:

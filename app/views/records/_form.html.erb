@@ -1,0 +1,5 @@
+<%= simple_form_for @record do |f| %>
+  <%= f.hidden_field :id %>
+  <%= datetime_select('record', 'time', {order: [:day, :month, :year]}, {class: 'form-control'}) %>
+  <%= f.button :submit %>
+<% end %>

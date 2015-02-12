@@ -1,29 +1,27 @@
-<h2>Sign up</h2>
+<div class="panel-heading">
+    <h3 class="panel-title">Sign Up</h3>
+</div>
+<div class="panel-body">
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+      <div class="form-inputs inline-date">
+        <%= f.input :email, required: true, autofocus: true %>
+        <%= f.input :name, required: true %>
+        <%= f.input :birthday, required: true, as: :date, start_year: Date.today.year - 70,
+                               end_year: Date.today.year,
+                               order: [:day, :month, :year] %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+        <%= f.input :gender, required: true, collection: [:male, :female] %>
+        <%= f.input :job, required: true %>
+        <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable) %>
+        <%= f.input :password_confirmation, required: true %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+      <div class="form-actions">
+        <%= f.button :submit, "Sign up", class: 'btn btn-lg btn-success btn-block' %>
+      </div>
+
+    <% end %>
+    <%= render "devise/shared/links" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @validatable %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

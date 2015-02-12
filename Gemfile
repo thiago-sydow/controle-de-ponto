@@ -15,6 +15,9 @@ gem 'mongoid', '~> 4.0.0'
 gem 'mongoid-enum'
 gem 'thin'
 gem 'devise'
+gem 'simple_form'
+gem 'mongoid-sadstory'
+gem 'browser-timezone-rails'
 
 group :development, :test do
   gem 'byebug'
@@ -22,6 +25,7 @@ group :development, :test do
   gem 'spring'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'mailcatcher'
 end
 
 group :test do
@@ -29,4 +33,5 @@ group :test do
   gem 'rspec-rails'
   gem 'mongoid-rspec', '~> 2.1.0'
   gem 'codeclimate-test-reporter'
+  gem 'rspec_candy'
 end

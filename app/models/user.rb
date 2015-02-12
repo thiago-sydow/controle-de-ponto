@@ -1,7 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Enum
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
@@ -37,5 +37,10 @@ class User
   validates_presence_of :name, :birthday, :job
 
   has_many :records
+
+  def self.serialize_from_session(key, salt)
+    record = to_adapter.get(key[0].as_json["$oid"])
+    record if record && record.authenticatable_salt == salt
+  end
 
 end
