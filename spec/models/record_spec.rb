@@ -23,23 +23,23 @@ RSpec.describe Record, type: :model do
   context 'calculate worked hours' do
 
     context 'when there are no records' do
-      it { expect(Record.worked_hours([])).to eq Time.current.midnight }
+      it { expect(Record.calculate_hours([])).to eq Time.current.midnight }
     end
 
     context 'when it is not today' do
-      it { expect(Record.worked_hours([record_1])).to  eq base_time.midnight }
-      it { expect(Record.worked_hours(records[0..1])).to eq base_time.change(hour: 4) }
-      it { expect(Record.worked_hours(records[0..2])).to eq base_time.change(hour: 4) }
-      it { expect(Record.worked_hours(records)).to eq base_time.change(hour: 8) }
+      it { expect(Record.calculate_hours([record_1])).to  eq base_time.midnight }
+      it { expect(Record.calculate_hours(records[0..1])).to eq base_time.change(hour: 4) }
+      it { expect(Record.calculate_hours(records[0..2])).to eq base_time.change(hour: 4) }
+      it { expect(Record.calculate_hours(records)).to eq base_time.change(hour: 8) }
     end
 
     context 'when it is today' do
       let!(:base_time) { Time.current.change(hour: 8) }
 
-      it { expect(Record.worked_hours([record_1])).to    eq(sum_current(base_time.midnight, record_1)) }
-      it { expect(Record.worked_hours(records[0..1])).to eq(base_time.change(hour: 4)) }
-      it { expect(Record.worked_hours(records[0..2])).to eq(sum_current(base_time.change(hour: 4), record_3)) }
-      it { expect(Record.worked_hours(records)).to eq base_time.change(hour: 8) }
+      it { expect(Record.calculate_hours([record_1])).to    eq(sum_current(base_time.midnight, record_1)) }
+      it { expect(Record.calculate_hours(records[0..1])).to eq(base_time.change(hour: 4)) }
+      it { expect(Record.calculate_hours(records[0..2])).to eq(sum_current(base_time.change(hour: 4), record_3)) }
+      it { expect(Record.calculate_hours(records)).to eq base_time.change(hour: 8) }
     end
 
   end
@@ -47,7 +47,7 @@ RSpec.describe Record, type: :model do
   context 'calculate exit time' do
 
     context 'when there are no records' do
-      it { expect(Record.preview_exit_time([])).to eq (Time.current.midnight) }
+      it { expect(Record.preview_exit_time([])).to be_nil }
     end
 
     context 'when there are records' do

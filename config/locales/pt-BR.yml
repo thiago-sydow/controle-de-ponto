@@ -228,3 +228,4 @@ pt-BR:
       truncate: "..."
   records:
     total_worked_time: 'Tempo total trabalhado'
+    preview_exit_time: 'Horário de saída'

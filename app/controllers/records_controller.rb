@@ -5,7 +5,8 @@ class RecordsController < ApplicationController
 
   def index
     @records = Record.today_records(Time.current, current_user)
-    @total_time = Record.worked_hours(@records)
+    @total_time = Record.calculate_hours(@records)
+    @exit_time = Record.preview_exit_time(@records)
   end
 
   def new

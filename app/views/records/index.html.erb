@@ -13,8 +13,13 @@
                   new_record_path,
                   :class => 'btn btn-primary' %>
       <p class="pull-right">
-        <%= t 'records.total_worked_time', :format => :minimal %> <%= l @total_time, :format => :minimal %>
+        <%= t 'records.total_worked_time' %> <%= l @total_time, :format => :minimal %>
       </p> <br />
+      <% if @exit_time %>
+        <p class="pull-right">
+          <%= t 'records.preview_exit_time' %> <%= l @exit_time, :format => :minimal %>
+        </p> <br />
+      <% end %>
       <table class="table table-striped">
         <thead>
           <tr>
