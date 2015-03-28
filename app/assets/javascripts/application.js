@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require smoothscroll
+//= require jquery-cookie
+//= require jquery-actual
+//= require select-nav
+//= require jquery-slimscroll
+//= require backend-common
