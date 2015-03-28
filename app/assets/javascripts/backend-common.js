@@ -54,7 +54,7 @@
 		//gebo_sidebar.update_scroll();
 
 		//* style switcher
-		gebo_style_sw.init();
+		//* gebo_style_sw.init();
 
 		//* to top
 		//* $().UItoTop({inDelay:200,outDelay:200,scrollSpeed: 500});

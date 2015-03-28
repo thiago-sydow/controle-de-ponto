@@ -212,7 +212,13 @@ pt-BR:
       user:
         email: Email
         password: Senha
+        password_confirmation: Confirmação de Senha
         first_name: Nome
         last_name: Sobrenome
         birthday: Data de Nascimento
-        gender: Sexo
+
+  enumerize:
+    defaults:
+      gender:
+        male: Masculino
+        female: Feminino

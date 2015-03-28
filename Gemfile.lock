@@ -62,6 +62,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    enumerize (0.10.1)
+      activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.5)
     execjs (2.4.0)
@@ -105,8 +107,6 @@ GEM
       moped (~> 2.0.0)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
-    mongoid-enum (0.2.0)
-      mongoid (~> 4.0)
     mongoid-rspec (2.1.0)
       mongoid (~> 4.0.0)
       rake
@@ -256,12 +256,12 @@ DEPENDENCIES
   codeclimate-test-reporter
   database_cleaner
   devise
+  enumerize
   factory_girl_rails
   font-awesome-rails
   jquery-rails
   mailcatcher
   mongoid (~> 4.0.0)
-  mongoid-enum
   mongoid-rspec (~> 2.1.0)
   rails (= 4.2.0)
   rspec-rails

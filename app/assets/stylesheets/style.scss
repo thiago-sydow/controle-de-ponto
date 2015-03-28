@@ -210,9 +210,9 @@
 		.sdb_h_active a {background: url("../img/bullet_green.png") no-repeat 98% center}
 
 	/* login page */
-		.login_page {overflow:auto}
+		// .login_page {overflow:auto}
 		.login_page body {height:100%;max-width:inherit;margin:0 20px}
-		.login_page .login_box {position:relative;top:15%;width:380px;margin:0 auto 24px;background:#fff;border:1px solid #ccc;-webkit-border-radius: 6px;-moz-border-radius: 6px;-ms-border-radius: 6px;border-radius: 6px;-webkit-box-shadow: 0 0 6px rgba(0,0,0,0.2);-moz-box-shadow: 0 0 6px rgba(0,0,0,0.2);-ms-box-shadow: 0 0 6px rgba(0,0,0,0.2);box-shadow: 0 0 6px rgba(0,0,0,0.2)}
+		.login_page .login_box {position:relative;top:10%;width:380px;margin:0 auto 24px;background:#fff;border:1px solid #ccc;-webkit-border-radius: 6px;-moz-border-radius: 6px;-ms-border-radius: 6px;border-radius: 6px;-webkit-box-shadow: 0 0 6px rgba(0,0,0,0.2);-moz-box-shadow: 0 0 6px rgba(0,0,0,0.2);-ms-box-shadow: 0 0 6px rgba(0,0,0,0.2);box-shadow: 0 0 6px rgba(0,0,0,0.2)}
 		.login_page .top_b {text-shadow:0 1px 0 rgba(255,255,255,.5);font: 100 18px/42px 'PT Sans', sans-serif;height:42px;padding:0 20px;background: #e0e0e0;border-bottom:1px solid #ccc;-moz-border-radius-topleft: 6px;-moz-border-radius-topright: 6px;-moz-border-radius-bottomright: 0px;-moz-border-radius-bottomleft: 0px;-webkit-border-radius: 6px 6px 0px 0px;border-radius: 6px 6px 0px 0px;font-size:15px}
 		.login_page .cnt_b {padding:30px 0;width:66%;margin:0 auto}
 		.login_page form {margin-bottom:0}

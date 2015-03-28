@@ -1,20 +1,21 @@
 class User
   include Mongoid::Document
-  include Mongoid::Enum
+  extend Enumerize
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
-  enum :gender, [:male, :female], default: :male
+  field :gender
+  enumerize :gender, in: %w(male female), default: nil
+
   field :first_name, type: String
   field :last_name, type: String
   field :birthday, type: Date
 
-  validates_presence_of :name, :birthday
+  validates_presence_of :first_name, :last_name, :birthday, :gender
 
-  has_many :records
-
+  has_many :day_records
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -38,4 +39,6 @@ class User
   field :confirmation_token,   type: String
   field :confirmed_at,         type: Time
   field :confirmation_sent_at, type: Time
+  field :unconfirmed_email,    type: String # Only if using reconfirmable
+
 end

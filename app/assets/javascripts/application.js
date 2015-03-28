@@ -17,4 +17,6 @@
 //= require jquery-actual
 //= require select-nav
 //= require jquery-slimscroll
+//= require jquery-progressbar
+//= require jquery-inputmask
 //= require backend-common
