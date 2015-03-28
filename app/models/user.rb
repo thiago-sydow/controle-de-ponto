@@ -10,9 +10,8 @@ class User
   field :first_name, type: String
   field :last_name, type: String
   field :birthday, type: Date
-  field :job, type: String
 
-  validates_presence_of :name, :birthday, :job
+  validates_presence_of :name, :birthday
 
   has_many :records
 
