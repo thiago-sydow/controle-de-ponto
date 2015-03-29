@@ -12,4 +12,5 @@ class DayRecord
 
   belongs_to :user
   has_many :time_records
+
 end

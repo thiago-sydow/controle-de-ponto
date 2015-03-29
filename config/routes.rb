@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     authenticated :user do
       root 'day_records#index'
       resources :day_records
+      resources :reports, only: [:index]
     end
 
     unauthenticated do

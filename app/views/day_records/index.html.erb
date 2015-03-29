@@ -1,0 +1,17 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="text-left col-md-3">Dia</th>
+      <th class="text-center col-md-6" >Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @day_records.each do |day_record| %>
+    <tr>
+      <td class="text-left" colspan="3">
+        <h4><%= l day_record.reference_date, format: :short %></h4>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
