@@ -8,9 +8,18 @@
   <tbody>
     <% @day_records.each do |day_record| %>
     <tr>
-      <td class="text-left" colspan="3">
+      <td class="text-left">
         <h4><%= l day_record.reference_date, format: :short %></h4>
       </td>
+      <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_day_record_path(day_record), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      day_record_path(day_record),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
     </tr>
     <% end %>
   </tbody>

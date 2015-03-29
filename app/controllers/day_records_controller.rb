@@ -1,6 +1,8 @@
 class DayRecordsController < ApplicationController
   before_action :authenticate_user!
 
+  before_action :find_record, only: [:edit, :update, :destroy]
+
   def index
     @day_records = current_user.day_records.where(reference_date: from..to)
   end
@@ -23,7 +25,42 @@ class DayRecordsController < ApplicationController
 
   end
 
+  def edit
+  end
+
+  def update
+
+    if @day_record.update_attributes(day_record_params)
+      flash[:success] = 'O registro foi atualizado com sucesso.'
+      redirect_to day_records_path
+    else
+      flash[:error] = 'Um erro ocorreu ao atualizar o registro.'
+      render action: 'edit'
+    end
+
+  end
+
+  def destroy
+    @day_record.destroy
+
+    if @day_record.destroyed?
+      flash[:success] = 'O registro foi excluído com sucesso.'
+    else
+      flash[:error] = 'Um erro ocorreu ao excluir o registro.'
+    end
+
+    redirect_to day_records_path
+  end
+
   private
+
+  def find_record
+    @day_record = DayRecord.find(day_record_id_param)
+  end
+
+  def day_record_id_param
+    params.require(:id)
+  end
 
   def day_record_params
     params.require(:day_record).permit!
