@@ -12,6 +12,7 @@ class User
   field :first_name, type: String
   field :last_name, type: String
   field :birthday, type: Date
+  field :workload, type: Time, default: Time.current.change(hour: 8, minute: 0)
 
   validates_presence_of :first_name, :last_name, :birthday, :gender
 

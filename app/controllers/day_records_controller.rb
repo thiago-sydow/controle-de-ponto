@@ -2,6 +2,7 @@ class DayRecordsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @day_records = current_user.day_records.where(reference_date: from..to)
   end
 
   def new
@@ -26,6 +27,22 @@ class DayRecordsController < ApplicationController
 
   def day_record_params
     params.require(:day_record).permit!
+  end
+
+  def from
+    date_param(params[:from], 30.days.ago)
+  end
+
+  def to
+    return Date.current unless params[:to]
+    Time.zone.parse(params[:to]).to_date || Date.current
+  end
+
+  def date_param(param, default = Date.current)
+    return default unless param
+    Time.zone.parse(param).to_date
+  rescue ArgumentError
+    default
   end
 
 end
