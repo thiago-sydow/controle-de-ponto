@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-migrate
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require jquery-cookie
@@ -19,4 +20,6 @@
 //= require jquery-slimscroll
 //= require jquery-progressbar
 //= require jquery-inputmask
+//= require bootstrap-datepicker
+//= require bootstrap-switch
 //= require backend-common
