@@ -1,15 +1,25 @@
-<h2>Log in</h2>
-
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email, required: false, autofocus: true %>
-    <%= f.input :password, required: false %>
+  <div class="top_b">Entrar no Meu Controle de Ponto</div>
+  <%= devise_alert_messages! %>
+  <div class="cnt_b">
+    <%= f.input :email, label: false do %>
+      <div class="input-group">
+				<span class="input-group-addon input-sm"><i class="glyphicon glyphicon-user"></i></span>
+        <%= f.input_field :email, class: 'form-control input-sm', required: true, autofocus: true, placeholder: 'Email' %>
+			</div>
+    <% end %>
+    <%= f.input :password, label: false do %>
+      <div class="input-group">
+				<span class="input-group-addon input-sm"><i class="glyphicon glyphicon-lock"></i></span>
+        <%= f.input_field :password, required: true, placeholder: 'Senha', label: false, class: 'form-control input-sm' %>
+			</div>
+    <% end %>
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+  <div class="btm_b clearfix">
+    <%= f.button :submit, "Log in", class: 'pull-right' %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+<div class="links_b links_btm clearfix">
+  <%= render "devise/shared/links" %>
+</div>

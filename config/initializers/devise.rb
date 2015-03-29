@@ -126,7 +126,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
@@ -256,4 +256,10 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+end
+
+# append to end of config/initializers/devise.rb
+Rails.application.config.to_prepare do
+  Devise::SessionsController.layout "unauthenticated"
+  Devise::RegistrationsController.layout proc { |controller| user_signed_in? ? 'application' : 'unauthenticated' }
 end

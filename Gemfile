@@ -14,7 +14,7 @@ gem 'font-awesome-rails'
 
 gem 'time_diff'
 gem 'mongoid', '~> 4.0.0'
-gem 'mongoid-enum'
+gem 'enumerize'
 
 group :production do
   gem 'unicorn'
