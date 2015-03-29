@@ -95,7 +95,7 @@ pt-BR:
       month: Mês
       second: Segundo
       year: Ano
-  errors:
+  errors: &errors
     format: "%{attribute} %{message}"
     messages:
       accepted: deve ser aceito
@@ -205,6 +205,12 @@ pt-BR:
       short: "%d de %B, %H:%M"
     pm: ''
   mongoid:
+    errors:
+      messages:
+        validations:
+          message: Houveram erros de validação em %{document}
+          summary: "Erros:\n    %{errors}"
+          resolution: Verifique os objetos deste modelo procurando valores errados ou que faltam.
     models:
       user: Usuário
       day_record: Registro
@@ -216,7 +222,7 @@ pt-BR:
         first_name: Nome
         last_name: Sobrenome
         birthday: Data de Nascimento
-
+        gender: Sexo
   enumerize:
     defaults:
       gender:

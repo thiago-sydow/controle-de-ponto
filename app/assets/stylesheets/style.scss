@@ -1,4 +1,23 @@
-    body {color: #222;padding: 0;overflow-x:hidden;font-size: 13px}
+.navbar-inner {
+    background: #3993ba;
+}
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+    background: #206484 !important;
+}
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover,
+.nav-pills > .active > a, .nav-pills > .active > a:hover,
+span.dynatree-active a {
+    background: #48a6d2 !important;
+}
+
+.table thead th {background-color:#ebf2f6 !important}
+.dataTables_wrapper th.sorting_asc,.dataTables_wrapper th.sorting_desc {background-color:#d4e3eb !important}
+
+
+body {color: #222;padding: 0;overflow-x:hidden;font-size: 13px}
 
 	html,body {height:100%}
 

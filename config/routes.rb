@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   devise_scope :user do
     #get 'success', action: 'success', controller: 'registrations', as: 'success'
 
-    #authenticated :user do
-    #  root 'dashboards#index'
-    #end
+    authenticated :user do
+      root 'day_records#index'
+      resources :day_records
+    end
 
     unauthenticated do
       root 'site#index', as: :unauthenticated_root

@@ -36,4 +36,5 @@ group :test do
   gem 'codeclimate-test-reporter'
   gem 'simplecov', require: false
   gem 'turnip'
+  gem 'rspec_candy'
 end

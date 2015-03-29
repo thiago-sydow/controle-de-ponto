@@ -1,0 +1,12 @@
+<%= simple_form_for @day_record do |f| %>
+  <%= f.hidden_field :id %>
+  <%= f.input :reference_date, wrapper_html: {class: 'col-sm-2 col-md-2'}, input_html: {class: 'datepicker'} %>
+  <%= f.input :work_day, wrapper_html: {class: 'col-sm-2 col-md-2'} do %>
+    <%= f.input_field :work_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: true %>
+  <% end %>
+  <%= f.input :missed_day, wrapper_html: {class: 'col-sm-2 col-md-2'} do %>
+    <%= f.input_field :missed_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: false %>
+  <% end %>
+  <%= f.input :observations, as: :text, wrapper_html: {class: 'col-sm-6 col-md-6'} %>
+  <%= f.button :submit %>
+<% end %>

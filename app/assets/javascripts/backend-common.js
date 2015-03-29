@@ -4,6 +4,8 @@
 	}
 
 	$(function() {
+    $('.datepicker').datepicker({format: 'dd/mm/yyyy', autoclose: true});
+    $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não'});
 
 		//* make active on accordion change
 		$('#side_accordion').on('hidden.bs.collapse shown.bs.collapse', function () {
@@ -294,89 +296,5 @@
 				$(this).removeClass('active').children('ul').removeClass('sub-open');
 			})
 
-		}
-	};
-
-	//* style switcher
-	gebo_style_sw = {
-		init: function() {
-			if($('.style_switcher').length) {
-				var $body = $('body');
-
-				$body.append('<a class="ssw_trigger" href="javascript:void(0)"><i class="glyphicon glyphicon-cog"></i></a>');
-				var defLink = $('#link_theme').clone();
-
-				$('input[name=ssw_sidebar]:first,input[name=ssw_layout]:first,input[name=ssw_menu]:first').attr('checked', true);
-
-				$(".ssw_trigger").click(function(){
-					$(".style_switcher").toggle("fast");
-					$(this).toggleClass("active");
-					return false;
-				});
-
-				// colors
-				$('.style_switcher .jQclr').click(function() {
-					$(this).closest('div').find('.style_item').removeClass('style_active');
-					$(this).addClass('style_active');
-					var style_selected = $(this).attr('title');
-					$('#link_theme').attr('href','css/'+style_selected+'.css');
-				});
-
-				// backgrounds
-				$('.style_switcher .jQptrn').click(function(){
-					$(this).closest('div').find('.style_item').removeClass('style_active');
-					$(this).addClass('style_active');
-					var style_selected = $(this).attr('title');
-					if($(this).hasClass('jQptrn')) { $('body').removeClass('ptrn_a ptrn_b ptrn_c ptrn_d ptrn_e').addClass(style_selected); }
-				});
-				//* layout
-				$('input[name=ssw_layout]').click(function(){
-					var layout_selected = $(this).val();
-					$body.removeClass('gebo-fixed').addClass(layout_selected);
-				});
-				//* sidebar position
-				$('input[name=ssw_sidebar]').click(function(){
-					var sidebar_position = $(this).val();
-					$body.removeClass('sidebar_right').addClass(sidebar_position);
-					$(window).resize();
-				});
-				//* menu show
-				$('input[name=ssw_menu]').click(function(){
-					var menu_show = $(this).val();
-					$body.removeClass('menu_hover').addClass(menu_show);
-				});
-
-				//* reset
-				$('#resetDefault').click(function(){
-					$('body').attr('class', '');
-					$('.style_item').removeClass('style_active').filter(':first-child').addClass('style_active');
-					$('#link_theme').replaceWith(defLink);
-					$('.ssw_trigger').removeClass('active');
-					$(".style_switcher").hide();
-					return false;
-				});
-
-				$('#showCss').click(function(e){
-					var themeLink = $('#link_theme').attr('href'),
-						bodyClass = $body.attr('class'),
-						contentStyle = '<div style="padding:20px;min-width:500px;background:#fff">';
-
-					if(themeLink != 'css/blue.css') {
-						contentStyle += '<div class="sepH_c"><textarea style="height:32px" class="form-control">&lt;link id="link_theme" rel="stylesheet" href="'+themeLink+'"&gt;</textarea><span class="help-block">Find stylesheet with id="link_theme" in document head and replace it with this code.</span></div>';
-					}
-					if(bodyClass != '') {
-						contentStyle += '<textarea style="height:32px" class="form-control">&lt;body class="'+$('body').attr('class')+'"&gt;</textarea><span class="help-block">Replace body tag with this code.</span>';
-					} else {
-						contentStyle += '<textarea style="height:32px" class="form-control">&lt;body&gt;</textarea>';
-					}
-					contentStyle += '</div>';
-					$.colorbox({
-						opacity				: '0.2',
-						fixed				: true,
-						html				: contentStyle
-					});
-					e.preventDefault();
-				})
-			}
 		}
 	};
