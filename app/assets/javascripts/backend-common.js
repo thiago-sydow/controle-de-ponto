@@ -5,7 +5,16 @@
 
 	$(function() {
     $('.datepicker').datepicker({format: 'dd/mm/yyyy', autoclose: true});
-    $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não'});
+    $('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+    $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não', onColor: 'success', offColor: 'danger'});
+
+    $('.time-records-container').on('cocoon:before-insert', function(e, insertedItem) {
+      
+    });
+
+    $('.time-records-container').on('cocoon:after-insert', function(e, insertedItem) {
+      $('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+    });
 
 		//* make active on accordion change
 		$('#side_accordion').on('hidden.bs.collapse shown.bs.collapse', function () {
