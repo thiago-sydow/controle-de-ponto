@@ -9,11 +9,15 @@
     $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não', onColor: 'success', offColor: 'danger'});
 
     $('.time-records-container').on('cocoon:before-insert', function(e, insertedItem) {
-      
+      var count = $('.nested-fields').length;
+      if (count > 0) {
+        $(insertedItem).find('.entrance-exit').text(count % 2 == 0 ? 'Entrada ' : 'Saída ' );
+        $(insertedItem).find('.number-of-type').text(Math.ceil((count + 1) / 2));
+      }
     });
 
     $('.time-records-container').on('cocoon:after-insert', function(e, insertedItem) {
-      $('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+      $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
     });
 
 		//* make active on accordion change
