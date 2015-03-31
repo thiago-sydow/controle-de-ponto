@@ -5,7 +5,32 @@
 
 	$(function() {
     $('.datepicker').datepicker({format: 'dd/mm/yyyy', autoclose: true});
-    $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não'});
+    $('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+    $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não', onColor: 'success', offColor: 'danger'});
+
+    $('.time-records-container').find('.nested-fields').each(function(index){
+      $(this).find('.entrance-exit').text(index % 2 == 0 ? 'Entrada ' : 'Saída ' );
+      $(this).find('.number-of-type').text(Math.ceil((index + 1) / 2));
+    });
+
+    $('.time-records-container')
+    .on('cocoon:before-insert', function(e, insertedItem) {
+      var count = $('.nested-fields').length;
+      if (count > 0) {
+        $(insertedItem).find('.entrance-exit').text(count % 2 == 0 ? 'Entrada ' : 'Saída ' );
+        $(insertedItem).find('.number-of-type').text(Math.ceil((count + 1) / 2));
+      }
+    })
+    .on('cocoon:after-insert', function(e, insertedItem) {
+      $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+    })
+    .on('cocoon:before-remove', function(e, time_record) {
+
+    });
+
+    $('.time-records-container').on('cocoon:after-insert', function(e, insertedItem) {
+      $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+    });
 
 		//* make active on accordion change
 		$('#side_accordion').on('hidden.bs.collapse shown.bs.collapse', function () {

@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-migrate
 //= require jquery_ujs
+//= require cocoon
 //= require bootstrap-sprockets
 //= require jquery-cookie
 //= require jquery-actual
@@ -21,5 +22,6 @@
 //= require jquery-progressbar
 //= require jquery-inputmask
 //= require bootstrap-datepicker
+//= require bootstrap-timepicker
 //= require bootstrap-switch
 //= require backend-common

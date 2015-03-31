@@ -9,6 +9,7 @@ class DayRecordsController < ApplicationController
 
   def new
     @day_record = DayRecord.new
+    @day_record.time_records.build
   end
 
   def create
@@ -26,6 +27,7 @@ class DayRecordsController < ApplicationController
   end
 
   def edit
+    @day_record.time_records.build if @day_record.time_records.empty?
   end
 
   def update
@@ -63,7 +65,11 @@ class DayRecordsController < ApplicationController
   end
 
   def day_record_params
-    params.require(:day_record).permit!
+    params.require(:day_record).
+    permit(
+      :reference_date, :observations, :work_day, :missed_day,
+      time_records_attributes: [:id, :time, :_destroy]
+      )
   end
 
   def from

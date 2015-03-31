@@ -47,6 +47,7 @@ GEM
     builder (3.2.2)
     byebug (4.0.4)
       columnize (= 0.9.0)
+    cocoon (1.2.6)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     columnize (0.9.0)
@@ -258,6 +259,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.2.0)
   byebug
+  cocoon
   codeclimate-test-reporter
   database_cleaner
   devise
