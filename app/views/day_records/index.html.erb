@@ -20,7 +20,7 @@
         <td class="text-center"><%= day_record.time_records.try(:[], index).try(:time).try(:to_s, :time) %></th>
       <% end %>
       <td>
-
+        <%= day_record.balance.to_s(:time) %>
       </td>
       <td>
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
