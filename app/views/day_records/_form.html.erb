@@ -1,6 +1,6 @@
 <%= simple_form_for @day_record do |f| %>
   <%= f.hidden_field :id %>
-  <%= f.input :reference_date, wrapper_html: {class: 'col-sm-2 col-md-2'}, input_html: { value: localize(f.object.reference_date, format: "%d/%m/%Y"), class: 'datepicker'} %>
+  <%= f.input :reference_date, wrapper_html: {class: 'col-sm-2 col-md-2'}, input_html: { value: localize(f.object.reference_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
   <%= f.input :work_day, wrapper_html: {class: 'col-sm-2 col-md-2'} do %>
     <%= f.input_field :work_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: @day_record.work_day == 1  %>
   <% end %>
@@ -18,7 +18,7 @@
       <%= render 'time_record_fields', f: time_record %>
     <% end %>
 
-    <div class="col-sm-2 col-md-2" style="margin-left: -10px;">
+    <div class="col-sm-1 col-md-1" style="margin-top: 15px;">
       <%= link_to_add_association '<i class="fa fa-plus-circle fa-3x text-success"></i>'.html_safe, f, :time_records,
         {
           'data-association-insertion-node' => '.nested-fields:last',
