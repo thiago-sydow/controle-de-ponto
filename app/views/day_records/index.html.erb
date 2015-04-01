@@ -1,8 +1,13 @@
+<h1 class="heading text-left">Relatório de Horas</h1>
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
-      <th class="text-left col-md-3">Dia</th>
-      <th class="text-center col-md-6" >Ações</th>
+      <th class="text-left col-md-1">Dia</th>
+      <% @max_time_records.times do |index| %>
+        <th class="text-center col-md-1"><%= get_time_label_from_number(index) %></th>
+      <% end %>
+      <th class="text-center col-md-1" >Saldo</th>
+      <th class="text-center col-md-1" >Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -11,15 +16,21 @@
       <td class="text-left">
         <h4><%= l day_record.reference_date, format: :short %></h4>
       </td>
+      <% @max_time_records.times do |index| %>
+        <td class="text-center"><%= day_record.time_records.try(:[], index).try(:time).try(:to_s, :time) %></th>
+      <% end %>
       <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_day_record_path(day_record), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      day_record_path(day_record),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
+
+      </td>
+      <td>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_day_record_path(day_record), :class => 'btn btn-default btn-xs' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    day_record_path(day_record),
+                    :method => :delete,
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
+                    :class => 'btn btn-xs btn-danger' %>
+      </td>
     </tr>
     <% end %>
   </tbody>
