@@ -14,4 +14,18 @@ module ApplicationHelper
     ((index + 1) / 2.to_f).ceil
   end
 
+  def get_icon_and_text_color_balance(work_statistics)
+    if !work_statistics[:positive]
+      icon_class = 'fa-minus-circle text-danger'
+      text_color = 'text-danger'
+    elsif work_statistics[:balance].hour > 0 || work_statistics[:balance].min > 0
+      icon_class = 'fa-plus-circle text-success'
+      text_color = 'text-success'
+    else
+      icon_class = 'fa-check-circle text-success'
+      text_color = 'text-success'
+    end
+
+    { icon_class: icon_class, text_color: text_color }
+  end
 end

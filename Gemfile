@@ -18,7 +18,7 @@ gem 'time_diff'
 gem 'mongoid', '~> 4.0.0'
 gem 'enumerize'
 gem 'cocoon'
-gem 'browser-timezone-rails'
+gem 'rack-mini-profiler'
 
 
 group :production do
@@ -29,7 +29,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'mailcatcher'
-  gem 'byebug'
+  gem 'pry'
+  gem 'pry-byebug'
   gem 'zeus'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

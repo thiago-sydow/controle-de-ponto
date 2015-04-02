@@ -13,9 +13,7 @@
 //= require jquery
 //= require jquery-migrate
 //= require jquery_ujs
-//= require jquery.cookie
-//= require jstz
-//= require browser_timezone_rails/set_time_zone
+//= require jquery-cookie
 //= require cocoon
 //= require bootstrap-sprockets
 //= require jquery-actual
