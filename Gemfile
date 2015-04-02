@@ -4,6 +4,8 @@ gem 'rails', '4.2.0'
 
 gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
+gem 'coffee-rails', '~> 4.1.0'
+
 gem 'uglifier', '>= 1.3.0'
 
 gem 'devise'
@@ -16,6 +18,8 @@ gem 'time_diff'
 gem 'mongoid', '~> 4.0.0'
 gem 'enumerize'
 gem 'cocoon'
+gem 'rack-mini-profiler'
+
 
 group :production do
   gem 'unicorn'
@@ -25,7 +29,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'mailcatcher'
-  gem 'byebug'
+  gem 'pry'
+  gem 'pry-byebug'
   gem 'zeus'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

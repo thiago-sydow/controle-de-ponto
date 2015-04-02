@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery-migrate
 //= require jquery_ujs
+//= require jquery-cookie
 //= require cocoon
 //= require bootstrap-sprockets
-//= require jquery-cookie
 //= require jquery-actual
 //= require select-nav
 //= require jquery-slimscroll

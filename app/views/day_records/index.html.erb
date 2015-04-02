@@ -6,6 +6,7 @@
       <% @max_time_records.times do |index| %>
         <th class="text-center col-md-1"><%= get_time_label_from_number(index) %></th>
       <% end %>
+      <th class="text-center col-md-1" >Total</th>
       <th class="text-center col-md-1" >Saldo</th>
       <th class="text-center col-md-1" >Ações</th>
     </tr>
@@ -13,14 +14,24 @@
   <tbody>
     <% @day_records.each do |day_record| %>
     <tr>
-      <td class="text-left">
-        <h4><%= l day_record.reference_date, format: :short %></h4>
+      <td>
+        <h4 class="text-left"><%= l day_record.reference_date, format: :short %></h4>
       </td>
       <% @max_time_records.times do |index| %>
-        <td class="text-center"><%= day_record.time_records.try(:[], index).try(:time).try(:to_s, :time) %></th>
+        <td class="text-center">
+            <%= day_record.time_records.try(:[], index).try(:time).try(:to_s, :time) %>
+        </td>
       <% end %>
+      <%
+        work_statistics = day_record.work_statistics
+        balance_text_class = get_icon_and_text_color_balance(work_statistics)
+      %>
+      <td class="text-center">
+        <span><%= work_statistics[:total_worked].to_s(:time) %></span>
+      </td>
       <td>
-
+          <strong><span class="<%= balance_text_class[:text_color] %>"><%= work_statistics[:balance].to_s(:time) %></span></strong>
+          <i class="fa <%= balance_text_class[:icon_class] %>"></i>
       </td>
       <td>
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
