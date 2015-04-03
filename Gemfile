@@ -19,7 +19,7 @@ gem 'mongoid', '~> 4.0.0'
 gem 'enumerize'
 gem 'cocoon'
 gem 'rack-mini-profiler'
-
+gem 'twitter-bootstrap-rails-confirm'
 
 group :production do
   gem 'unicorn'

@@ -1,8 +1,8 @@
-<div class="nested-fields col-sm-2 col-md-2">
-  <%= f.input :time, label: false, wrapper_html: { class: 'col-sm-10 col-md-10', style: 'padding-right: 0;'} do %>
+<div class="nested-fields col-sm-1 col-md-1">
+  <%= f.input :time, label: false, wrapper_html: { class: 'text-center col-sm-9 col-md-9', style: 'padding-right: 0;'} do %>
     <span class="text-capitalize entrance-exit">Entrada </span><span class="text-capitalize number-of-type">1</span>
     <%= f.input_field :time, class: 'optional form-control timepicker text-center pull-left', style: 'width: 95%', value: f.object.time.try(:strftime, "%H:%M") %>
   <% end %>
 
-  <%= link_to_remove_association '<span class="text-danger pull-right" style="margin-top: 20px;"> <i class="fa fa-trash fa-2x"></i></span>'.html_safe, f %>
+  <%= link_to_remove_association '<span class="text-danger pull-right" style="margin-top: 20px;"> <i class="fa fa-trash fa-2x"></i></span>'.html_safe, f, data: {confirm:  'Deseja realmente excluir?'} %>
 </div>

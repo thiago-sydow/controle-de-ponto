@@ -257,6 +257,7 @@ GEM
     turnip (1.2.4)
       gherkin (>= 2.5)
       rspec (>= 2.14.0, < 4.0)
+    twitter-bootstrap-rails-confirm (1.0.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -301,6 +302,7 @@ DEPENDENCIES
   simplecov
   time_diff
   turnip
+  twitter-bootstrap-rails-confirm
   uglifier (>= 1.3.0)
   unicorn
   zeus

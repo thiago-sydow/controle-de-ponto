@@ -1,5 +1,12 @@
-<h1 class="heading text-left">Relatório de Horas</h1>
-<table class="table table-bordered table-hover">
+<% content_for :page_header do %>
+  <h1 class="heading text-left">Relatório de Horas
+    <small>
+		  <i class="ace-icon fa fa-angle-double-right"></i>
+		  Visualize os seus registros de forma fácil
+		</small>
+  </h1>
+<% end %>
+<table class="table table-bordered table-hover table-list-records">
   <thead>
     <tr>
       <th class="text-left col-md-1">Dia</th>
@@ -15,11 +22,13 @@
     <% @day_records.each do |day_record| %>
     <tr>
       <td>
-        <h4 class="text-left"><%= l day_record.reference_date, format: :short %></h4>
+        <h5 class="text-left"><%= l day_record.reference_date, format: :short %></h5>
       </td>
       <% @max_time_records.times do |index| %>
         <td class="text-center">
+          <p class="time-p">
             <%= day_record.time_records.try(:[], index).try(:time).try(:to_s, :time) %>
+          </p>
         </td>
       <% end %>
       <%
@@ -27,20 +36,26 @@
         balance_text_class = get_icon_and_text_color_balance(work_statistics)
       %>
       <td class="text-center">
-        <span><%= work_statistics[:total_worked].to_s(:time) %></span>
+        <p class="time-p">
+          <span><%= work_statistics[:total_worked].to_s(:time) %></span>
+        </p>
       </td>
-      <td>
+      <td class="text-center">
+        <p class="time-p">
           <strong><span class="<%= balance_text_class[:text_color] %>"><%= work_statistics[:balance].to_s(:time) %></span></strong>
           <i class="fa <%= balance_text_class[:icon_class] %>"></i>
+        </p>
       </td>
-      <td>
-        <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                    edit_day_record_path(day_record), :class => 'btn btn-default btn-xs' %>
-        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                    day_record_path(day_record),
-                    :method => :delete,
-                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
-                    :class => 'btn btn-xs btn-danger' %>
+      <td class="text-center">
+        <%= link_to edit_day_record_path(day_record), class: 'btn btn-primary btn-xs' do %>
+          <i class="fa fa-pencil-square-o"></i>
+          <%= t('helpers.links.edit') %>
+        <% end %>
+
+        <%= link_to day_record_path(day_record), method: :delete, data: { confirm: t('helpers.links.confirm') }, class: 'btn btn-xs btn-danger' do %>
+          <i class="fa fa-trash-o"></i>
+          <%= t('helpers.links.destroy') %>
+        <% end %>
       </td>
     </tr>
     <% end %>

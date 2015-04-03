@@ -1,19 +1,19 @@
-<%= simple_form_for @day_record do |f| %>
-  <%= f.hidden_field :id %>
-  <%= f.input :reference_date, wrapper_html: {class: 'col-sm-2 col-md-2'}, input_html: { value: localize(f.object.reference_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
-  <%= f.input :work_day, wrapper_html: {class: 'col-sm-2 col-md-2'} do %>
-    <%= f.input_field :work_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: @day_record.work_day == 1  %>
-  <% end %>
-  <%= f.input :missed_day, wrapper_html: {class: 'col-sm-2 col-md-2'} do %>
-    <%= f.input_field :missed_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: @day_record.missed_day == 1 %>
-  <% end %>
-  <%= f.input :observations, as: :text, wrapper_html: {class: 'col-sm-6 col-md-6'} %>
+<div class="row">
+  <%= simple_form_for @day_record do |f| %>
+    <%= f.hidden_field :id %>
+    <%= f.input :reference_date, wrapper_html: {class: 'col-sm-1 col-md-1 text-center'}, input_html: { value: localize(f.object.reference_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
+    <%= f.input :work_day, wrapper_html: {class: 'col-sm-1 col-md-1 text-center'} do %>
+      <%= f.input_field :work_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: @day_record.work_day == 1  %>
+    <% end %>
+    <%= f.input :missed_day, wrapper_html: {class: 'col-sm-1 col-md-1 text-center'} do %>
+      <%= f.input_field :missed_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: @day_record.missed_day == 1 %>
+    <% end %>
+    <%= f.input :observations, as: :text, wrapper_html: {class: 'col-sm-6 col-md-6'} %>
 
+</div>
+<div class="row">
+  <h3 class="header blue">Horários <small>Cadastre aqui os horários para este dia</small> </h3>
   <div class="row time-records-container">
-    <h3 class="heading text-left">Horários</h3>
-    <div class="row">
-
-    </div>
     <%= f.simple_fields_for :time_records do |time_record| %>
       <%= render 'time_record_fields', f: time_record %>
     <% end %>
@@ -26,6 +26,7 @@
         } %>
     </div>
   </div>
+</div>
 
   <%= f.button :submit %>
 <% end %>

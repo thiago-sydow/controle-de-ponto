@@ -1,70 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>ControleDePonto</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="full_width">
-  <header>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="brand pull-left" href="dashboard.html">Controle de Ponto</a>
-          <ul class="nav navbar-nav user_menu pull-right">
-            <li class="divider-vertical hidden-sm hidden-xs"></li>
-            <li class="dropdown">
-              <a href="index.html#" class="dropdown-toggle" data-toggle="dropdown">Johny Smith <b class="caret"></b></a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="user_profile.html">My Profile</a></li>
-                <li><a href="javascrip:void(0)">Another action</a></li>
-                <li class="divider"></li>
-                <li><a href="login.html">Log Out</a></li>
-              </ul>
-            </li>
-          </ul>
+<%= render partial: 'layouts/header' %>
+
+<div class="main-container" id="main-container">
+  <%= render partial: 'layouts/navbar' %>
+  <div class="main-content">
+    <div class="main-content-inner">
+      <div class="breadcrumbs" id="breadcrumbs">
+				<ul class="breadcrumb">
+					<li>
+						<i class="ace-icon fa fa-home home-icon"></i>
+						<a href="form-elements.html#">Home</a>
+					</li>
+
+					<li>
+						<a href="form-elements.html#">Forms</a>
+					</li>
+					<li class="active">Form Elements</li>
+				</ul><!-- /.breadcrumb -->
+
+				<div class="nav-search" id="nav-search">
+					<form class="form-search">
+						<span class="input-icon">
+							<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+							<i class="ace-icon fa fa-search nav-search-icon"></i>
+						</span>
+					</form>
+				</div><!-- /.nav-search -->
+			</div>
+      <div class="page-content">
+        <div class="page-header">
+          <%= yield :page_header %>
+    		</div>
+        <div class="row">
+          <div class="col-xs-12">
+            <%= yield %>
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
-<div class="contentwrapper">
-  <div class="main_content">
-    <div class="row">
-      <div class="col-sm-12 tac">
-        <%= yield %>
       </div>
     </div>
   </div>
 </div>
-<a href="javascript:void(0)" class="sidebar_switch bs_ttip on_switch" data-placement="auto right" data-viewport="body" title="Hide Sidebar" data-original-title="Hide Sidebar">Sidebar switch</a>
-<div class="sidebar">
-  <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 225px;">
-      <div class="sidebar_inner_scroll" style="overflow: hidden; width: auto; height: 225px;">
-        <div class="sidebar_inner" style="margin-bottom: -92px; min-height: 100%;">
-          <div id="side_accordion" class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <a href="index.html#collapseOne" data-parent="#side_accordion"  class="accordion-toggle" aria-expanded="true">
-                    <i class="glyphicon glyphicon-cog"></i> Registros
-                </a>
-              </div>
-              <div class="accordion-body" id="collapseOne" aria-expanded="true">
-                <div class="panel-body">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li <%= byebug; 'class=active' if current_page?(day_records_path)  %> ><%= link_to 'Relatório', day_records_path %></li>
-                    <li <%= byebug; 'class=active' if current_page?(new_day_record_path)  %> ><%= link_to 'Criar novo Registro', new_day_record_path %></li>
-                    <li class="nav-header">Fechamento</li>
-                    <li><a href="javascript:void(0)">Novo Fechamento</a></li>
-                    <li><a href="javascript:void(0)">Visualizar todos</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div class="push" style="height: 92px;"></div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
