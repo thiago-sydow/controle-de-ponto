@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meu Controle de Ponto</title>
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <% yield :page_styles %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="login-layout light-login">
+<div class="main-container">
+	<div class="main-content">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="login-container">
+					<div class="center">
+						<h1>
+							<span class="grey">Meu Controle de Ponto</span>
+						</h1>
+					</div>
+
+					<div class="space-6"></div>
+
+					<div class="position-relative">
+						<%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

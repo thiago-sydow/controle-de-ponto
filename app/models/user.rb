@@ -16,7 +16,7 @@ class User
 
   validates_presence_of :first_name, :last_name, :birthday, :gender
 
-  has_many :day_records
+  has_many :day_records, dependent: :delete
 
   ## Database authenticatable
   field :email,              type: String, default: ""

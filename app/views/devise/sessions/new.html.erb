@@ -1,25 +1,92 @@
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="top_b">Entrar no Meu Controle de Ponto</div>
-  <%= devise_alert_messages! %>
-  <div class="cnt_b">
-    <%= f.input :email, label: false do %>
-      <div class="input-group">
-				<span class="input-group-addon input-sm"><i class="glyphicon glyphicon-user"></i></span>
-        <%= f.input_field :email, class: 'form-control input-sm', required: true, autofocus: true, placeholder: 'Email' %>
-			</div>
-    <% end %>
-    <%= f.input :password, label: false do %>
-      <div class="input-group">
-				<span class="input-group-addon input-sm"><i class="glyphicon glyphicon-lock"></i></span>
-        <%= f.input_field :password, required: true, placeholder: 'Senha', label: false, class: 'form-control input-sm' %>
-			</div>
-    <% end %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
-  <div class="btm_b clearfix">
-    <%= f.button :submit, "Log in", class: 'pull-right' %>
-  </div>
-<% end %>
-<div class="links_b links_btm clearfix">
-  <%= render "devise/shared/links" %>
-</div>
+<div id="login-box" class="login-box visible widget-box no-border">
+  <div class="widget-body">
+    <div class="widget-main">
+      <h4 class="header blue lighter bigger">
+        <i class="ace-icon fa fa-coffee green"></i>
+        Insira suas informações
+      </h4>
+
+      <div class="space-6"></div>
+
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= devise_alert_messages! %>
+        <fieldset>
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
+              <%= f.input_field :email, class: 'form-control', required: true, autofocus: true, placeholder: 'Email' %>
+              <i class="ace-icon fa fa-user"></i>
+            </span>
+          </label>
+
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
+              <%= f.input_field :password, required: true, placeholder: 'Senha', label: false, class: 'form-control' %>
+              <i class="ace-icon fa fa-lock"></i>
+            </span>
+          </label>
+
+          <div class="space"></div>
+
+          <div class="clearfix">
+            <label class="inline">
+              <%= f.input_field :remember_me, as: :boolean, boolean_style: :inline, class: 'ace' if devise_mapping.rememberable? %>
+              <span class="lbl"><small>Mantenha-me Conectado</small></span>
+            </label>
+
+            <%= f.button :button, "Log in", class: 'width-35 pull-right btn btn-sm btn-primary' do %>
+              <i class="ace-icon fa fa-key"></i>
+              <span class="bigger-110">Login</span>
+            <% end %>
+          </div>
+
+          <div class="space-4"></div>
+        </fieldset>
+        <% end %>
+
+      <!-- <div class="social-or-login center">
+        <span class="bigger-110">Ou Entre usando</span>
+      </div>
+
+      <div class="space-6"></div>
+
+      <div class="social-login center">
+        <a class="btn btn-primary">
+          <i class="ace-icon fa fa-facebook"></i>
+        </a>
+
+        <a class="btn btn-info">
+          <i class="ace-icon fa fa-twitter"></i>
+        </a>
+
+        <a class="btn btn-danger">
+          <i class="ace-icon fa fa-google-plus"></i>
+        </a>
+      </div> -->
+    </div><!-- /.widget-main -->
+
+    <div class="toolbar clearfix">
+      <div>
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+          <%= link_to new_password_path(resource_name), class: 'forgot-password-link' do %>
+            <i class="ace-icon fa fa-arrow-left"></i>
+            Esqueci minha senha
+          <% end %>
+        <% end -%>
+      </div>
+      <div>
+        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+          <%= link_to new_registration_path(resource_name), class: 'user-signup-link' do %>
+            Quero me cadastrar
+            <i class="ace-icon fa fa-arrow-right"></i>
+          <% end %>
+        <% end -%>
+      </div>
+
+      <div class="text-center" style ="width: 100%;">
+        <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+          <%= link_to 'Não recebeu email de confirmação?', new_confirmation_path(resource_name), class: 'forgot-password-link' %>
+        <% end -%>
+      </div>
+    </div>
+  </div><!-- /.widget-body -->
+</div><!-- /.login-box -->

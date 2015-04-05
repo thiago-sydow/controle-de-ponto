@@ -224,6 +224,7 @@ pt-BR:
         last_name: Sobrenome
         birthday: Data de Nascimento
         gender: Sexo
+        remember_me: Lembrar-me
       day_record:
         reference_date: Data
         work_day: Dia Útil?

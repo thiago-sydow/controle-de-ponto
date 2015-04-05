@@ -1,16 +1,39 @@
-<h2>Resend confirmation instructions</h2>
+<div id="forgot-box" class="forgot-box widget-box no-border visible">
+	<div class="widget-body">
+		<div class="widget-main">
+			<h4 class="header blue lighter bigger">
+				<i class="ace-icon fa fa-envelope"></i>
+				Reenviar email de confirmação
+			</h4>
+			<div class="space-6"></div>
+			<p>
+        Insira seu email para receber as instruções
+			</p>
 
-<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.full_error :confirmation_token %>
+      <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+				<fieldset>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+              <%= f.input_field :email, required: true, autofocus: true, class: 'form-control', placeholder: 'Email' %>
+							<i class="ace-icon fa fa-envelope"></i>
+						</span>
+					</label>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-  </div>
+					<div class="clearfix">
+            <%= f.button :button, class: 'width-35 pull-right btn btn-sm btn-primary' do %>
+              <i class="ace-icon fa fa-lightbulb-o"></i>
+              <span class="bigger-110">Envie-me!</span>
+            <% end %>
+					</div>
+				</fieldset>
+      <% end %>
+		</div><!-- /.widget-main -->
 
-  <div class="form-actions">
-    <%= f.button :submit, "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+		<div class="toolbar center">
+      <%= link_to new_user_session_path, class: 'white-back-to-login-link' do %>
+        <i class="ace-icon fa fa-arrow-left"></i>
+        Voltar para Login
+      <% end %>
+		</div>
+	</div><!-- /.widget-body -->
+</div>

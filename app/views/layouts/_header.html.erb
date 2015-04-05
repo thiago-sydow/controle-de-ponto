@@ -27,14 +27,14 @@
 					<a href="form-elements.html#" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
-							Ace Admin
+							Meu Controle de Ponto
 						</small>
 					</a>
 				</div>
 
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
-						<li class="grey">
+						<!-- <li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="form-elements.html#">
 								<i class="ace-icon fa fa-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -219,14 +219,14 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="form-elements.html#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="dist/avatars/user.jpg" alt="Jason's Photo" />
+								<!-- <img class="nav-user-photo" src="dist/avatars/user.jpg" alt="Jason's Photo" /> -->
 								<span class="user-info">
-									<small>Welcome,</small>
-									Jason
+									<small>Olá,</small>
+									<%= current_user.first_name %>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -234,26 +234,19 @@
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 								<li>
-									<a href="form-elements.html#">
+                  <%= link_to edit_user_registration_path do %>
 										<i class="ace-icon fa fa-cog"></i>
-										Settings
-									</a>
-								</li>
-
-								<li>
-									<a href="profile.html">
-										<i class="ace-icon fa fa-user"></i>
-										Profile
-									</a>
+										Configurações
+                  <% end %>
 								</li>
 
 								<li class="divider"></li>
 
 								<li>
-									<a href="form-elements.html#">
+                  <%= link_to destroy_user_session_path, method: :delete do %>
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
-									</a>
+                  <% end %>
 								</li>
 							</ul>
 						</li>

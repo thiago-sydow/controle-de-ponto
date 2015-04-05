@@ -260,6 +260,8 @@ end
 
 # append to end of config/initializers/devise.rb
 Rails.application.config.to_prepare do
-  Devise::SessionsController.layout "unauthenticated"
-  Devise::RegistrationsController.layout proc { |controller| user_signed_in? ? 'application' : 'unauthenticated' }
+  Devise::SessionsController.layout 'authentication'
+  Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? 'application' : 'authentication' }
+  Devise::ConfirmationsController.layout 'authentication'
+  Devise::PasswordsController.layout 'authentication'
 end

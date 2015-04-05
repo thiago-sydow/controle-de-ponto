@@ -38,7 +38,7 @@ class DayRecordsController < ApplicationController
       redirect_to day_records_path
     else
       flash[:error] = 'Um erro ocorreu ao atualizar o registro.'
-      render action: 'edit'
+      render action: :edit
     end
 
   end
