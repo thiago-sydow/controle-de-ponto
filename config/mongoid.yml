@@ -105,5 +105,3 @@ production:
     default:
       uri: <%= ENV['MONGODB_URL'] %>
       options:
-        skip_version_check: true
-        safe: true
