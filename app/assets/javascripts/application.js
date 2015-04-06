@@ -22,3 +22,6 @@
 //= require ace.min
 //= require backend-common
 //= require twitter/bootstrap/rails/confirm
+//= require moment
+//= require moment.pt-br
+//= require daterangepicker

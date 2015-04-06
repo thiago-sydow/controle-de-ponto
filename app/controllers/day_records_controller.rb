@@ -2,9 +2,10 @@ class DayRecordsController < ApplicationController
   before_action :authenticate_user!
 
   before_action :find_record, only: [:edit, :update, :destroy]
+  before_action :set_date_range, only: [:index]
 
   def index
-    @day_records = current_user.day_records.where(reference_date: from..to)
+    @day_records = current_user.day_records.where(reference_date: from..to).page params[:page]
     @max_time_records = TimeRecord.max_count
   end
 
@@ -57,6 +58,11 @@ class DayRecordsController < ApplicationController
 
   private
 
+  def set_date_range
+    @from = from
+    @to = to
+  end
+
   def find_record
     @day_record = DayRecord.find(day_record_id_param)
   end
@@ -79,11 +85,11 @@ class DayRecordsController < ApplicationController
 
   def to
     return Date.current unless params[:to]
-    Time.zone.parse(params[:to]).to_date || Date.current
+    date_param(params[:to])
   end
 
   def date_param(param, default = Date.current)
-    return default unless param
+    return default if param.blank?
     Time.zone.parse(param).to_date
   rescue ArgumentError
     default

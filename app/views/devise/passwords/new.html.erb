@@ -17,6 +17,7 @@
               <%= f.input_field :email, required: true, autofocus: true, class: 'form-control', placeholder: 'Email' %>
 							<i class="ace-icon fa fa-envelope"></i>
 						</span>
+						<%= f.full_error :email, class: 'text-danger' %>
 					</label>
 
 					<div class="clearfix">

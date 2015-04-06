@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'nao-responda@controledeponto.com.br'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -261,7 +261,7 @@ end
 # append to end of config/initializers/devise.rb
 Rails.application.config.to_prepare do
   Devise::SessionsController.layout 'authentication'
-  Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? 'application' : 'authentication' }
+  Devise::RegistrationsController.layout proc{ |_controller| user_signed_in? ? 'application' : 'authentication' }
   Devise::ConfirmationsController.layout 'authentication'
   Devise::PasswordsController.layout 'authentication'
 end

@@ -1,0 +1,16 @@
+<div class="">
+  <%= simple_form_for :date_range, wrapper: :inline_form,
+                                   html: { class: 'form-inline' },
+                                   url: day_records_path,
+                                   method: :get do |f| %>
+  <a href="#" class="btn btn-default" id="daterange-btn">
+      <i class="fa fa-calendar"></i> Datas
+      <i class="fa fa-caret-down"></i>
+  </a>
+  <%= f.input :from, input_html: { name: 'from',
+                                   value: @from.strftime('%d/%m/%Y') } %>
+  <%= f.input :to, input_html: { name: 'to',
+                                 value: @to.strftime('%d/%m/%Y') } %>
+  <%= f.button :submit, 'Filtrar', { class: 'btn btn-primary' } %>
+<% end %>
+</div>

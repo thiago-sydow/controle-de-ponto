@@ -20,6 +20,8 @@ gem 'enumerize'
 gem 'cocoon'
 gem 'rack-mini-profiler'
 gem 'twitter-bootstrap-rails-confirm'
+gem 'jquery-datatables-rails', '~> 3.2.0'
+gem 'kaminari'
 
 group :production do
   gem 'unicorn'
