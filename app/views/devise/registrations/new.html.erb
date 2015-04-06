@@ -16,6 +16,7 @@
               <%= f.input_field :email, required: true, class: 'form-control', autofocus: true, placeholder: 'Email' %>
 							<i class="ace-icon fa fa-envelope"></i>
 						</span>
+						<%= f.full_error :email, class: 'text-danger' %>
 					</label>
 
 					<label class="block clearfix">
@@ -23,6 +24,7 @@
               <%= f.input_field :first_name, required: true, class: 'form-control', label: false, placeholder: 'Nome' %>
 							<i class="ace-icon fa fa-user"></i>
 						</span>
+						<%= f.full_error :first_name, class: 'text-danger' %>
 					</label>
 
 					<label class="block clearfix">
@@ -36,12 +38,14 @@
               <%= f.input_field :birthday, required: true, label: false, class: 'form-control', placeholder: 'Data de Nascimento' %>
 							<i class="ace-icon fa fa-birthday-cake"></i>
 						</span>
+						<%= f.full_error :birthday, class: 'text-danger' %>
 					</label>
 
           <label class="block clearfix">
 						<span class="block input-icon input-icon-right">
               <%= f.input_field :gender, prompt: 'Sexo:', class: 'form-control', label: false %>
 						</span>
+						<%= f.full_error :gender, class: 'text-danger' %>
 					</label>
 
 					<label class="block clearfix">
@@ -49,6 +53,7 @@
               <%= f.input_field :password, required: true, class: 'form-control', placeholder: 'Senha', hint: ("Minimo de #{@minimum_password_length} caracteres" if @validatable) %>
 							<i class="ace-icon fa fa-lock"></i>
 						</span>
+						<%= f.full_error :password, class: 'text-danger' %>
 					</label>
 
 					<label class="block clearfix">
@@ -56,6 +61,7 @@
               <%= f.input_field :password_confirmation, required: true, class: 'form-control', placeholder: 'Confirmação de Senha' %>
 							<i class="ace-icon fa fa-retweet"></i>
 						</span>
+						<%= f.full_error :password_confirmation, class: 'text-danger' %>
 					</label>
 
 					<!-- <label class="block">
@@ -69,11 +75,6 @@
 					<div class="space-24"></div>
 
 					<div class="clearfix">
-						<button type="reset" class="width-30 pull-left btn btn-sm">
-							<i class="ace-icon fa fa-refresh"></i>
-							<span class="bigger-110">Reset</span>
-						</button>
-
             <%= f.button :button, class: 'width-65 pull-right btn btn-sm btn-success' do %>
             <span class="bigger-110">Cadastrar</span>
             <i class="ace-icon fa fa-arrow-right icon-on-right"></i>

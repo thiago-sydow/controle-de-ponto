@@ -1,0 +1,13 @@
+<% unless flash.empty? %>
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-<%= flash_class(type) %>">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        <i class="ace-icon fa fa-times"></i>
+      </button>
+      <strong>
+        <i class="ace-icon fa <%= flash_icon(type) %>"></i>
+    	</strong>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>

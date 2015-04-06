@@ -225,6 +225,7 @@ pt-BR:
         birthday: Data de Nascimento
         gender: Sexo
         remember_me: Lembrar-me
+        current_password: Senha Atual
       day_record:
         reference_date: Data
         work_day: Dia Útil?

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   devise_scope :user do
     #get 'success', action: 'success', controller: 'registrations', as: 'success'
@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     authenticated :user do
       root 'day_records#index'
       resources :day_records
-      resources :reports, only: [:index]
     end
 
     unauthenticated do

@@ -6,6 +6,9 @@
 		</small>
   </h1>
 <% end %>
+<div class="">
+<%= render 'search_range' %>
+</div>
 <table class="table table-bordered table-hover table-list-records">
   <thead>
     <tr>
@@ -61,3 +64,36 @@
     <% end %>
   </tbody>
 </table>
+<div class="box-footer clearfix">
+   <%= paginate @day_records %>
+</div>
+<script charset="utf-8">
+  $(function(){
+    moment.locale('pt-br');
+
+    $('#daterange-btn').daterangepicker({
+      format: 'DD/MM/YYYY',
+      ranges: {
+        'Hoje': [moment(), moment()],
+        'Ontem': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Últimos 7 dias': [moment().subtract(6, 'days'), moment()],
+        'Últimos 30 dias': [moment().subtract(29, 'days'), moment()],
+        'Esse mês': [moment().startOf('month'), moment().endOf('month')]
+      },
+      locale: {
+        applyLabel: 'Aplicar',
+        cancelLabel: 'Cancelar',
+        fromLabel: 'De',
+        toLabel: 'Até',
+        weekLabel: 'W',
+        customRangeLabel: 'Personalizar Data'
+      },
+      startDate: moment().subtract(29, 'days'),
+      endDate: moment()
+    },
+    function(start, end) {
+      $('#date_range_from').val(start.format('DD/MM/YYYY'));
+      $('#date_range_to').val(end.format('DD/MM/YYYY'));
+    });
+  });
+</script>

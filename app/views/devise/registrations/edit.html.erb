@@ -7,7 +7,6 @@
 	<div class="space"></div>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f| %>
-    <%= f.error_notification %>
 
 		<div class="tabbable">
 			<ul class="nav nav-tabs padding-16">
@@ -56,6 +55,7 @@
 
 								<div class="col-sm-9">
                   <%= f.input_field :first_name, placeholder: 'Nome', required: true %>
+                  <%= f.full_error :first_name, class: 'text-danger' %>
 								</div>
 							</div>
               <div class="space-4"></div>
@@ -65,6 +65,7 @@
 
 								<div class="col-sm-9">
                   <%= f.input_field :last_name, placeholder: 'Nome', required: true %>
+                  <%= f.full_error :last_name, class: 'text-danger' %>
 								</div>
 							</div>
 					</div>
@@ -82,6 +83,7 @@
 										<i class="ace-icon fa fa-calendar"></i>
 									</span>
 								</div>
+                <%= f.full_error :birthday, class: 'text-danger' %>
 							</div>
 						</div>
 					</div>
@@ -93,6 +95,7 @@
 
 						<div class="col-sm-9">
               <%= f.input_field :gender, as: :radio_buttons %>
+              <%= f.full_error :gender, class: 'text-danger' %>
 						</div>
 					</div>
 
@@ -110,6 +113,7 @@
               <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                 <p>Aguardando confirmação para: <%= resource.unconfirmed_email %></p>
               <% end %>
+              <%= f.full_error :email, class: 'text-danger' %>
 						</div>
 					</div>
         </div>
@@ -127,6 +131,7 @@
                   <span class="input-group-addon">
                     <i class="ace-icon fa fa-clock-o"></i>
                   </span>
+                  <%= f.full_error :workload, class: 'text-danger' %>
                 </div>
               </div>
             </div>
@@ -176,13 +181,14 @@
 
 		<div class="clearfix form-actions">
       <div class="form-group">
-        <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">Senha</label>
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">Senha Atual</label>
 
         <div class="col-sm-9">
           <%= f.input_field :current_password, autocomplete: "off", required: false %>
           <span class="help-inline">
-            <span class="middle">Digite sua senha atual para confirmar as alterações </span>
+            <span class="middle">(Somente necessário se você alterar Email ou Senha) </span>
           </span>
+          <%= f.full_error :current_password, class: 'text-danger' %>
         </div>
       </div>
 			<div class="col-md-offset-3 col-md-9">
