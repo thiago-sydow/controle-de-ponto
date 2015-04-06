@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.1'
+
 gem 'rails', '4.2.0'
 
 gem 'jquery-rails'
@@ -22,9 +24,10 @@ gem 'rack-mini-profiler'
 gem 'twitter-bootstrap-rails-confirm'
 gem 'jquery-datatables-rails', '~> 3.2.0'
 gem 'kaminari'
+gem 'rails_12factor'
 
 group :production do
-  gem 'unicorn'
+  gem 'puma'
 end
 
 group :development, :test do
