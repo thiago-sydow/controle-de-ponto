@@ -14,7 +14,7 @@ class User
   field :birthday, type: Date
   field :workload, type: Time, default: Time.current.change(hour: 8, minute: 0)
 
-  validates_presence_of :first_name, :last_name, :birthday, :gender
+  validates_presence_of :first_name, :last_name, :birthday, :gender, :workload
 
   has_many :day_records, dependent: :delete
 

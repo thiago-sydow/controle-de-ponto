@@ -24,10 +24,10 @@ gem 'rack-mini-profiler'
 gem 'twitter-bootstrap-rails-confirm'
 gem 'jquery-datatables-rails', '~> 3.2.0'
 gem 'kaminari'
-gem 'rails_12factor'
 
 group :production do
   gem 'puma'
+  gem 'rails_12factor'
 end
 
 group :development, :test do
