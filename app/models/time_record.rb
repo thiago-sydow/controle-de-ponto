@@ -1,18 +1,12 @@
 class TimeRecord
   include Mongoid::Document
 
-  field :time, type: Time
+  field :time, type: Time, default: Time.current
 
-  belongs_to :day_record
+  embedded_in :day_record
+
+  validates_presence_of :time
 
   default_scope -> { asc(:time) }
 
-  def self.max_count
-    collection.aggregate(
-      { "$group" => {
-          "_id": "$day_record_id",
-          "count": { "$sum": 1 }
-      }}
-    ).map { |c| c['count'] }.max || 0
-  end
 end

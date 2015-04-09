@@ -32,13 +32,6 @@ $(function(){
   })
   .on('cocoon:after-insert', function(e, insertedItem) {
     $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
-  })
-  .on('cocoon:before-remove', function(e, time_record) {
-
-  });
-
-  $('.time-records-container').on('cocoon:after-insert', function(e, insertedItem) {
-    $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
   });
 
 });

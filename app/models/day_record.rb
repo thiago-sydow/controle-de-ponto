@@ -13,17 +13,33 @@ class DayRecord
   enumerize :missed_day, in: {yes: 1, no: 0}, default: :no
 
   belongs_to :user
-  has_many :time_records, dependent: :delete
+  embeds_many :time_records
 
   accepts_nested_attributes_for :time_records, reject_if: :all_blank, allow_destroy: true
 
+  validates_presence_of :reference_date
   validates_uniqueness_of :reference_date, scope: :user_id
+
   default_scope -> { desc(:reference_date) }
 
-  def work_statistics
-    total_worked = ZERO_HOUR
+  def self.max_time_count_for_user(user)
+    where(user: user).map { |day| day.time_records.count }.max || 0
+  end
 
-    return total_worked if time_records.empty?
+  def total_worked
+    @total_worked ||= calculate_total_worked_hours
+  end
+
+  def balance
+    TimeBalance.new(user.workload, total_worked)
+  end
+
+  private
+
+  def calculate_total_worked_hours
+    return ZERO_HOUR if time_records.empty?
+
+    total_worked = ZERO_HOUR
 
     reference_time = time_records.first
     time_records.each_with_index do |time_record, index|
@@ -41,10 +57,7 @@ class DayRecord
       total_worked = (total_worked + now_diff[:hour].hours) + now_diff[:minute].minutes
     end
 
-    balance = ( user.workload - total_worked.hour.hours) - total_worked.min.minutes
-    wl = balance.change(hour: user.workload.hour, min: user.workload.min)
-
-    { total_worked: total_worked, balance: balance, positive: wl < balance }
+    total_worked
   end
 
 end

@@ -4,5 +4,5 @@
     <%= f.input_field :time, class: 'optional form-control timepicker text-center pull-left', style: 'width: 95%', value: f.object.time.try(:strftime, "%H:%M") %>
   <% end %>
 
-  <%= link_to_remove_association '<span class="text-danger pull-right" style="margin-top: 20px;"> <i class="fa fa-trash fa-2x"></i></span>'.html_safe, f, data: {confirm:  'Deseja realmente excluir?'} %>
+  <%= link_to_remove_association '<span class="text-danger pull-right" style="margin-top: 20px;"> <i class="fa fa-trash fa-2x"></i></span>'.html_safe, f %>
 </div>

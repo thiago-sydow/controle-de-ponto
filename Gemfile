@@ -25,8 +25,9 @@ gem 'twitter-bootstrap-rails-confirm'
 gem 'jquery-datatables-rails', '~> 3.2.0'
 gem 'kaminari'
 
+gem 'passenger'
+
 group :production do
-  gem 'puma'
   gem 'rails_12factor'
 end
 
@@ -47,5 +48,5 @@ group :test do
   gem 'codeclimate-test-reporter'
   gem 'simplecov', require: false
   gem 'turnip'
-  gem 'rspec_candy'
+  gem 'rspec_candy', '~> 0.3.1'
 end

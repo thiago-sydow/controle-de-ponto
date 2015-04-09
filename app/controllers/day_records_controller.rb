@@ -6,7 +6,7 @@ class DayRecordsController < ApplicationController
 
   def index
     @day_records = current_user.day_records.where(reference_date: from..to).page params[:page]
-    @max_time_records = TimeRecord.max_count
+    @max_time_records = DayRecord.max_time_count_for_user(current_user)
   end
 
   def new
