@@ -2,7 +2,7 @@ class DayRecord
   include Mongoid::Document
   extend Enumerize
 
-  ZERO_HOUR = Time.current.change(hour: 0, minute: 0)
+  ZERO_HOUR = Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0)
 
   field :reference_date, type: Date, default: Date.current
   field :observations, type: String
@@ -31,7 +31,7 @@ class DayRecord
   end
 
   def balance
-    TimeBalance.new(user.workload, total_worked)
+    @balance ||= TimeBalance.new(user.workload, total_worked)
   end
 
   private
@@ -51,8 +51,8 @@ class DayRecord
 
       reference_time = time_record
     end
-
-    if reference_date.today? && !time_records.size.even?
+    
+    if reference_date.today? && time_records.size.odd?
       now_diff = Time.diff(reference_time.time, Time.current)
       total_worked = (total_worked + now_diff[:hour].hours) + now_diff[:minute].minutes
     end

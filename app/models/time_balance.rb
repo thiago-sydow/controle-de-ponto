@@ -1,6 +1,6 @@
 class TimeBalance
 
-  BASE_TIME = Time.local(1999, 8, 1)
+  BASE_TIME = Time.zone.local(1999, 8, 1)
 
   def initialize(workload, worked)
     @workload_time  = BASE_TIME.change(hour: workload.hour, min: workload.min)
