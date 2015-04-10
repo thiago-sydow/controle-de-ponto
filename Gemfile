@@ -49,4 +49,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'turnip'
   gem 'rspec_candy', '~> 0.3.1'
+  gem 'fuubar'
 end
