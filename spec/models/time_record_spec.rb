@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TimeRecord, type: :model do
+RSpec.describe TimeRecord do
 
   it { expect(build(:time_record)).to be_valid }
 
