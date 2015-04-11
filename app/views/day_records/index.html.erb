@@ -34,9 +34,7 @@
           </p>
         </td>
       <% end %>
-      <%
-        balance_text_class = get_icon_and_text_color_balance(day_record.balance)
-      %>
+
       <td class="text-center">
         <p class="time-p">
           <span><%= day_record.total_worked.to_s(:time) %></span>
@@ -44,8 +42,8 @@
       </td>
       <td class="text-center">
         <p class="time-p">
-          <strong><span class="<%= balance_text_class[:text_color] %>"><%= day_record.balance %></span></strong>
-          <i class="fa <%= balance_text_class[:icon_class] %>"></i>
+          <strong><span class="<%= get_icon_balance(day_record.balance) %>"><%= day_record.balance %></span></strong>
+          <i class="fa <%= get_text_color_balance(day_record.balance) %>"></i>
         </p>
       </td>
       <td class="text-center">

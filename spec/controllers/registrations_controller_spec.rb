@@ -38,68 +38,54 @@ describe RegistrationsController do
 
   end
 
-  describe "GET password" do
-    context "with logged in user" do
-      it "renders the :password view" do
-        @request.env["devise.mapping"] = Devise.mappings[:user]
-        sign_in regular
-        get :password
-        response.should render_template :password
-      end
-
-      it "assigns current_user to @user" do
-        @request.env["devise.mapping"] = Devise.mappings[:user]
-        sign_in regular
-        get :password
-        assigns(:user).should == regular
-      end
-    end
-  end
-
   describe "PUT update" do
-    before :each do
-      @attrs = { name: regular.name, username: regular.username, email: regular.email, bio: regular.bio, website: regular.website, twitter: "test", current_password: "123qwe" }
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      sign_in regular
-    end
+    let!(:user) { create(:user) }
+    login_user
 
     context "update with password" do
       context "with valid attributes" do
-        it "redirects to root_url" do
-          put :update, user: {email: "test2@test.com", current_password: "123qwe"}
-          response.should redirect_to root_url
+
+        before do
+          put :update, user: {
+                                email: "test2@test.com",
+                                password: 'testtest',
+                                password_confirmation: 'testtest',
+                                current_password: user.password
+                              }
         end
 
-        it "assigns current_user to @user" do
-          put :update, user: {email: "test2@test.com", current_password: "123qwe"}
-          assigns(:user).should == regular
-        end
+        it { is_expected.to redirect_to authenticated_root_url }
       end
 
       context "with invalid attributes" do
-        it "renders edit template" do
-          put :update, user: {email: "test2@test.com" , current_password: ""}
-          response.should render_template :edit
+        before do
+          put :update, user: {
+                                email: "test2@test.com",
+                                password: 'testtest',
+                                password_confirmation: 'testtest',
+                                current_password: ''
+                              }
         end
 
-        it "assigns current_user to @user" do
-          put :update, user: {email: "test2@test.com", current_password: ""}
-          assigns(:user).should == regular
-        end
+        it { is_expected.to render_template :edit }
+        it { expect(assigns(:user).errors).not_to be_empty }
       end
+
     end
 
     context "update without password" do
-      it "redirects to root_url" do
-        put :update, user: @attrs
-        response.should redirect_to root_url
+
+      before do
+        put :update, user: {
+                              email: user.email,
+                              first_name: "New Name",
+                              current_password: ''
+                            }
       end
 
-      it "assigns current_user to @user" do
-        put :update, user: @attrs
-        assigns(:user).should == regular
-      end
+      it { is_expected.to redirect_to authenticated_root_url }
     end
+
   end
 
 end
