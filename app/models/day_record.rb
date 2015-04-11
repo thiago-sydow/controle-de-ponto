@@ -31,7 +31,10 @@ class DayRecord
   end
 
   def balance
-    @balance ||= TimeBalance.new(user.workload, total_worked)
+    return @balance if @balance
+    @balance = TimeBalance.new
+    @balance.calculate_balance(user.workload, total_worked)
+    @balance
   end
 
   private
@@ -51,7 +54,7 @@ class DayRecord
 
       reference_time = time_record
     end
-    
+
     if reference_date.today? && time_records.size.odd?
       now_diff = Time.diff(reference_time.time, Time.current)
       total_worked = (total_worked + now_diff[:hour].hours) + now_diff[:minute].minutes

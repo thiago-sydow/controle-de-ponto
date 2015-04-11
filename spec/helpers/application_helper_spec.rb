@@ -15,25 +15,47 @@ describe ApplicationHelper do
     end
   end
 
-  describe '.get_icon_and_text_color_balance' do
+  describe '.get_text_color_balance' do
+    let(:balance) { TimeBalance.new }
+
     context 'when balance is positive' do
-      let(:balance) { TimeBalance.new(3.hours.ago, 2.hours.ago) }
+      before { balance.calculate_balance(3.hours.ago, 2.hours.ago) }
 
       it { expect(helper.get_text_color_balance(balance)).to eq 'text-success' }
+    end
+
+    context 'when balance is cleared' do
+      before { balance.calculate_balance(2.hours.ago, 2.hours.ago) }
+
+      it { expect(helper.get_text_color_balance(balance)).to eq 'text-success' }
+    end
+
+    context 'when balance is negative' do
+      before { balance.calculate_balance(2.hours.ago, 3.hours.ago) }
+
+      it { expect(helper.get_text_color_balance(balance)).to eq 'text-danger' }
+    end
+
+  end
+
+  describe '.get_icon_balance' do
+    let(:balance) { TimeBalance.new }
+
+    context 'when balance is positive' do
+      before { balance.calculate_balance(3.hours.ago, 2.hours.ago) }
+
       it { expect(helper.get_icon_balance(balance)).to eq 'fa-plus-circle' }
     end
 
     context 'when balance is cleared' do
-      let(:balance) { TimeBalance.new(2.hours.ago, 2.hours.ago) }
+      before { balance.calculate_balance(2.hours.ago, 2.hours.ago) }
 
-      it { expect(helper.get_text_color_balance(balance)).to eq 'text-success' }
       it { expect(helper.get_icon_balance(balance)).to eq 'fa-check-circle' }
     end
 
     context 'when balance is negative' do
-      let(:balance) { TimeBalance.new(2.hours.ago, 3.hours.ago) }
+      before { balance.calculate_balance(2.hours.ago, 3.hours.ago) }
 
-      it { expect(helper.get_text_color_balance(balance)).to eq 'text-danger' }
       it { expect(helper.get_icon_balance(balance)).to eq 'fa-minus-circle' }
     end
 
