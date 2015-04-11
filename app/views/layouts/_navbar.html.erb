@@ -20,7 +20,7 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="<%= 'active' if current_page?(day_records_path) || current_page?(root_path) %>">
+				<li class="<%= 'active' if current_page?(day_records_path) || current_page?(authenticated_root_path) %>">
           <%= link_to day_records_path do %>
             <i class="menu-icon fa fa-caret-right"></i>
             Relatório
