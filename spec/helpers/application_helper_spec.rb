@@ -20,21 +20,21 @@ describe ApplicationHelper do
       let(:balance) { TimeBalance.new(3.hours.ago, 2.hours.ago) }
 
       it { expect(helper.get_text_color_balance(balance)).to eq 'text-success' }
-      it { expect(helper.get_icon_balance(balance)).to eq 'text-success fa-plus-circle' }
+      it { expect(helper.get_icon_balance(balance)).to eq 'fa-plus-circle' }
     end
 
     context 'when balance is cleared' do
       let(:balance) { TimeBalance.new(2.hours.ago, 2.hours.ago) }
 
       it { expect(helper.get_text_color_balance(balance)).to eq 'text-success' }
-      it { expect(helper.get_icon_balance(balance)).to eq 'text-success fa-check-circle' }
+      it { expect(helper.get_icon_balance(balance)).to eq 'fa-check-circle' }
     end
 
     context 'when balance is negative' do
       let(:balance) { TimeBalance.new(2.hours.ago, 3.hours.ago) }
 
       it { expect(helper.get_text_color_balance(balance)).to eq 'text-danger' }
-      it { expect(helper.get_icon_balance(balance)).to eq 'fa-minus-circle text-danger' }
+      it { expect(helper.get_icon_balance(balance)).to eq 'fa-minus-circle' }
     end
 
   end

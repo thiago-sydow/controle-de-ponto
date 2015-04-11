@@ -41,9 +41,9 @@
         </p>
       </td>
       <td class="text-center">
-        <p class="time-p">
-          <strong><span class="<%= get_icon_balance(day_record.balance) %>"><%= day_record.balance %></span></strong>
-          <i class="fa <%= get_text_color_balance(day_record.balance) %>"></i>
+        <p class="time-p <%= get_text_color_balance(day_record.balance) %>">
+          <strong><%= day_record.balance %></strong>
+          <i class="fa <%= get_icon_balance(day_record.balance) %>"></i>
         </p>
       </td>
       <td class="text-center">

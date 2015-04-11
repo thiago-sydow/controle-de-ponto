@@ -17,12 +17,12 @@ module ApplicationHelper
   def get_icon_balance(balance)
 
     if balance.cleared?
-      return 'text-success fa-check-circle'
+      return 'fa-check-circle'
     elsif balance.positive?
-      return 'text-success fa-plus-circle'
+      return 'fa-plus-circle'
     end
 
-    'fa-minus-circle text-danger'
+    'fa-minus-circle'
   end
 
   def flash_class(type)
