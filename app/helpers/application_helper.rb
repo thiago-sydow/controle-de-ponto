@@ -4,32 +4,26 @@ module ApplicationHelper
     "#{type_label(index)} #{number_label(index)}"
   end
 
-  private
+  def get_text_color_balance(balance)
 
-  def type_label(index)
-    index % 2 == 0 ? 'Entrada ' : 'Saída '
-  end
-
-  def number_label(index)
-    ((index + 1) / 2.to_f).ceil
-  end
-
-  def get_icon_and_text_color_balance(balance)
-    text_color = 'text-success'
-    icon_class = 'text-success'
-
-    if balance.cleared?
-      icon_class << ' fa-check-circle'
-    elsif balance.positive?
-      icon_class << ' fa-plus-circle'
+    if balance.cleared? || balance.positive?
+      text_color = 'text-success'
     else
-      icon_class = 'fa-minus-circle text-danger'
       text_color = 'text-danger'
     end
 
-    { icon_class: icon_class, text_color: text_color }
   end
 
+  def get_icon_balance(balance)
+
+    if balance.cleared?
+      return 'text-success fa-check-circle'
+    elsif balance.positive?
+      return 'text-success fa-plus-circle'
+    end
+
+    'fa-minus-circle text-danger'
+  end
 
   def flash_class(type)
     case type
@@ -47,6 +41,17 @@ module ApplicationHelper
     when 'notice'  then 'fa-info'
     when 'alert'   then 'fa-exclamation-triangle'
     end
+  end
+
+  private
+
+  def type_label(index)
+    index % 2 == 0 ? 'Entrada' : 'Saída'
+  end
+
+
+  def number_label(index)
+    ((index + 1) / 2.to_f).ceil
   end
 
 end

@@ -6,6 +6,8 @@ module DeviseHelper
    formatted_login_error(alert)
  end
 
+  private
+
   def formatted_login_error(alert)
     html = <<-HTML
     <div class="alert alert-danger">
