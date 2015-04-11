@@ -1,16 +1,16 @@
 <div id="sidebar" class="sidebar responsive" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
 	<ul class="nav nav-list" style="top: 0px;">
-		<li class="">
-			<a href="#">
+		<li class="<%= 'active' if current_page?(dashboard_index_path) %>">
+			<%= link_to dashboard_index_path do %>
 				<i class="menu-icon fa fa-tachometer"></i>
-				<span class="menu-text"> Dashboard </span>
-			</a>
+				Relatório
+			<% end %>
 
 			<b class="arrow"></b>
 		</li>
 
 		<li class="active open">
-			<a href="form-elements.html#" class="dropdown-toggle">
+			<a href="#" >
 				<i class="menu-icon fa fa-list"></i>
 				<span class="menu-text"> Registros </span>
 

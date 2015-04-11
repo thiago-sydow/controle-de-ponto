@@ -1,0 +1,58 @@
+<% content_for :page_header do %>
+  <h1 class="heading text-left">Dashboard
+    <small>
+		  <i class="ace-icon fa fa-angle-double-right"></i>
+		  Visualize rapidamente suas estatísticas
+		</small>
+  </h1>
+<% end %>
+
+<div class="col-sm-7">
+		<div class="infobox infobox-green col-lg-3 col-xs-6">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-plus-circle"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= @balance.to_s %></span>
+				<div class="infobox-content">Saldo de horas</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-user"></i>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= current_user.workload.to_s(:time) %></span>
+				<div class="infobox-content">Jornada de trabalho</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-pink">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-sign-out"></i>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= current_user.workload.to_s(:time) %></span>
+				<div class="infobox-content">Previsão de saída</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue2">
+			<div class="infobox-progress">
+				<div class="easy-pie-chart percentage" data-percent="45" data-size="46" style="height: 46px; width: 46px; line-height: 45px;">
+					<span class="percent">42</span>%
+				<canvas height="46" width="46"></canvas></div>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= @total_worked.to_s(:time) %></span>
+
+				<div class="infobox-content">Total de hoje</div>
+			</div>
+		</div>
+
+
+	</div>

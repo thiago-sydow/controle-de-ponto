@@ -25,3 +25,4 @@
 //= require moment
 //= require moment.pt-br
 //= require daterangepicker
+//= require jquery.easypiechart
