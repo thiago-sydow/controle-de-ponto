@@ -2,7 +2,7 @@ class DayRecord
   include Mongoid::Document
   extend Enumerize
 
-  ZERO_HOUR = Time.current.change(hour: 0, minute: 0)
+  ZERO_HOUR = Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0)
 
   field :reference_date, type: Date, default: Date.current
   field :observations, type: String
@@ -13,17 +13,36 @@ class DayRecord
   enumerize :missed_day, in: {yes: 1, no: 0}, default: :no
 
   belongs_to :user
-  has_many :time_records, dependent: :delete
+  embeds_many :time_records
 
   accepts_nested_attributes_for :time_records, reject_if: :all_blank, allow_destroy: true
 
+  validates_presence_of :reference_date
   validates_uniqueness_of :reference_date, scope: :user_id
+
   default_scope -> { desc(:reference_date) }
 
-  def work_statistics
-    total_worked = ZERO_HOUR
+  def self.max_time_count_for_user(user)
+    where(user: user).map { |day| day.time_records.count }.max || 0
+  end
 
-    return total_worked if time_records.empty?
+  def total_worked
+    @total_worked ||= calculate_total_worked_hours
+  end
+
+  def balance
+    return @balance if @balance
+    @balance = TimeBalance.new
+    @balance.calculate_balance(user.workload, total_worked)
+    @balance
+  end
+
+  private
+
+  def calculate_total_worked_hours
+    return ZERO_HOUR if time_records.empty?
+
+    total_worked = ZERO_HOUR
 
     reference_time = time_records.first
     time_records.each_with_index do |time_record, index|
@@ -36,15 +55,12 @@ class DayRecord
       reference_time = time_record
     end
 
-    if reference_date.today? && !time_records.size.even?
+    if reference_date.today? && time_records.size.odd?
       now_diff = Time.diff(reference_time.time, Time.current)
       total_worked = (total_worked + now_diff[:hour].hours) + now_diff[:minute].minutes
     end
 
-    balance = ( user.workload - total_worked.hour.hours) - total_worked.min.minutes
-    wl = balance.change(hour: user.workload.hour, min: user.workload.min)
-
-    { total_worked: total_worked, balance: balance, positive: wl < balance }
+    total_worked
   end
 
 end
