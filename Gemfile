@@ -50,4 +50,5 @@ group :test do
   gem 'turnip'
   gem 'rspec_candy', '~> 0.3.1'
   gem 'fuubar'
+  gem 'faker'
 end
