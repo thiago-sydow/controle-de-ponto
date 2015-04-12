@@ -35,16 +35,23 @@
 			</div>
 
 			<div class="infobox-data">
-				<span class="infobox-data-number"><%= current_user.workload.to_s(:time) %></span>
+				<span class="infobox-data-number"><%= @departure_time.to_s(:time) %></span>
 				<div class="infobox-content">Previsão de saída</div>
 			</div>
 		</div>
 
 		<div class="infobox infobox-blue2">
 			<div class="infobox-progress">
-				<div class="easy-pie-chart percentage" data-percent="45" data-size="46" style="height: 46px; width: 46px; line-height: 45px;">
-					<span class="percent">42</span>%
-				<canvas height="46" width="46"></canvas></div>
+        <%
+          base_time = Time.zone.local(1999, 8, 1).midnight
+          time_1 = Time.zone.local(1999, 8, 1).change(hour: current_user.workload.hour, min: current_user.workload.min)
+          time_2 = Time.zone.local(1999, 8, 1).change(hour: @total_worked.hour, min: @total_worked.min)
+
+          percentage = (( (time_2 - base_time) / (time_1 - base_time) ) * 100).round(1)
+         %>
+				<div class="easy-pie-chart percentage" data-percent="<%= percentage %>" data-size="60" style="height: 60px; width: 60; line-height: 58px;">
+					<span class="percent"><%= percentage %></span>%
+				<canvas height="60" width="60"></canvas></div>
 			</div>
 
 			<div class="infobox-data">

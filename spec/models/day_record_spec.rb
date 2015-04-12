@@ -75,12 +75,31 @@ RSpec.describe DayRecord do
 
           context 'and the number of time records is even' do
             it { expect(day.total_worked).to eq base_time.change(hour: 3, min: 56) }
+
+            context 'multiple time records' do
+              let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
+              let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
+              let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
+              let!(:time_6) { create(:time_record, time: base_time.change(hour: 19, min: 20), day_record: day) }
+
+              it { expect(day.total_worked).to eq base_time.change(hour: 8, min: 10) }
+            end
+
           end
 
           context 'and the number of time records is odd' do
             let!(:time_3) { create(:time_record, time: base_time.change(hour: 14, min: 0), day_record: day) }
 
             it { expect(day.total_worked).to eq base_time.change(hour: 3, min: 56) }
+
+            context 'multiple time records' do
+              let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
+              let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
+              let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
+
+              it { expect(day.total_worked).to eq base_time.change(hour: 5, min: 30) }
+            end
+
           end
         end
 
@@ -91,12 +110,31 @@ RSpec.describe DayRecord do
 
           context 'and the number of time records is even' do
             it { expect(day.total_worked).to eq base_time.change(hour: 3, min: 56) }
+
+            context 'multiple time records' do
+              let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
+              let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
+              let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
+              let!(:time_6) { create(:time_record, time: base_time.change(hour: 19, min: 20), day_record: day) }
+
+              it { expect(day.total_worked).to eq base_time.change(hour: 8, min: 10) }
+            end
+
           end
 
           context 'and the number of time records is odd' do
             let!(:time_3) { create(:time_record, time: base_time.change(hour: 14, min: 0), day_record: day) }
 
             it { expect(day.total_worked).to eq sum_current(base_time.change(hour: 3, min: 56), time_3) }
+
+            context 'multiple time records' do
+              let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
+              let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
+              let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
+
+              it { expect(day.total_worked).to eq sum_current(base_time.change(hour: 5, min: 30), time_5) }
+            end
+
           end
 
         end
