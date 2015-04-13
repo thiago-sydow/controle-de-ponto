@@ -20,7 +20,7 @@ Instale as dependências
     bundle install
 
 
-Rode os testes :+1:
+Rode os testes
 
     rspec
 
