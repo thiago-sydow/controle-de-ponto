@@ -124,9 +124,9 @@ RSpec.describe TimeBalance do
           balance.calculate_balance(1.hours.ago + 10.minutes, 2.hours.ago)
           balance_1.calculate_balance(2.hours.ago, 3.hours.ago + 29.minutes)
           balance_2.calculate_balance(3.hours.ago +  45.minutes, 8.hours.ago)
-          balance_3.calculate_balance(6.hours.ago, 4.hours.ago - 16.minutes )
+          balance_3.calculate_balance(6.hours.ago, 4.hours.ago - 16.minutes)
           balance_4.calculate_balance(5.hours.ago +  59.minutes, 6.hours.ago)
-          
+
           balance.sum(balance_1).sum(balance_2).sum(balance_3).sum(balance_4)
         end
 

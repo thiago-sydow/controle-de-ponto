@@ -30,7 +30,7 @@ class TimeBalance
   end
 
   def to_s
-    "%02d:%02d" % [self.hour.abs, self.minute.abs]
+    '%02d:%02d' % [self.hour.abs, self.minute.abs]
   end
 
   private
