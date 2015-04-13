@@ -8,9 +8,9 @@
 <% end %>
 
 <div class="col-sm-7">
-		<div class="infobox infobox-green col-lg-3 col-xs-6">
+		<div class="infobox <%= get_dashboard_color(@balance) %> col-lg-3 col-xs-6">
 			<div class="infobox-icon">
-				<i class="ace-icon fa fa-plus-circle"></i>
+				<i class="ace-icon fa <%= get_icon_balance(@balance) %>"></i>
 			</div>
 			<div class="infobox-data">
 				<span class="infobox-data-number"><%= @balance.to_s %></span>

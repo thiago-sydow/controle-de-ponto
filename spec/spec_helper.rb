@@ -1,8 +1,15 @@
 require 'rspec_candy/all'
 require 'simplecov'
-require 'codeclimate-test-reporter'
+require 'coveralls'
+#require 'codeclimate-test-reporter'
+#CodeClimate::TestReporter.start
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+
 SimpleCov.start 'rails'
-CodeClimate::TestReporter.start
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
