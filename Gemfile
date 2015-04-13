@@ -25,6 +25,9 @@ gem 'twitter-bootstrap-rails-confirm'
 gem 'jquery-datatables-rails', '~> 3.2.0'
 gem 'kaminari'
 
+gem 'burgundy'
+gem 'rollbar', '~> 1.4.4'
+
 gem 'passenger'
 
 group :production do

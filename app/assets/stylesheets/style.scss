@@ -6,3 +6,7 @@
 .infobox > .infobox-data { top: 5px; }
 .infobox > .infobox-progress { width: 60px; }
 .infobox { height: 80px; }
+
+#sidebar .infobox { width: 190px; }
+#sidebar .infobox > .infobox-data { min-width: 80px; }
+.navbar-footer {  }
