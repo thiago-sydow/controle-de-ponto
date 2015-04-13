@@ -61,6 +61,29 @@ describe ApplicationHelper do
 
   end
 
+  describe '.get_dashboard_color' do
+    let(:balance) { TimeBalance.new }
+
+    context 'when balance is positive' do
+      before { balance.calculate_balance(3.hours.ago, 2.hours.ago) }
+
+      it { expect(helper.get_dashboard_color(balance)).to eq 'infobox-green' }
+    end
+
+    context 'when balance is cleared' do
+      before { balance.calculate_balance(2.hours.ago, 2.hours.ago) }
+
+      it { expect(helper.get_dashboard_color(balance)).to eq 'infobox-green' }
+    end
+
+    context 'when balance is negative' do
+      before { balance.calculate_balance(2.hours.ago, 3.hours.ago) }
+
+      it { expect(helper.get_dashboard_color(balance)).to eq 'infobox-red' }
+    end
+
+  end
+
   describe '#flash_class' do
     context 'success' do
       it { expect(flash_class('success')).to eq 'success' }

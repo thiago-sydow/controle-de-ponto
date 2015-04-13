@@ -37,30 +37,49 @@ class DayRecord
     @balance
   end
 
+  def forecast_departure_time
+    return ZERO_HOUR if time_records.empty? || !reference_date.today?
+
+    rest = calculate_hours(false)
+
+    time_records.first.time + user.workload.hour.hours + user.workload.min.minutes + rest.hour.hours + rest.min.minutes
+  end
+
   private
 
   def calculate_total_worked_hours
     return ZERO_HOUR if time_records.empty?
 
-    total_worked = ZERO_HOUR
+    total_worked = calculate_hours
+
+    sum_current_time_to_total(time_records.last.time, total_worked)
+  end
+
+  def calculate_hours(worked_hours = true)
+    total = ZERO_HOUR
 
     reference_time = time_records.first
+
     time_records.each_with_index do |time_record, index|
       diff = Time.diff(reference_time.time, time_record.time)
 
-      if index.odd?
-        total_worked = (total_worked + diff[:hour].hours) + diff[:minute].minutes
+      if worked_hours
+        total = (total + diff[:hour].hours) + diff[:minute].minutes if index.odd?
+      else
+        total = (total + diff[:hour].hours) + diff[:minute].minutes if index.even?
       end
 
       reference_time = time_record
     end
 
-    if reference_date.today? && time_records.size.odd?
-      now_diff = Time.diff(reference_time.time, Time.current)
-      total_worked = (total_worked + now_diff[:hour].hours) + now_diff[:minute].minutes
-    end
+    total
+  end
 
-    total_worked
+  def sum_current_time_to_total(last_time_record, total)
+    return total unless reference_date.today? && time_records.size.odd?
+
+    now_diff = Time.diff(last_time_record, Time.current)
+    (total + now_diff[:hour].hours) + now_diff[:minute].minutes
   end
 
 end

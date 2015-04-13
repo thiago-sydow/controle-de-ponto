@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     #get 'success', action: 'success', controller: 'registrations', as: 'success'
 
     authenticated :user do
-      root 'day_records#index', as: :authenticated_root
+      root 'dashboard#index', as: :authenticated_root
       resources :day_records
+      resources :dashboard, only: [:index]
     end
 
     unauthenticated do

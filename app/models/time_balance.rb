@@ -5,52 +5,47 @@ class TimeBalance
   attr_accessor :hour, :minute
 
   def initialize
-    @hour = 0
-    @minute = 0
+    self.hour = 0
+    self.minute = 0
   end
 
   def calculate_balance(time_1, time_2)
-    time_1  = BASE_TIME.change(hour: time_1.hour, min: time_1.min)
-    time_2 = BASE_TIME.change(hour: time_2.hour, min: time_2.min)
+    calculate(-(time_1.hour.hours + time_1.min.minutes), (time_2.hour.hours + time_2.min.minutes))
 
-    @hour, @minute = calculate(time_1, time_2)
-
-    @positive = time_2 > time_1
     @cleared = time_1 == time_2
   end
 
   def positive?
-    @positive
+    self.hour > 0 || self.minute > 0
   end
 
   def cleared?
-    @cleared
+    self.hour == 0 && self.minute == 0
   end
 
   def sum(balance)
-    @hour += balance.hour
-    @minute += balance.minute
+    calculate((self.hour.hours + self.minute.minutes), (balance.hour.hours + balance.minute.minutes))
+
+    self
   end
 
   def to_s
-    "%02d:%02d" % [@hour, @minute]
+    '%02d:%02d' % [self.hour.abs, self.minute.abs]
   end
 
   private
 
-  def get_ordered(time_1, time_2)
-    major, minor = [time_1, time_2].sort.reverse
-
-    [major, minor]
-  end
-
   def calculate(time_1, time_2)
-    major, minor = get_ordered(time_1, time_2)
+    total = time_1 + time_2
+    mm, _ss = total.divmod(60)
 
-    total = major.to_i - minor.to_i
-    mm, ss = total.divmod(60)
+    self.hour, self.minute = mm.abs.divmod(60)
 
-    mm.divmod(60)
+    if total < 0
+      self.hour *= -1
+      self.minute *= -1
+    end
+
   end
 
 end

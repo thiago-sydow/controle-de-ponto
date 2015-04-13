@@ -25,6 +25,15 @@ module ApplicationHelper
     'fa-minus-circle'
   end
 
+  def get_dashboard_color(balance)
+
+    if balance.cleared? || balance.positive?
+      return 'infobox-green'
+    end
+
+    'infobox-red'
+  end
+
   def flash_class(type)
     case type
     when 'success' then 'success'

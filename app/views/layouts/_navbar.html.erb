@@ -1,16 +1,16 @@
 <div id="sidebar" class="sidebar responsive" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
 	<ul class="nav nav-list" style="top: 0px;">
-		<li class="">
-			<a href="#">
+		<li class="<%= 'active' if current_page?(dashboard_index_path) || current_page?(authenticated_root_path) %>">
+			<%= link_to dashboard_index_path do %>
 				<i class="menu-icon fa fa-tachometer"></i>
-				<span class="menu-text"> Dashboard </span>
-			</a>
+				Dashboard
+			<% end %>
 
 			<b class="arrow"></b>
 		</li>
 
 		<li class="active open">
-			<a href="form-elements.html#" class="dropdown-toggle">
+			<a href="#" >
 				<i class="menu-icon fa fa-list"></i>
 				<span class="menu-text"> Registros </span>
 
@@ -20,7 +20,7 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="<%= 'active' if current_page?(day_records_path) || current_page?(authenticated_root_path) %>">
+				<li class="<%= 'active' if current_page?(day_records_path) %>">
           <%= link_to day_records_path do %>
             <i class="menu-icon fa fa-caret-right"></i>
             Relatório

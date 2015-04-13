@@ -78,4 +78,64 @@ RSpec.describe TimeBalance do
 
   end
 
+  describe '#sum' do
+
+    context 'negative balances' do
+      let!(:balance_1) { TimeBalance.new }
+
+      context 'both are negatives' do
+
+        before do
+          balance.calculate_balance(3.hours.ago, 8.hours.ago)
+          balance_1.calculate_balance(2.hours.ago, 3.hours.ago)
+        end
+
+        it { expect(balance.sum(balance_1).hour).to eq -6 }
+        it { expect(balance.sum(balance_1).minute).to eq 0 }
+      end
+
+      context 'when other is negative' do
+
+        before do
+          balance.calculate_balance(2.hours.ago, 1.hours.ago)
+          balance_1.calculate_balance(2.hours.ago, 6.hours.ago)
+        end
+
+        it { expect(balance.sum(balance_1).hour).to eq -3 }
+        it { expect(balance.sum(balance_1).minute).to eq 0 }
+      end
+
+      context 'when other is cleared' do
+
+        before do
+          balance.calculate_balance(1.hours.ago, 2.hours.ago)
+          balance_1.calculate_balance(2.hours.ago, 2.hours.ago)
+        end
+
+        it { expect(balance.sum(balance_1).hour).to eq -1 }
+      end
+
+      context 'many balances' do
+        let!(:balance_2) { TimeBalance.new }
+        let!(:balance_3) { TimeBalance.new }
+        let!(:balance_4) { TimeBalance.new }
+
+        before do
+          balance.calculate_balance(1.hours.ago + 10.minutes, 2.hours.ago)
+          balance_1.calculate_balance(2.hours.ago, 3.hours.ago + 29.minutes)
+          balance_2.calculate_balance(3.hours.ago +  45.minutes, 8.hours.ago)
+          balance_3.calculate_balance(6.hours.ago, 4.hours.ago - 16.minutes)
+          balance_4.calculate_balance(5.hours.ago +  59.minutes, 6.hours.ago)
+
+          balance.sum(balance_1).sum(balance_2).sum(balance_3).sum(balance_4)
+        end
+
+        it { expect(balance.hour).to eq -7 }
+        it { expect(balance.minute).to eq -41 }
+      end
+
+    end
+
+  end
+
 end
