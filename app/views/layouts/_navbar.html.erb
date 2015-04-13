@@ -1,13 +1,5 @@
 <div id="sidebar" class="sidebar responsive" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
 	<ul class="nav nav-list" style="top: 0px;">
-		<li class="<%= 'active' if current_page?(dashboard_index_path) || current_page?(authenticated_root_path) %>">
-			<%= link_to dashboard_index_path do %>
-				<i class="menu-icon fa fa-tachometer"></i>
-				Dashboard
-			<% end %>
-
-			<b class="arrow"></b>
-		</li>
 
 		<li class="active open">
 			<a href="#" >
@@ -20,7 +12,7 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="<%= 'active' if current_page?(day_records_path) %>">
+				<li class="<%= 'active' if current_page?(day_records_path) || current_page?(authenticated_root_path) %>">
           <%= link_to day_records_path do %>
             <i class="menu-icon fa fa-caret-right"></i>
             Relatório
@@ -41,4 +33,52 @@
 		</li>
 
 	</ul><!-- /.nav-list -->
+	<div class="navbar-footer">
+		<div class="infobox <%= get_dashboard_color(@dashboard.total_balance) %>">
+			<div class="infobox-icon">
+				<i class="ace-icon fa <%= get_icon_balance(@dashboard.total_balance) %>"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= @dashboard.total_balance.to_s %></span>
+				<div class="infobox-content">Saldo de horas</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-user"></i>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= current_user.workload.to_s(:time) %></span>
+				<div class="infobox-content">Jornada de trabalho</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-pink">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-sign-out"></i>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= @dashboard.departure_time.to_s(:time) %></span>
+				<div class="infobox-content">Previsão de saída</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue2">
+			<div class="infobox-progress">
+				<div class="easy-pie-chart percentage" data-percent="<%= @dashboard.percentage_worked %>" data-size="60" style="height: 60px; width: 60; line-height: 58px;">
+					<span class="percent"><%= @dashboard.percentage_worked %></span>%
+				<canvas height="60" width="60"></canvas></div>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number"><%= @dashboard.total_worked.to_s(:time) %></span>
+
+				<div class="infobox-content">Total de hoje</div>
+			</div>
+		</div>
+	</div>
+
 </div>

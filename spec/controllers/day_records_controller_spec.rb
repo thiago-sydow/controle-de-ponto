@@ -205,9 +205,7 @@ describe DayRecordsController do
       end
 
       context ' and parameters are wrong' do
-        before { delete :destroy, id: '11111' }
-
-        it { expect(response).to have_http_status(:not_found) }
+        it { expect{ delete :destroy, id: '11111' }.to raise_error(Mongoid::Errors::DocumentNotFound) }
       end
 
       context ' and an error occured while updating' do

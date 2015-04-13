@@ -74,7 +74,7 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
- config.action_mailer.default_url_options = { host: 'http://www.controledeponto.com.br' }
+ config.action_mailer.default_url_options = { host: 'http://www.meucontroledeponto.com.br' }
 
  ActionMailer::Base.smtp_settings = {
    address: 'smtp.sendgrid.net',
@@ -83,7 +83,7 @@ Rails.application.configure do
    enable_starttls_auto: true,
    user_name: ENV['SENDGRID_USER'],
    password: ENV['SENDGRID_PASS'],
-   domain: 'controledeponto.com.br'
+   domain: 'meucontroledeponto.com.br'
  }
 
 end

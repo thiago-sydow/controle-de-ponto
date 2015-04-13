@@ -3,8 +3,7 @@ class DayRecordsController < ApplicationController
 
   before_action :find_record, only: [:edit, :update, :destroy]
   before_action :set_date_range, only: [:index]
-
-  rescue_from Mongoid::Errors::DocumentNotFound, :with => :record_not_found
+  before_action :set_dashboard, expect: [:update, :destroy, :create]
 
   def index
     @day_records = current_user.day_records.where(reference_date: from..to).page params[:page]
@@ -60,6 +59,10 @@ class DayRecordsController < ApplicationController
 
   private
 
+  def set_dashboard
+    @dashboard ||= DashboardPresenter.new(current_user)
+  end
+
   def set_date_range
     @from = from
     @to = to
@@ -93,11 +96,8 @@ class DayRecordsController < ApplicationController
     return default if param.blank?
     Time.zone.parse(param).to_date
   rescue ArgumentError
+    Rollbar.warning('Formato invalido de data')
     default
-  end
-
-  def record_not_found
-    render :text => "404 Not Found", :status => 404
   end
 
 end
