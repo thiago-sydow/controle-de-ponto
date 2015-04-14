@@ -1,6 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  before_action :set_dashboard, only: [:edit]
+
   def update
     @user = User.find(current_user.id)
 
@@ -17,6 +19,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def set_dashboard
+    @dashboard ||= DashboardPresenter.new(current_user)
+  end
 
   def update_user
     if needs_password?(@user, params)

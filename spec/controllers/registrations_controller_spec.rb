@@ -34,8 +34,20 @@ describe RegistrationsController do
 
       it { is_expected.to render_template(:new) }
       it { expect(assigns(:user).errors.empty?).to be_falsey }
+      it { expect(assigns(:dashboard)).to be_nil }
     end
 
+  end
+
+  describe "GET edit" do
+    let!(:user) { create(:user) }
+    login_user
+
+    before do
+      get :edit
+    end
+
+    it { expect(assigns(:dashboard)).not_to be_nil }
   end
 
   describe "PUT update" do
