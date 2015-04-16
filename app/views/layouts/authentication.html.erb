@@ -2,11 +2,14 @@
 <html>
 <head>
   <title>Meu Controle de Ponto</title>
+  <%= render partial: 'shared/favicons' %>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <% yield :page_styles %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
+  <%= render partial: 'shared/analytics_script' %>
 </head>
 <body class="login-layout light-login">
 <div class="main-container">
@@ -16,7 +19,15 @@
 				<div class="login-container">
 					<div class="center">
 						<h1>
-							<span class="grey">Meu Controle de Ponto</span>
+							<span class="grey">
+                <small>
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-calendar-o fa-stack-2x"></i>
+
+                    <i class="fa fa-clock-o" style="right: 6px; bottom: 3px; position: absolute;"></i>
+                  </span>
+                </small>
+                Meu Controle de Ponto</span>
 						</h1>
 					</div>
 

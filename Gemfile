@@ -20,7 +20,6 @@ gem 'time_diff'
 gem 'mongoid', '~> 4.0.0'
 gem 'enumerize'
 gem 'cocoon'
-gem 'rack-mini-profiler'
 gem 'twitter-bootstrap-rails-confirm'
 gem 'jquery-datatables-rails', '~> 3.2.0'
 gem 'kaminari'
@@ -30,8 +29,14 @@ gem 'rollbar', '~> 1.4.4'
 
 gem 'passenger'
 
+gem 'newrelic_rpm'
+
 group :production do
   gem 'rails_12factor'
+end
+
+group :development do
+  gem 'rack-mini-profiler'
 end
 
 group :development, :test do
