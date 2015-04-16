@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Meu Controle de Ponto</title>
+  <%= render partial: 'shared/favicons' %>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <% yield :page_styles %>
@@ -24,11 +25,15 @@
 				</button>
 
 				<div class="navbar-header pull-left">
-					<a href="form-elements.html#" class="navbar-brand">
-						<small>
-							<i class="fa fa-leaf"></i>
+					<a href="#" class="navbar-brand">
+            <small>
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-calendar-o fa-stack-2x"></i>
+
+                <i class="fa fa-clock-o" style="right: 6px; bottom: 3px; position: absolute;"></i>
+              </span>
+            </small>
 							Meu Controle de Ponto
-						</small>
 					</a>
 				</div>
 
@@ -222,7 +227,7 @@
 						</li> -->
 
 						<li class="light-blue">
-							<a data-toggle="dropdown" href="form-elements.html#" class="dropdown-toggle">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<!-- <img class="nav-user-photo" src="dist/avatars/user.jpg" alt="Jason's Photo" /> -->
 								<span class="user-info">
 									<small>Olá,</small>

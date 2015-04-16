@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pratt - Free Bootstrap 3 Theme">
-    <meta name="author" content="Alvarez.is - BlackTie.co">
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <meta name="description" content="Controle os horários de entrada, intervalo, saída e horas-extras de forma simples, prática e rápida." />
+    <meta name="author" content="Thiago von Sydow <thiagovs05@gmail.com>">
+    <%= render partial: 'shared/favicons' %>
 
-    <title>Pratt - Free Bootstrap 3 Theme</title>
+    <title>Meu Controle de Ponto - Controle as suas horas trabalhadas.</title>
 
     <!-- Custom styles for this template -->
     <%= stylesheet_link_tag    'main', media: 'all' %>
@@ -15,7 +15,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 
-
+    <%= render partial: 'shared/analytics_script' %>
   </head>
 
   <body>
@@ -29,15 +29,19 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	          </button>
-	          <a class="navbar-brand" href="#"><b>Pratt</b></a>
+	          <a class="navbar-brand" href="#"><b>Meu Controle de Ponto</b></a>
 	        </div>
-	        <div class="navbar-collapse collapse menu">
-	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="#section-home">Home</a></li>
-	            <li><a href="#section-intro">Description</a></li>
-	            <li><a href="#section-showcase">Showcase</a></li>
-	            <li><a href="#section-contact">Contact</a></li>
+	        <div class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav menu">
+	            <li class="active"><a href="#section-home" onclick="ga('send', 'pageview', '/home');" >Incício</a></li>
+	            <li><a href="#section-intro" onclick="ga('send', 'pageview', '/description');">Como funciona?</a></li>
+	            <li><a href="#section-showcase" onclick="ga('send', 'pageview', '/showcase');">Showcase</a></li>
+	            <li><a href="#section-contact" onclick="ga('send', 'pageview', '/contact');">Contato</a></li>
 	          </ul>
+            <ul class="nav navbar-nav pull-right">
+              <li><%= link_to 'Fazer login', new_user_session_path %></li>
+              <li><%= link_to 'Criar uma conta', new_user_registration_path %></li>
+            </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </div>
@@ -48,24 +52,25 @@
   	    <div class="container">
   	    	<div class="row centered">
   	    		<div class="col-lg-12">
-  					<h1>Welcome To <b>Pratt</b></h1>
-  					<h3>Show your product with this handsome theme.</h3>
+  					<h1>Meu Controle de Ponto</h1>
+  					<h3>Controle o seu horário de trabalho de forma prática em qualquer lugar.</h3>
   					<br>
   	    		</div>
 
   	    		<div class="col-lg-2">
-  	    			<h5>Amazing Results</h5>
-  	    			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  	    			<h5>Administre melhor o seu tempo</h5>
+  	    			<p>Visualize a previsão do horário de saída, saldo de horas e total de horas trabalhadas de forma prática.</p>
               <%= image_tag 'arrow1.png', class: 'hidden-xs hidden-sm hidden-md' %>
   	    		</div>
   	    		<div class="col-lg-8">
-              <%= image_tag 'app-bg.png', class: 'img-responsive' %>
+              <%= image_tag 'meucontrole_estatisticas.png', class: 'pull-left img-responsive', style: 'width: 22%;' %>
+              <%= image_tag 'meucontrole_intro.png', class: 'pull-right img-responsive', style: 'width: 77%;' %>
   	    		</div>
   	    		<div class="col-lg-2">
   	    			<br>
               <%= image_tag 'arrow2.png', class: 'hidden-xs hidden-sm hidden-md' %>
-  	    			<h5>Awesome Design</h5>
-  	    			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  	    			<h5>SEM RESTRIÇÃO: Marque quantas entradas e saídas quiser!</h5>
+  	    			<p>Você pode editar os seus horários, adicionar anotações e gerar relatórios de qualquer dispositivo com acesso à internet.</p>
   	    		</div>
   	    	</div>
   	    </div> <!--/ .container -->
@@ -78,23 +83,23 @@
   	<div id="intro">
   		<div class="container">
   			<div class="row centered">
-  				<h1>Designed To Excel</h1>
+  				<h1>Chega de usar planilha para controle de horas trabalhadas</h1>
   				<br>
   				<br>
   				<div class="col-lg-4">
             <%= image_tag 'intro01.png' %>
-  					<h3>Community</h3>
-  					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  					<h3>É só configurar e usar! Simples e muito fácil!</h3>
+  					<p>O Meu Controle de Ponto facilita o controle do horário do ponto e de horas extras.</p>
   				</div>
   				<div class="col-lg-4">
             <%= image_tag 'intro02.png' %>
-  					<h3>Schedule</h3>
-  					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  					<h3>Software gratuito para controle da sua jornada de trabalho</h3>
+  					<p>Organize os seus horários, jornada, calendários, justificativas, escalas, atrasos, afastamentos, férias, licenças, entre outros.</p>
   				</div>
   				<div class="col-lg-4">
             <%= image_tag 'intro03.png' %>
-  					<h3>Monitoring</h3>
-  					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  					<h3>Plataforma 100% WEB e fácil atualização.</h3>
+  					<p>Esteja sempre atento se deve horas ou se tem extra para receber. Você registra seus pontos e tem um relatório super completo.</p>
   				</div>
   			</div>
   			<br>
@@ -230,23 +235,23 @@
   			</div>
 
   			<div class="col-lg-7">
-  				<h3>Drop Us A Line</h3>
+  				<h3>Escreva uma mensagem</h3>
   				<br>
   				<form role="form" action="#" method="post" enctype="plain">
   				  <div class="form-group">
-  				    <label for="name1">Your Name</label>
-  				    <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name">
+  				    <label for="name1">Seu Nome</label>
+  				    <input type="name" name="name" class="form-control" id="name1" placeholder="Nome">
   				  </div>
   				  <div class="form-group">
-  				    <label for="email1">Email address</label>
-  				    <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email">
+  				    <label for="email1">Email</label>
+  				    <input type="email" name="email" class="form-control" id="email1" placeholder="Email">
   				  </div>
   				  <div class="form-group">
-  				  	<label>Your Text</label>
-  				  	<textarea class="form-control" name="Message" rows="3"></textarea>
+  				  	<label>Sua mensagem</label>
+  				  	<textarea class="form-control" name="message" rows="3"></textarea>
   				  </div>
   				  <br>
-  				  <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
+  				  <button type="submit" class="btn btn-large btn-success" >Enviar</button>
   				</form>
   			</div>
   		</div>

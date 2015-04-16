@@ -76,7 +76,7 @@
 					<div class="space-24"></div>
 
 					<div class="clearfix">
-            <%= f.button :button, class: 'width-65 pull-right btn btn-sm btn-success' do %>
+            <%= f.button :button, class: 'width-65 pull-right btn btn-sm btn-success', onclick: 'ga("send", "event", "registrations", "create");' do %>
             <span class="bigger-110">Cadastrar</span>
             <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
             <% end %>
