@@ -6,13 +6,13 @@ RSpec.describe TimeBalance do
   let(:balance) { TimeBalance.new }
 
   describe '#positive?' do
-    context 'when worked time is greater' do
+    context 'when time_2 is greater' do
       before { balance.calculate_balance(3.hours.ago, 2.hours.ago) }
 
       it { expect(balance.positive?).to be_truthy }
     end
 
-    context 'when workload is greater' do
+    context 'when time_1 is greater' do
       before { balance.calculate_balance(2.hours.ago, 3.hours.ago) }
 
       it { expect(balance.positive?).to be_falsey }
@@ -26,13 +26,13 @@ RSpec.describe TimeBalance do
   end
 
   describe '#cleared?' do
-    context 'when worked time is greater' do
+    context 'when time_2 is greater' do
       before { balance.calculate_balance(3.hours.ago, 2.hours.ago) }
 
       it { expect(balance.cleared?).to be_falsey }
     end
 
-    context 'when workload is greater' do
+    context 'when time_1 is greater' do
       before { balance.calculate_balance(2.hours.ago, 3.hours.ago) }
 
       it { expect(balance.cleared?).to be_falsey }
@@ -46,7 +46,7 @@ RSpec.describe TimeBalance do
   end
 
   describe '#to_s' do
-    context 'when worked time is greater' do
+    context 'when time_2 time is greater' do
       let!(:balance_1) { TimeBalance.new }
 
       before do
@@ -58,7 +58,7 @@ RSpec.describe TimeBalance do
       it { expect(balance_1.to_s).to eq '04:45' }
     end
 
-    context 'when workload is greater' do
+    context 'when time_1 is greater' do
       let!(:balance_1) { TimeBalance.new }
 
       before do

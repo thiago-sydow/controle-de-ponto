@@ -153,14 +153,67 @@ RSpec.describe DayRecord do
     end
 
     describe '#balance' do
+      let!(:day)  { create(:day_record, user: user) }
+      let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
+      let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
       context 'when total_worked is called twice' do
-        let!(:day)  { create(:day_record, user: user) }
 
         it 'returns object from memory on second call' do
           expect(day.balance).to eq(day.balance)
         end
 
+      end
+
+      context 'when is work day' do
+
+        context 'when missed the day' do
+
+          it 'ignore time records created and set to full workload negative' do
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.user.workload, base_time)
+            day.missed_day = :yes
+            day.save
+            day.balance
+          end
+
+        end
+
+        context 'when not missed the day' do
+
+          it 'calculates the balance normally' do
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.user.workload, day.total_worked)
+            day.balance
+          end
+
+        end
+
+      end
+
+      context 'when is non working day' do
+
+        context 'when missed the day' do
+
+          it 'ignore time records created and set to full workload negative' do
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(base_time, base_time)
+            day.missed_day = :yes
+            day.work_day = :no
+            day.save
+            day.balance
+          end
+
+        end
+
+        context 'when not missed the day' do
+
+          it 'ignore time records created and set to full workload negative' do
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(base_time, day.total_worked)
+            day.missed_day = :no
+            day.work_day = :no
+            day.save
+            day.balance
+          end
+
+        end
       end
 
     end

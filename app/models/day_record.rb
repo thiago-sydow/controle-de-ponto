@@ -33,7 +33,13 @@ class DayRecord
   def balance
     return @balance if @balance
     @balance = TimeBalance.new
-    @balance.calculate_balance(user.workload, total_worked)
+
+    if work_day.yes?
+      balance_for_working_day
+    else
+      balance_for_non_working_day
+    end
+
     @balance
   end
 
@@ -46,6 +52,22 @@ class DayRecord
   end
 
   private
+
+  def balance_for_working_day
+    if missed_day.no?
+      @balance.calculate_balance(user.workload, total_worked)
+    else
+      @balance.calculate_balance(user.workload, ZERO_HOUR)
+    end
+  end
+
+  def balance_for_non_working_day
+    if missed_day.no?
+      @balance.calculate_balance(ZERO_HOUR, total_worked)
+    else
+      @balance.calculate_balance(ZERO_HOUR, ZERO_HOUR)
+    end
+  end
 
   def calculate_total_worked_hours
     return ZERO_HOUR if time_records.empty?
