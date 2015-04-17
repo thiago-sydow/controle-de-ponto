@@ -128,7 +128,13 @@ hr {
 	padding-bottom: 50px;
 	.ac a {
 		font-size: 20px;
+
 	}
+
+	p {
+		margin: 0;
+	}
+
 }
 #showcase {
 	display: block;
@@ -138,6 +144,11 @@ hr {
 	h1 {
 		color: $white;
 	}
+
+	.carousel-indicators {
+    bottom: -40px;
+  }
+
 }
 #footerwrap {
 	background-color: $color_mine_shaft_approx;
