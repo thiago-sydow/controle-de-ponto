@@ -35,8 +35,7 @@
 	          <ul class="nav navbar-nav menu">
 	            <li class="active"><a href="#section-home" onclick="ga('send', 'pageview', '/home');" >Incício</a></li>
 	            <li><a href="#section-intro" onclick="ga('send', 'pageview', '/description');">Como funciona?</a></li>
-	            <li><a href="#section-showcase" onclick="ga('send', 'pageview', '/showcase');">Showcase</a></li>
-	            <li><a href="#section-contact" onclick="ga('send', 'pageview', '/contact');">Contato</a></li>
+	            <li><a href="#section-showcase" onclick="ga('send', 'pageview', '/showcase');">Imagens</a></li>
 	          </ul>
             <ul class="nav navbar-nav pull-right">
               <li><%= link_to 'Fazer login', new_user_session_path %></li>
@@ -59,7 +58,7 @@
 
   	    		<div class="col-lg-2">
   	    			<h5>Administre melhor o seu tempo</h5>
-  	    			<p>Visualize a previsão do horário de saída, saldo de horas e total de horas trabalhadas de forma prática.</p>
+  	    			<p>Visualize a previsão do horário de saída, saldo de horas e total de horas trabalhadas de maneira simples e objetiva.</p>
               <%= image_tag 'arrow1.png', class: 'hidden-xs hidden-sm hidden-md' %>
   	    		</div>
   	    		<div class="col-lg-8">
@@ -113,7 +112,7 @@
   	<div id="features">
   		<div class="container">
   			<div class="row">
-  				<h1 class="centered">What's New?</h1>
+  				<h1 class="centered">Tenha total controle e saiba qual é o seu saldo de horas de trabalho</h1>
   				<br>
   				<br>
   				<div class="col-lg-6 centered">
@@ -121,65 +120,129 @@
   				</div>
 
   				<div class="col-lg-6">
-  					<h3>Some Features</h3>
+  					<h3>O Meu Controle de Ponto permite que você registre seus horários e tenha um relatório de horas super completo sempre que quiser.</h3>
   					<br>
   				<!-- ACCORDION -->
-  		            <div class="accordion ac" id="accordion2">
-  		                <div class="accordion-group">
-  		                    <div class="accordion-heading">
-  		                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-  		                        First Class Design
-  		                        </a>
-  		                    </div><!-- /accordion-heading -->
-  		                    <div id="collapseOne" class="accordion-body collapse in">
-  		                        <div class="accordion-inner">
-  								<p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-  								</div><!-- /accordion-inner -->
-  		                    </div><!-- /collapse -->
-  		                </div><!-- /accordion-group -->
-  		                <br>
+              <div class="accordion ac" id="accordion2">
+                  <div class="accordion-group">
+                      <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                            CONTROLE TOTAL
+                          </a>
+                      </div><!-- /accordion-heading -->
+                      <div id="collapseOne" class="accordion-body collapse in">
+                          <div class="accordion-inner">
+  						<p>Registre suas entradas e saídas, altere ou exclua os registros sempre que quiser e tenha o cálculo de horas extras e horas devidas.</p>
+  						</div><!-- /accordion-inner -->
+                      </div><!-- /collapse -->
+                  </div><!-- /accordion-group -->
+                  <br>
 
-  		                <div class="accordion-group">
-  		                    <div class="accordion-heading">
-  		                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-  		                        Retina Ready Theme
-  		                        </a>
-  		                    </div>
-  		                    <div id="collapseTwo" class="accordion-body collapse">
-  		                        <div class="accordion-inner">
-  								<p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-  								</div><!-- /accordion-inner -->
-  		                    </div><!-- /collapse -->
-  		                </div><!-- /accordion-group -->
-  		                <br>
+                  <div class="accordion-group">
+                      <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                            SEM RESTRIÇÃO
+                          </a>
+                      </div>
+                      <div id="collapseTwo" class="accordion-body collapse in">
+                          <div class="accordion-inner">
+  						<p>Registre quantas entradas e saídas quiser por dia.</p>
+  						</div><!-- /accordion-inner -->
+                      </div><!-- /collapse -->
+                  </div><!-- /accordion-group -->
+                  <br>
 
-  		                 <div class="accordion-group">
-  		                    <div class="accordion-heading">
-  		                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-  		                        Awesome Support
-  		                        </a>
-  		                    </div>
-  		                    <div id="collapseThree" class="accordion-body collapse">
-  		                        <div class="accordion-inner">
-  								<p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-  								</div><!-- /accordion-inner -->
-  		                    </div><!-- /collapse -->
-  		                </div><!-- /accordion-group -->
-  		                <br>
+                   <div class="accordion-group">
+                      <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                            PAINEL
+                          </a>
+                      </div>
+                      <div id="collapseThree" class="accordion-body collapse in">
+                          <div class="accordion-inner">
+  						<p>Visualize o seu saldo diário, o tempo trabalhado e a previsão de saída de forma rápida.</p>
+  						</div><!-- /accordion-inner -->
+                      </div><!-- /collapse -->
+                  </div><!-- /accordion-group -->
+                  <br>
 
-  		                 <div class="accordion-group">
-  		                    <div class="accordion-heading">
-  		                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-  		                        Responsive Design
-  		                        </a>
-  		                    </div>
-  		                    <div id="collapseFour" class="accordion-body collapse">
-  		                        <div class="accordion-inner">
-  								<p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-  								</div><!-- /accordion-inner -->
-  		                    </div><!-- /collapse -->
-  		                </div><!-- /accordion-group -->
-  		                <br>
+                   <div class="accordion-group">
+                      <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                            RELATÓRIO COMPLETO
+                          </a>
+                      </div>
+                      <div id="collapseFour" class="accordion-body collapse in">
+                          <div class="accordion-inner">
+                						<p>Você pode gerar dados referente a qualquer data, entradas e saídas, carga horária, saldo, faltas ou feriados.</p>
+              						</div><!-- /accordion-inner -->
+                      </div><!-- /collapse -->
+                  </div><!-- /accordion-group -->
+                  <br>
+                  <div class="accordion-group">
+                     <div class="accordion-heading">
+                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                           DIA ÚTIL OU NÃO
+                         </a>
+                     </div>
+                     <div id="collapseFour" class="accordion-body collapse in">
+                         <div class="accordion-inner">
+                           <p>Informe o seu horário de trabalho em finais de semana ou feriados.</p>
+                         </div><!-- /accordion-inner -->
+                     </div><!-- /collapse -->
+                 </div><!-- /accordion-group -->
+                 <br>
+                 <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                          OBSERVAÇÕES
+                        </a>
+                    </div>
+                    <div id="collapseFour" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                          <p>Inclua observações e lembre-se porquê atrasou ou fez hora-extra.</p>
+                        </div><!-- /accordion-inner -->
+                    </div><!-- /collapse -->
+                </div><!-- /accordion-group -->
+                <br>
+                <div class="accordion-group">
+                   <div class="accordion-heading">
+                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                         CONFIGURAÇÕES
+                       </a>
+                   </div>
+                   <div id="collapseFour" class="accordion-body collapse in">
+                       <div class="accordion-inner">
+                         <p>Você pode configurar a sua jornada de trabalho de acordo com as suas necessidades.</p>
+                       </div><!-- /accordion-inner -->
+                   </div><!-- /collapse -->
+               </div><!-- /accordion-group -->
+               <br>
+               <div class="accordion-group">
+                  <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                        ENCONTRE
+                      </a>
+                  </div>
+                  <div id="collapseFour" class="accordion-body collapse in">
+                      <div class="accordion-inner">
+                        <p>Os seus horários estão sempre à mão. Pesquise qualquer horário em qualquer data.</p>
+                      </div><!-- /accordion-inner -->
+                  </div><!-- /collapse -->
+              </div><!-- /accordion-group -->
+              <br>
+              <div class="accordion-group">
+                 <div class="accordion-heading">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                       USABILIDADE
+                     </a>
+                 </div>
+                 <div id="collapseFour" class="accordion-body collapse in">
+                     <div class="accordion-inner">
+                       <p>Basta se cadastrar e começar a usar. É o fim dos arquivos excel para controle de horas trabalhadas.</p>
+                     </div><!-- /accordion-inner -->
+                 </div><!-- /collapse -->
+             </div><!-- /accordion-group -->
   					</div><!-- Accordion -->
   				</div>
   			</div>
@@ -192,7 +255,7 @@
     <div id="showcase">
   		<div class="container">
   			<div class="row">
-  				<h1 class="centered">Some Screenshots</h1>
+  				<h1 class="centered">Veja algumas imagens</h1>
   				<br>
   				<div class="col-lg-8 col-lg-offset-2">
   					<div id="carousel-example-generic" class="carousel slide">
@@ -200,15 +263,19 @@
   					  <ol class="carousel-indicators">
   					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
   					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
   					  </ol>
 
   					  <!-- Wrapper for slides -->
   					  <div class="carousel-inner">
   					    <div class="item active">
-                  <%= image_tag 'item-01.png' %>
+                  <%= image_tag 'showcase_1.png' %>
   					    </div>
   					    <div class="item">
-                  <%= image_tag 'item-02.png' %>
+                  <%= image_tag 'showcase_2.png' %>
+  					    </div>
+                <div class="item">
+                  <%= image_tag 'showcase_3.png' %>
   					    </div>
   					  </div>
   					</div>
@@ -221,15 +288,15 @@
   	</div>
   </section>
 
-	<section class="section-contact" name="contact">
+  <!-- <section class="section-contact" name="contact">
     <div id="footerwrap">
   		<div class="container">
   			<div class="col-lg-5">
   				<h3>Address</h3>
   				<p>
-  				Av. Greenville 987,<br/>
-  				New York,<br/>
-  				90873<br/>
+  				Av. Greenville 987,<br>
+  				New York,<br>
+  				90873<br>
   				United States
   				</p>
   			</div>
@@ -251,12 +318,12 @@
   				  	<textarea class="form-control" name="message" rows="3"></textarea>
   				  </div>
   				  <br>
-  				  <button type="submit" class="btn btn-large btn-success" >Enviar</button>
+  				  <button type="submit" class="btn btn-large btn-success">Enviar</button>
   				</form>
   			</div>
   		</div>
   	</div>
-  </section>
+  </section> -->
 
 	<%= javascript_include_tag 'jquery.min' %>
   <%= javascript_include_tag 'jquery.smint' %>
