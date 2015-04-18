@@ -56,6 +56,7 @@ class RegistrationsController < Devise::RegistrationsController
         :gender,
         :birthday,
         :workload,
+        :lunch_time,
         :password,
         :password_confirmation,
         :current_password)

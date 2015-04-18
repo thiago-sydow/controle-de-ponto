@@ -137,6 +137,22 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Tempo médio de Almoço</label>
+
+            <div class="col-sm-9">
+              <div class="input-medium">
+                <div class="input-group">
+                  <%= f.input_field :lunch_time, class: 'timepicker', value: f.object.lunch_time.try(:strftime, "%H:%M") || Time.current.midnight.strftime("%H:%M") %>
+                  <span class="input-group-addon">
+                    <i class="ace-icon fa fa-clock-o"></i>
+                  </span>
+                  <%= f.full_error :lunch_time, class: 'text-danger' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
 				</div>
 
 				<div id="edit-password" class="tab-pane">
