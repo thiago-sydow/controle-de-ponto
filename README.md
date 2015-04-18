@@ -3,7 +3,6 @@
 [![Code Climate](https://codeclimate.com/github/thiago-sydow/controle-de-ponto/badges/gpa.svg)](https://codeclimate.com/github/thiago-sydow/controle-de-ponto)
 [![Coverage Status](https://coveralls.io/repos/thiago-sydow/controle-de-ponto/badge.svg?branch=feature-dashboard)](https://coveralls.io/r/thiago-sydow/controle-de-ponto?branch=feature-dashboard)
 
-
 Aplicação para controle pessoal de horas trabalhadas. Relatórios, visualização de horário de saída, total trabalhado no dia.
 
 Disponível em [http://www.meucontroledeponto.com.br](http://www.meucontroledeponto.com.br/)
