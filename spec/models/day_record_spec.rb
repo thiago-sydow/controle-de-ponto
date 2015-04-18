@@ -236,7 +236,7 @@ RSpec.describe DayRecord do
         let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
         let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
-        context 'and the number of time records is even' do
+        context 'number of time records is even' do
           it { expect(day.forecast_departure_time).to eq base_time.change(hour: 16, min: 5) }
 
           context 'multiple time records' do
@@ -248,7 +248,7 @@ RSpec.describe DayRecord do
 
         end
 
-        context 'and the number of time records is odd' do
+        context 'number of time records is odd' do
           let!(:time_3) { create(:time_record, time: base_time.change(hour: 14, min: 1), day_record: day) }
 
           it { expect(day.forecast_departure_time).to eq base_time.change(hour: 18, min: 5) }
@@ -259,6 +259,21 @@ RSpec.describe DayRecord do
             let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
 
             it { expect(day.forecast_departure_time).to eq base_time.change(hour: 19, min: 10) }
+          end
+
+        end
+
+        context 'user lunch_time config is present' do
+          before { user.lunch_time = Time.current.change(hour: 1, min: 0); user.save }
+
+          context 'at most 2 time records' do
+            it { expect(day.forecast_departure_time).to eq base_time.change(hour: 17, min: 5) }
+          end
+
+          context 'more than 2 time records' do
+            let!(:time_3) { create(:time_record, time: base_time.change(hour: 13, min: 25), day_record: day) }
+
+            it { expect(day.forecast_departure_time).to eq base_time.change(hour: 17, min: 29) }
           end
 
         end
