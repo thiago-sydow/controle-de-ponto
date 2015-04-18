@@ -20,7 +20,7 @@ $(function(){
   $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não', onColor: 'success', offColor: 'danger'});
 
   $('.time-records-container').find('.nested-fields').each(function(index){
-    $(this).find('.entrance-exit').text(index % 2 == 0 ? 'Entrada ' : 'Saída ' );
+    $(this).find('.entrance-exit').text(index % 2 === 0 ? 'Entrada ' : 'Saída ' );
     $(this).find('.number-of-type').text(Math.ceil((index + 1) / 2));
   });
 
@@ -28,7 +28,7 @@ $(function(){
   .on('cocoon:before-insert', function(e, insertedItem) {
     var count = $('.nested-fields').length;
     if (count > 0) {
-      $(insertedItem).find('.entrance-exit').text(count % 2 == 0 ? 'Entrada ' : 'Saída ' );
+      $(insertedItem).find('.entrance-exit').text(count % 2 === 0 ? 'Entrada ' : 'Saída ' );
       $(insertedItem).find('.number-of-type').text(Math.ceil((count + 1) / 2));
     }
   })
@@ -37,20 +37,20 @@ $(function(){
   });
 
   $('.easy-pie-chart.percentage').each(function(){
-					var $box = $(this).closest('.infobox');
-					var barColor = $(this).data('color') || $box.css('color');
-					var trackColor = '#E2E2E2';
-					var size = parseInt($(this).data('size')) || 50;
-					$(this).easyPieChart({
-						barColor: barColor,
-						trackColor: trackColor,
-						scaleColor: false,
-						lineCap: 'butt',
-						lineWidth: parseInt(size/10),
-						animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
-						size: size
-					});
-				})
+		var $box = $(this).closest('.infobox');
+		var barColor = $(this).data('color') || $box.css('color');
+		var trackColor = '#E2E2E2';
+		var size = parseInt($(this).data('size')) || 50;
+		$(this).easyPieChart({
+			barColor: barColor,
+			trackColor: trackColor,
+			scaleColor: false,
+			lineCap: 'butt',
+			lineWidth: parseInt(size/10),
+			animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+			size: size
+		});
+	});
 
 
 });

@@ -34,11 +34,7 @@ class DayRecord
     return @balance if @balance
     @balance = TimeBalance.new
 
-    if work_day.yes?
-      balance_for_working_day
-    else
-      balance_for_non_working_day
-    end
+    work_day.yes? ? balance_for_working_day : balance_for_non_working_day
 
     @balance
   end
@@ -46,15 +42,22 @@ class DayRecord
   def forecast_departure_time
     return ZERO_HOUR if time_records.empty? || !reference_date.today?
     rest = calculate_hours(false)
-    departure_time = time_records.first.time + user.workload.hour.hours + user.workload.min.minutes + rest.hour.hours + rest.min.minutes
 
-    return departure_time unless user.lunch_time
-    return departure_time unless time_records.size < 3
-
-    departure_time + user.lunch_time.hour.hours + user.lunch_time.min.minutes
+    add_lunch_time(sum_times(time_records.first.time, user.workload, rest))
   end
 
   private
+
+  def sum_times(*times)
+    times.inject{|sum, time| sum + time.hour.hours + time.min.minutes}
+  end
+
+  def add_lunch_time(time)
+    return time unless user.lunch_time
+    return time unless time_records.size < 3
+
+    sum_times(time, user.lunch_time)
+  end
 
   def balance_for_working_day
     if missed_day.no?
@@ -75,9 +78,7 @@ class DayRecord
   def calculate_total_worked_hours
     return ZERO_HOUR if time_records.empty?
 
-    total_worked = calculate_hours
-
-    sum_current_time_to_total(time_records.last.time, total_worked)
+    sum_current_time_to_total(time_records.last.time, calculate_hours)
   end
 
   def calculate_hours(worked_hours = true)
@@ -87,17 +88,17 @@ class DayRecord
 
     time_records.each_with_index do |time_record, index|
       diff = Time.diff(reference_time.time, time_record.time)
-
-      if worked_hours
-        total = (total + diff[:hour].hours) + diff[:minute].minutes if index.odd?
-      else
-        total = (total + diff[:hour].hours) + diff[:minute].minutes if index.even?
-      end
-
+      total = total + diff[:hour].hours + diff[:minute].minutes if satisfy_conditions(worked_hours, index)
       reference_time = time_record
     end
 
     total
+  end
+
+  def satisfy_conditions(worked, record_index)
+    return true if worked && record_index.odd?
+    return true if !worked && record_index.even?
+    false
   end
 
   def sum_current_time_to_total(last_time_record, total)
