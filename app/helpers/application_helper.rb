@@ -35,21 +35,11 @@ module ApplicationHelper
   end
 
   def flash_class(type)
-    case type
-    when 'success' then 'success'
-    when 'error'   then 'danger'
-    when 'notice'  then 'info'
-    when 'alert'   then 'warning'
-    end
+    flashes[type]['class']
   end
 
   def flash_icon(type)
-    case type
-    when 'success' then 'fa-check'
-    when 'error'   then 'fa-ban'
-    when 'notice'  then 'fa-info'
-    when 'alert'   then 'fa-exclamation-triangle'
-    end
+    flashes[type]['icon']
   end
 
   private
@@ -58,9 +48,24 @@ module ApplicationHelper
     index % 2 == 0 ? 'Entrada' : 'Saída'
   end
 
-
   def number_label(index)
     ((index + 1) / 2.to_f).ceil
+  end
+
+  def flashes
+    @flashes ||= {
+      'success' => class_and_icon('success', 'fa-check'),
+      'error'   => class_and_icon('danger', 'fa-ban'),
+      'notice'  => class_and_icon('info', 'fa-info'),
+      'alert'   => class_and_icon('warning', 'fa-exclamation-triangle')
+    }
+  end
+
+  def class_and_icon(css_class, icon)
+    {
+      'class' => css_class,
+      'icon' => icon
+    }
   end
 
 end
