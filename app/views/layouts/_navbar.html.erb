@@ -62,7 +62,11 @@
 
 			<div class="infobox-data">
 				<span class="infobox-data-number"><%= @dashboard.departure_time.to_s(:time) %></span>
-				<div class="infobox-content">Previsão de saída</div>
+				<div class="infobox-content">Previsão de saída
+					<a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="A previsão de saída utiliza o tempo médio de almoço que você informar nas configurações, enquanto você não registrar um horário manualmente." title="Previsão de saída">
+						<i class="fa fa-question-circle"></i>
+					</a>
+				</div>
 			</div>
 		</div>
 

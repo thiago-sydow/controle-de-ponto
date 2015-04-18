@@ -45,10 +45,13 @@ class DayRecord
 
   def forecast_departure_time
     return ZERO_HOUR if time_records.empty? || !reference_date.today?
-
     rest = calculate_hours(false)
+    departure_time = time_records.first.time + user.workload.hour.hours + user.workload.min.minutes + rest.hour.hours + rest.min.minutes
 
-    time_records.first.time + user.workload.hour.hours + user.workload.min.minutes + rest.hour.hours + rest.min.minutes
+    return departure_time unless user.lunch_time
+    return departure_time unless time_records.size < 3
+
+    departure_time + user.lunch_time.hour.hours + user.lunch_time.min.minutes
   end
 
   private

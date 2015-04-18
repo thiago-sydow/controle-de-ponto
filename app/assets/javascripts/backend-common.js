@@ -13,6 +13,8 @@ $(function(){
   $.fn.datepicker.defaults.format = "dd/mm/yyyy";
   $.fn.datepicker.defaults.language = 'pt-BR';
 
+  $('[data-toggle=popover]').popover();
+
   $('.datepicker').datepicker({language: 'pt-BR', format: 'dd/mm/yyyy', autoclose: true});
   $('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
   $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não', onColor: 'success', offColor: 'danger'});

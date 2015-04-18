@@ -12,7 +12,8 @@ class User
   field :first_name, type: String
   field :last_name, type: String
   field :birthday, type: Date
-  field :workload, type: Time, default: Time.current.change(hour: 8, minute: 0)
+  field :workload, type: Time, default: Time.zone.local(1999, 8, 1).change(hour: 8, minute: 0)
+  field :lunch_time, type: Time
 
   validates_presence_of :first_name, :last_name, :birthday, :gender, :workload
 
