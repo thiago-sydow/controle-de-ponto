@@ -1,11 +1,11 @@
 <%= simple_form_for @day_record do |f| %>
 <div class="row">
     <%= f.hidden_field :id %>
-    <%= f.input :reference_date, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-1 text-center'}, input_html: { value: localize(f.object.reference_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
-    <%= f.input :work_day, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-1 text-center'}, label_html: {class: 'col-xs-12'} do %>
+    <%= f.input :reference_date, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-2 text-center'}, input_html: { value: localize(f.object.reference_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
+    <%= f.input :work_day, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-2 text-center'}, label_html: {class: 'col-xs-12'} do %>
       <%= f.input_field :work_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: @day_record.work_day == 1  %>
     <% end %>
-    <%= f.input :missed_day, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-1 text-center'}, label_html: {class: 'col-xs-12'} do %>
+    <%= f.input :missed_day, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-2 text-center'}, label_html: {class: 'col-xs-12'} do %>
       <%= f.input_field :missed_day, as: :boolean, class: 'yes-no-checkbox-switch', checked: @day_record.missed_day == 1 %>
     <% end %>
     <%= f.input :observations, as: :text, wrapper_html: {class: 'col-xs-12 col-sm-6 col-md-6'} %>
