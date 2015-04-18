@@ -53,7 +53,6 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'mongoid-rspec', '~> 2.1.0'
-  gem 'codeclimate-test-reporter'
   gem 'simplecov', require: false
   gem 'coveralls', require: false
   gem 'turnip'
