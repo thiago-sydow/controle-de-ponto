@@ -31,7 +31,36 @@
 				</li>
 			</ul>
 		</li>
+		<li class="active open">
+			<a href="#" >
+				<i class="menu-icon fa fa-archive"></i>
+				<span class="menu-text"> Fechamentos </span>
 
+				<b class="arrow fa fa-angle-down"></b>
+			</a>
+
+			<b class="arrow"></b>
+
+			<ul class="submenu">
+				<li class="<%= 'active' if current_page?(day_records_path) || current_page?(authenticated_root_path) %>">
+          <%= link_to day_records_path do %>
+            <i class="menu-icon fa fa-caret-right"></i>
+            Listar
+          <% end %>
+
+					<b class="arrow"></b>
+				</li>
+
+				<li class="<%= 'active' if current_page?(new_day_record_path) %>">
+          <%= link_to new_day_record_path do %>
+            <i class="menu-icon fa fa-caret-right"></i>
+            Novo Fechamento
+          <% end %>
+
+					<b class="arrow"></b>
+				</li>
+			</ul>
+		</li>
 	</ul><!-- /.nav-list -->
 	<div class="navbar-footer">
 		<div class="infobox <%= get_dashboard_color(@dashboard.total_balance) %>">
