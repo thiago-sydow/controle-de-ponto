@@ -42,8 +42,8 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="<%= 'active' if current_page?(day_records_path) || current_page?(authenticated_root_path) %>">
-          <%= link_to day_records_path do %>
+				<li class="<%= 'active' if current_page?(closures_path) %>">
+          <%= link_to closures_path do %>
             <i class="menu-icon fa fa-caret-right"></i>
             Listar
           <% end %>
@@ -51,8 +51,8 @@
 					<b class="arrow"></b>
 				</li>
 
-				<li class="<%= 'active' if current_page?(new_day_record_path) %>">
-          <%= link_to new_day_record_path do %>
+				<li class="<%= 'active' if current_page?(new_closure_path) %>">
+          <%= link_to new_closure_path do %>
             <i class="menu-icon fa fa-caret-right"></i>
             Novo Fechamento
           <% end %>
@@ -69,7 +69,11 @@
 			</div>
 			<div class="infobox-data">
 				<span class="infobox-data-number"><%= @dashboard.total_balance.to_s %></span>
-				<div class="infobox-content">Saldo de horas</div>
+				<div class="infobox-content">Saldo de horas
+					<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="O Saldo de horas é contabilizado à partir do seu último Fechamento informado." title="Saldo de horas">
+						<i class="fa fa-question-circle"></i>
+					</a>
+				</div>
 			</div>
 		</div>
 
@@ -92,7 +96,7 @@
 			<div class="infobox-data">
 				<span class="infobox-data-number"><%= @dashboard.departure_time.to_s(:time) %></span>
 				<div class="infobox-content">Previsão de saída
-					<a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="A previsão de saída utiliza o tempo médio de almoço que você informar nas configurações, enquanto você não registrar um horário manualmente." title="Previsão de saída">
+					<a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="A previsão de saída utiliza o tempo médio de almoço que você informar nas configurações, enquanto você não registrar uma Entrada 2." title="Previsão de saída">
 						<i class="fa fa-question-circle"></i>
 					</a>
 				</div>
