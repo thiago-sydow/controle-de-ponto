@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     authenticated :user do
       root 'day_records#index', as: :authenticated_root
       resources :day_records
+      resources :closures
     end
 
     unauthenticated do

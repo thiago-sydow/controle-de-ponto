@@ -6,6 +6,7 @@ RSpec.describe User do
 
   context 'associations' do
     it { expect(subject).to have_many :day_records }
+    it { expect(subject).to have_many :closures }
   end
 
   context 'validations' do

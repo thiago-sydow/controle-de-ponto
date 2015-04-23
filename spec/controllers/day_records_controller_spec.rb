@@ -160,9 +160,7 @@ describe DayRecordsController do
 
         it { is_expected.to redirect_to day_records_path }
         it { expect(flash[:success]).not_to be_nil }
-        it '' do
-          expect(day.reload.time_records.find(change_id).time).to be_same_second_as(new_time)
-        end
+        it { expect(day.reload.time_records.find(change_id).time).to be_same_second_as(new_time) }
       end
 
       context ' and parameters are wrong' do
