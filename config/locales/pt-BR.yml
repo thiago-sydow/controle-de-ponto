@@ -215,6 +215,7 @@ pt-BR:
     models:
       user: Usuário
       day_record: Registro
+      closure: Fechamento
     attributes:
       user:
         email: Email
@@ -233,6 +234,9 @@ pt-BR:
         observations: Observações
       time_record:
         time: Horário
+      closure:
+        start_date: Data Inicial
+        end_date: Data Final
   enumerize:
     defaults:
       gender:
