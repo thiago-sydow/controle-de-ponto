@@ -11,6 +11,13 @@ describe DashboardPresenter do
   describe '.total_balance' do
     it { expect(dashboard.total_balance.hour).to eq -4 }
     it { expect(dashboard.total_balance.minute).to eq -4 }
+
+    context 'when there are closures' do
+      let!(:closure) { create(:closure, user: user, end_date: Date.current.tomorrow) }
+
+      it { expect(dashboard.total_balance.hour).to eq 0 }
+      it { expect(dashboard.total_balance.minute).to eq 0 }
+    end
   end
 
   describe '.total_worked' do

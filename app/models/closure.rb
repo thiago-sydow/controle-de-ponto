@@ -8,6 +8,8 @@ class Closure
 
   validates_presence_of :start_date, :end_date
 
+  validates_uniqueness_of :start_date, :end_date, scope: :user_id
+
   default_scope -> { desc(:start_date) }
 
   def balance
