@@ -1,0 +1,5 @@
+<%- model_class = Closure -%>
+<% content_for :page_header do %>
+  <h1><%= "#{t('helpers.titles.edit')} #{model_class.model_name.human.titleize}" %></h1>
+<% end %>
+<%= render partial: 'form' %>
