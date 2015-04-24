@@ -4,7 +4,7 @@ class DayRecord
 
   ZERO_HOUR = Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0)
 
-  field :reference_date, type: Date, default: Date.current
+  field :reference_date, type: Date, default: -> { Date.current }
   field :observations, type: String
   field :work_day
   field :missed_day
