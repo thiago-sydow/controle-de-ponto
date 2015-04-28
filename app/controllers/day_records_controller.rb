@@ -57,6 +57,10 @@ class DayRecordsController < ApplicationController
     redirect_to day_records_path
   end
 
+  def async_worked_time
+    render json: { time: @dashboard.total_worked.to_s(:time), percentage: @dashboard.percentage_worked }
+  end
+
   private
 
   def set_dashboard
