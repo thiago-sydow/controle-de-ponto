@@ -28,7 +28,7 @@ class DashboardPresenter < Burgundy::Item
 
   def days_since_last_closure
     return day_records unless closures.last
-    day_records.where(:reference_date.gte => closures.last.end_date)
+    day_records.where(:reference_date.gt => closures.last.end_date)
   end
 
 end

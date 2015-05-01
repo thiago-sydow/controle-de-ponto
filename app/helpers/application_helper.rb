@@ -4,14 +4,10 @@ module ApplicationHelper
     "#{type_label(index)} #{number_label(index)}"
   end
 
-  def get_text_color_balance(balance)
+  def get_color_balance(balance)
+    return 'success' if balance.cleared? || balance.positive?
 
-    if balance.cleared? || balance.positive?
-      text_color = 'text-success'
-    else
-      text_color = 'text-danger'
-    end
-
+    'danger'
   end
 
   def get_icon_balance(balance)

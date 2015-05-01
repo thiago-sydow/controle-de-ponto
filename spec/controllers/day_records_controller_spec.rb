@@ -5,7 +5,7 @@ describe DayRecordsController do
   let!(:user) { create(:user) }
 
   describe '#index' do
-    let(:day) { create(:day_record, user: user) }
+    let!(:day) { create(:day_record, user: user) }
 
     context 'when user is logged in' do
       login_user
@@ -17,12 +17,15 @@ describe DayRecordsController do
       it { expect(response).to render_template(:index) }
 
       context 'when date range is provided' do
-        let(:day_2) { create(:day_record, user: user, reference_date: 2.days.ago) }
-        let(:day_3) { create(:day_record, user: user, reference_date: 3.days.ago) }
+        let!(:day_2) { create(:day_record, user: user, reference_date: 2.days.ago) }
+        let!(:day_3) { create(:day_record, user: user, reference_date: 3.days.ago) }
 
         context 'and covers all dates' do
           before { get :index, from: 3.days.ago.to_s }
+
           it { expect(assigns(:day_records)).to match_array [day, day_2, day_3] }
+          it { expect(assigns(:balance_period).hour).to eq day.balance.sum(day_2.balance).sum(day_3.balance).hour }
+          it { expect(assigns(:balance_period).minute).to eq day.balance.sum(day_2.balance).sum(day_3.balance).minute }
         end
 
         context 'and excludes recent day_records' do
