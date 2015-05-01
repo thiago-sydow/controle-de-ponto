@@ -1,7 +1,7 @@
 .nested-fields{ display: inline-block}
 .table-list-records {
   margin-top: 10px;
-  
+
   .time-p { margin: 10px 0 0 0; }
 }
 
@@ -16,5 +16,6 @@
 #sidebar .infobox > .infobox-data { min-width: 80px; }
 .navbar-footer {  }
 
-.departure-info { cursor: pointer; }
+.departure-info, .balance-info { cursor: pointer; }
 .popover.right { width: 200px; }
+.balance-sum { font-size: 18px;  font-weight: 400; height: auto; margin-top: 0; }

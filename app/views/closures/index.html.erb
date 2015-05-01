@@ -26,7 +26,7 @@
           <h5 class="text-center"><%= l closure.end_date, format: :default %></h5>
         </td>
         <td class="text-center">
-          <p class="time-p <%= get_text_color_balance(closure.balance) %>">
+          <p class="time-p text-<%= get_color_balance(closure.balance) %>">
             <strong><%= closure.balance %></strong>
             <i class="fa <%= get_icon_balance(closure.balance) %>"></i>
           </p>

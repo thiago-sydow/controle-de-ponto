@@ -31,13 +31,15 @@ RSpec.describe Closure do
     pending 'when exists days that matches the period' do
       let!(:day_1) { create(:day_record_with_times, reference_date: 3.days.ago, user: user) }
       let!(:day_2) { create(:day_record_with_times, reference_date: 2.days.ago, user: user) }
-      let!(:sum_balance) { day_1.balance.sum(day_2.balance) }
+      let!(:sum_balance) { TimeBalance.new.sum(day_1.balance).sum(day_2.balance) }
 
+      it { expect(closure.balance.hour).to eq sum_balance.hour }
+      it { expect(closure.balance.hour).to eq sum_balance.minute }
     end
 
     context 'when dont exists days that matches the period' do
       it { expect(closure.balance.hour).to eq 0 }
-      it { expect(closure.balance.hour).to eq 0 }
+      it { expect(closure.balance.minute).to eq 0 }
     end
   end
 

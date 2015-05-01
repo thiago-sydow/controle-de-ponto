@@ -1,20 +1,30 @@
 <div class="row">
   <div class="col-xs-12">
-    <%= simple_form_for :date_range, wrapper: :inline_form,
-                                     html: { class: 'form-inline' },
-                                     url: day_records_path,
-                                     method: :get do |f| %>
-    <a href="#" class="btn btn-default btn-sm" id="daterange-btn">
-        <i class="fa fa-calendar"></i> Datas
-        <i class="fa fa-caret-down"></i>
-    </a>
-    <%= f.input :from, input_html: { name: 'from',
-                                     value: @from.strftime('%d/%m/%Y') } %>
-    <%= f.input :to, input_html: { name: 'to',
-                                   value: @to.strftime('%d/%m/%Y') } %>
-    <div class="form-group">
-      <%= f.button :submit, 'Filtrar', { class: 'btn btn-primary btn-sm' } %>
+    <div class="col-xs-4">
+      <%= simple_form_for :date_range, wrapper: :inline_form,
+                                       html: { class: 'form-inline' },
+                                       url: day_records_path,
+                                       method: :get do |f| %>
+      <a href="#" class="btn btn-default btn-sm" id="daterange-btn">
+          <i class="fa fa-calendar"></i> Datas
+          <i class="fa fa-caret-down"></i>
+      </a>
+      <%= f.input :from, input_html: { name: 'from',
+                                       value: @from.strftime('%d/%m/%Y') } %>
+      <%= f.input :to, input_html: { name: 'to',
+                                     value: @to.strftime('%d/%m/%Y') } %>
+      <div class="form-group">
+        <%= f.button :submit, 'Filtrar', { class: 'btn btn-primary btn-sm' } %>
+      </div>
+      <% end %>
     </div>
-  <% end %>
+    <div class="col-xs-6">
+      <h4 class="label label-<%= get_color_balance(@balance_period) %> label-white middle balance-sum">
+        Saldo total para o periodo:
+        <strong class="time-p text-<%= get_color_balance(@balance_period) %>"><%= @balance_period.to_s %>
+          <i class="fa <%= get_icon_balance(@balance_period) %>"></i>
+        </strong>
+      </h4>
+    </div>
   </div>
 </div>
