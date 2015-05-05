@@ -25,7 +25,9 @@
         <% @day_records.each do |day_record| %>
         <tr>
           <td>
-            <h5 class="text-left"><%= l day_record.reference_date, format: :short %></h5>
+            <h5 class="text-left"><%= l day_record.reference_date, format: :short %>
+              <%= display_labor_laws_violations(day_record.labor_laws_violations) %>
+            </h5>
           </td>
           <% @max_time_records.times do |index| %>
             <td class="text-center">

@@ -16,8 +16,9 @@ class User
   field :lunch_time, type: Time
 
   #CLT
-  field :warn_straight_hours, type: Boolean, default: false
-  field :warn_overtime, type: Boolean, default: false
+  field :warn_straight_hours, type: Boolean, default: true
+  field :warn_overtime, type: Boolean, default: true
+  field :warn_rest_period, type: Boolean, default: true
 
   validates_presence_of :first_name, :last_name, :birthday, :gender, :workload
 

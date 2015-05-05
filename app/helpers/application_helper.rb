@@ -38,6 +38,10 @@ module ApplicationHelper
     flashes[type]['icon']
   end
 
+  def display_labor_laws_violations(violations)
+    (render partial: 'labor_law_violation', locals: {violations: violations} ).html_safe
+  end
+
   private
 
   def type_label(index)

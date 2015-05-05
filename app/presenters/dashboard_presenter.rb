@@ -20,6 +20,11 @@ class DashboardPresenter < Burgundy::Item
     (( (time_2 - base_time) / (time_1 - base_time) ) * 100).round(1)
   end
 
+  def next_entrance_time
+    return nil unless current_day_record
+    current_day_record.time_records.last.time + 11.hours
+  end
+
   private
 
   def current_day_record
