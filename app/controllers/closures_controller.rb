@@ -1,9 +1,9 @@
 class ClosuresController < ApplicationController
+  include ControllerWithDashboard
+
   before_action :authenticate_user!
 
   before_action :find_closure, only: [:edit, :update, :destroy]
-  #before_action :set_date_range, only: [:index]
-  before_action :set_dashboard, except: [:update, :destroy, :create]
 
   def index
     @closures = current_user.closures.page params[:page]
@@ -58,10 +58,6 @@ class ClosuresController < ApplicationController
 
   private
 
-  def set_dashboard
-    @dashboard ||= DashboardPresenter.new(current_user)
-  end
-
   def find_closure
     @closure = Closure.find(closure_id_param)
   end
@@ -73,5 +69,5 @@ class ClosuresController < ApplicationController
   def closure_params
     params.require(:closure).permit(:start_date, :end_date)
   end
-  
+
 end

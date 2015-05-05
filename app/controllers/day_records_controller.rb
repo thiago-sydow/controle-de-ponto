@@ -1,9 +1,10 @@
 class DayRecordsController < ApplicationController
+  include ControllerWithDashboard
+
   before_action :authenticate_user!
 
   before_action :find_record, only: [:edit, :update, :destroy]
   before_action :set_date_range, only: [:index]
-  before_action :set_dashboard, except: [:update, :destroy, :create]
 
   def index
     @day_records = current_user.day_records.where(reference_date: from..to).page params[:page]
@@ -63,10 +64,6 @@ class DayRecordsController < ApplicationController
   end
 
   private
-
-  def set_dashboard
-    @dashboard ||= DashboardPresenter.new(current_user)
-  end
 
   def set_date_range
     @from = from

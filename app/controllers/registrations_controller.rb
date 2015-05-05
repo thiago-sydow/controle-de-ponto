@@ -57,6 +57,9 @@ class RegistrationsController < Devise::RegistrationsController
         :birthday,
         :workload,
         :lunch_time,
+        :warn_straight_hours,
+        :warn_overtime,
+        :warn_rest_period,
         :password,
         :password_confirmation,
         :current_password)

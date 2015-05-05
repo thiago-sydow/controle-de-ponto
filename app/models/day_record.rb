@@ -46,7 +46,18 @@ class DayRecord
     add_lunch_time(sum_times(time_records.first.time, user.workload, rest))
   end
 
+  def labor_laws_violations
+    @violations ||= check_labor_laws_violations
+  end
+
   private
+
+  def check_labor_laws_violations
+    {
+      overtime: check_overtime_violation,
+      straight_hours: @straight_hours_violation
+    }
+  end
 
   def sum_times(*times)
     times.inject{|sum, time| sum + time.hour.hours + time.min.minutes}
@@ -89,6 +100,7 @@ class DayRecord
     time_records.each_with_index do |time_record, index|
       diff = Time.diff(reference_time.time, time_record.time)
       total = total + diff[:hour].hours + diff[:minute].minutes if satisfy_conditions(worked_hours, index)
+      check_straight_hours_violation(diff) if worked_hours && index.odd?
       reference_time = time_record
     end
 
@@ -106,6 +118,16 @@ class DayRecord
 
     now_diff = Time.diff(last_time_record, Time.current)
     (total + now_diff[:hour].hours) + now_diff[:minute].minutes
+  end
+
+  def check_straight_hours_violation(diff)
+    return false unless user.warn_straight_hours
+    @straight_hours_violation = @straight_hours_violation || (diff[:hour].hours + diff[:minute].minutes) > 6.hours
+  end
+
+  def check_overtime_violation
+    return false unless user.warn_overtime
+    (total_worked.hour.hours + total_worked.min.minutes) > (user.workload.hour.hours + user.workload.min.minutes + 2.hours)
   end
 
 end

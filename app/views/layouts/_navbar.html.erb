@@ -116,6 +116,23 @@
 				<div class="infobox-content">Total de hoje</div>
 			</div>
 		</div>
+
+		<% if current_user.warn_rest_period %>
+			<div class="infobox infobox-orange2">
+				<div class="infobox-icon">
+					<i class="ace-icon fa fa-sign-in"></i>
+				</div>
+
+				<div class="infobox-data">
+					<span class="infobox-data-number"><%= @dashboard.next_entrance_time.try(:to_s, :time) || '--:--' %></span>
+					<div class="infobox-content">Próxima Entrada
+						<a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Esta é sua próxima entrada recomendada para não infrigir o Art. 66 da CLT." title="Próxima Entrada">
+							<i class="fa fa-question-circle"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		<% end %>
 	</div>
 
 </div>

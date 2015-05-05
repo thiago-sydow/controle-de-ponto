@@ -15,6 +15,11 @@ class User
   field :workload, type: Time, default: Time.zone.local(1999, 8, 1).change(hour: 8, minute: 0)
   field :lunch_time, type: Time
 
+  #CLT
+  field :warn_straight_hours, type: Boolean, default: true
+  field :warn_overtime, type: Boolean, default: true
+  field :warn_rest_period, type: Boolean, default: true
+
   validates_presence_of :first_name, :last_name, :birthday, :gender, :workload
 
   has_many :day_records, dependent: :delete

@@ -153,6 +153,36 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Avisar quando forem trabalhadas mais de 6 horas consecutivas (Art. 71): </label>
+
+            <div class="col-sm-9 top-10">
+              <div class="input-medium">
+                  <%= f.input_field :warn_straight_hours, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_straight_hours %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Avisar quando forem trabalhadas mais de 2 horas extras (Art. 59): </label>
+
+            <div class="col-sm-9 top-10">
+              <div class="input-medium">
+                <%= f.input_field :warn_overtime, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_overtime %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Recomendar próxima entrada para não realizar menos de 11 horas consecutivas de descanso (Art. 66): </label>
+
+            <div class="col-sm-9 top-10">
+              <div class="input-medium">
+                <%= f.input_field :warn_rest_period, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_rest_period %>
+              </div>
+            </div>
+          </div>
+
 				</div>
 
 				<div id="edit-password" class="tab-pane">
