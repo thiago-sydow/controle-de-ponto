@@ -22,6 +22,7 @@ class DashboardPresenter < Burgundy::Item
 
   def next_entrance_time
     return nil unless current_day_record
+    return nil if current_day_record.time_records.size < 1 
     current_day_record.time_records.last.time + 11.hours
   end
 
