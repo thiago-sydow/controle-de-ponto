@@ -49,10 +49,7 @@ describe DayRecordsController do
 
     context 'when user is not logged in' do
       before { get :index }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:day_records)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -71,12 +68,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { get :edit, id: day.id }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:record)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -98,12 +91,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { get :new }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:record)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -139,11 +128,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { post :create, day_record: attrs }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -183,11 +169,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { patch :update, id: day.id, day_record: attrs }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
   end
 
@@ -226,9 +209,27 @@ describe DayRecordsController do
 
     context 'when user is not logged in' do
       before { delete :destroy, id: day.id }
+      it_behaves_like 'a not authorized request'
+    end
+  end
 
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+  describe '#async_worked_time' do
+
+    context 'when user is logged in' do
+      login_user
+
+      let!(:day) { create(:day_record, user: user) }
+      let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
+
+      before { get :async_worked_time }
+
+      it { expect(JSON.parse(response.body)['time']).to eq '03:00' }
+      it { expect(JSON.parse(response.body)['percentage']).to eq 37.5 }
+    end
+
+    context 'when user is not logged in' do
+      before { delete :async_worked_time }
+      it_behaves_like 'a not authorized request'
     end
   end
 

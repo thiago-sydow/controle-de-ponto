@@ -20,7 +20,7 @@ class DayRecordsController < GenericCrudController
   end
 
   def edit
-    @day_record.time_records.build if @day_record.time_records.empty?
+    @day_record.time_records.build unless @day_record.time_records.exists?
   end
 
   def update
@@ -32,6 +32,7 @@ class DayRecordsController < GenericCrudController
   end
 
   def async_worked_time
+    set_dashboard
     render json: { time: @dashboard.total_worked.to_s(:time), percentage: @dashboard.percentage_worked }
   end
 

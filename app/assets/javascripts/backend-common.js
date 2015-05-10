@@ -5,7 +5,7 @@ var updateTime = function() {
     var chart = $('.easy-pie-chart.percentage');
     chart.data('easyPieChart').update(response.percentage);
     chart.find('.percent').text(response.percentage);
-    setTimeout(updateTime, 60000);
+    setTimeout(updateTime, 20000);
   });
 };
 

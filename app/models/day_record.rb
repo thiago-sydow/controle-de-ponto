@@ -20,6 +20,8 @@ class DayRecord
   validates_presence_of :reference_date
   validates_uniqueness_of :reference_date, scope: :user_id
 
+  validate :future_reference_date
+
   default_scope -> { desc(:reference_date) }
 
   def self.max_time_count_for_user(user)
@@ -100,7 +102,7 @@ class DayRecord
     time_records.each_with_index do |time_record, index|
       diff = Time.diff(reference_time.time, time_record.time)
       total = total + diff[:hour].hours + diff[:minute].minutes if satisfy_conditions(worked_hours, index)
-      check_straight_hours_violation(diff) if worked_hours && index.odd?
+      check_straight_hours_violation(diff) if worked_hours && (index.odd? || index.zero?)
       reference_time = time_record
     end
 
@@ -128,6 +130,10 @@ class DayRecord
   def check_overtime_violation
     return false unless user.warn_overtime
     (total_worked.hour.hours + total_worked.min.minutes) > (user.workload.hour.hours + user.workload.min.minutes + 2.hours)
+  end
+
+  def future_reference_date
+    errors.add(:reference_date, :future_date) if reference_date.future?
   end
 
 end

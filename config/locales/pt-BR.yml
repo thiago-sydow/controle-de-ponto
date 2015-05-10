@@ -98,6 +98,7 @@ pt-BR:
   errors: &errors
     format: "%{attribute} %{message}"
     messages:
+      future_date: não deve ser data futura
       accepted: deve ser aceito
       blank: não pode ficar em branco
       present: deve ficar em branco

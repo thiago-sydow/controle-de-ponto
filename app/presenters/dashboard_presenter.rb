@@ -5,11 +5,13 @@ class DashboardPresenter < Burgundy::Item
   end
 
   def total_worked
-    @total_worked ||= current_day_record.try(:total_worked) || DayRecord::ZERO_HOUR
+    return DayRecord::ZERO_HOUR unless current_day_record
+    @total_worked ||= current_day_record.total_worked
   end
 
   def departure_time
-    @departure_time = current_day_record.try(:forecast_departure_time) || DayRecord::ZERO_HOUR
+    return DayRecord::ZERO_HOUR unless current_day_record
+    @departure_time = current_day_record.forecast_departure_time
   end
 
   def percentage_worked

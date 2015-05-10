@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   def display_labor_laws_violations(violations)
-    (render partial: 'labor_law_violation', locals: { violations: violations }).html_safe
+    (render 'day_records/labor_law_violation', violations: violations).html_safe
   end
 
   private
