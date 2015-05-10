@@ -1,40 +1,40 @@
 <div id="forgot-box" class="forgot-box widget-box no-border visible">
-	<div class="widget-body">
-		<div class="widget-main">
-			<h4 class="header red lighter bigger">
-				<i class="ace-icon fa fa-key"></i>
-				Recuperar Senha
-			</h4>
-			<div class="space-6"></div>
-			<p>
+  <div class="widget-body">
+    <div class="widget-main">
+      <h4 class="header red lighter bigger">
+        <i class="ace-icon fa fa-key"></i>
+        Recuperar Senha
+      </h4>
+      <div class="space-6"></div>
+      <p>
         Insira seu email para receber as instruções
-			</p>
+      </p>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-				<fieldset>
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+        <fieldset>
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :email, required: true, autofocus: true, class: 'form-control', placeholder: 'Email' %>
-							<i class="ace-icon fa fa-envelope"></i>
-						</span>
-						<%= f.full_error :email, class: 'text-danger' %>
-					</label>
+              <i class="ace-icon fa fa-envelope"></i>
+            </span>
+            <%= f.full_error :email, class: 'text-danger' %>
+          </label>
 
-					<div class="clearfix">
+          <div class="clearfix">
             <%= f.button :button, "Send me reset password instructions", class: 'width-35 pull-right btn btn-sm btn-danger' do %>
               <i class="ace-icon fa fa-lightbulb-o"></i>
               <span class="bigger-110">Envie-me!</span>
             <% end %>
-					</div>
-				</fieldset>
+          </div>
+        </fieldset>
       <% end %>
-		</div><!-- /.widget-main -->
+    </div><!-- /.widget-main -->
 
-		<div class="toolbar center">
+    <div class="toolbar center">
       <%= link_to new_user_session_path, class: 'back-to-login-link' do %>
         Voltar para Login
         <i class="ace-icon fa fa-arrow-right"></i>
       <% end %>
-		</div>
-	</div><!-- /.widget-body -->
+    </div>
+  </div><!-- /.widget-body -->
 </div>

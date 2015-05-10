@@ -1,7 +1,4 @@
-class DayRecordsController < ApplicationController
-  include ControllerWithDashboard
-
-  before_action :authenticate_user!
+class DayRecordsController < GenericCrudController
 
   before_action :find_record, only: [:edit, :update, :destroy]
   before_action :set_date_range, only: [:index]
@@ -18,48 +15,24 @@ class DayRecordsController < ApplicationController
   end
 
   def create
-    @day_record = DayRecord.new(day_record_params)
-    @day_record.user = current_user
-
-    if @day_record.save
-      flash[:success] = 'O Registro foi criado com sucesso.'
-      redirect_to day_records_path
-    else
-      flash[:error] = 'Ocorreu um erro ao criar o registro. Por favor tente novamente.'
-      render :new
-    end
-
+    @day_record = DayRecord.new(model_params)
+    super
   end
 
   def edit
-    @day_record.time_records.build if @day_record.time_records.empty?
+    @day_record.time_records.build unless @day_record.time_records.exists?
   end
 
   def update
-
-    if @day_record.update_attributes(day_record_params)
-      flash[:success] = 'O registro foi atualizado com sucesso.'
-      redirect_to day_records_path
-    else
-      flash[:error] = 'Um erro ocorreu ao atualizar o registro.'
-      render action: :edit
-    end
-
+    super
   end
 
   def destroy
-    @day_record.destroy
-
-    if @day_record.destroyed?
-      flash[:success] = 'O registro foi excluído com sucesso.'
-    else
-      flash[:error] = 'Um erro ocorreu ao excluir o registro.'
-    end
-
-    redirect_to day_records_path
+    super
   end
 
   def async_worked_time
+    set_dashboard
     render json: { time: @dashboard.total_worked.to_s(:time), percentage: @dashboard.percentage_worked }
   end
 
@@ -78,7 +51,7 @@ class DayRecordsController < ApplicationController
     params.require(:id)
   end
 
-  def day_record_params
+  def model_params
     params.require(:day_record).
     permit(
       :reference_date, :observations, :work_day, :missed_day,

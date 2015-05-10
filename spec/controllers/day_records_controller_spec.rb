@@ -49,10 +49,7 @@ describe DayRecordsController do
 
     context 'when user is not logged in' do
       before { get :index }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:day_records)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -71,12 +68,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { get :edit, id: day.id }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:record)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -98,12 +91,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { get :new }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:record)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -139,11 +128,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { post :create, day_record: attrs }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -152,7 +138,7 @@ describe DayRecordsController do
     let!(:day) { create(:day_record_with_times, user: user) }
     let!(:change_id) { day.time_records.first.id }
     let(:new_time) { Time.current.change(hour: 9, min: 56) }
-    let(:attrs) { { time_records_attributes: { "0" => { id: change_id, time: new_time.to_s } } } }
+    let(:attrs) { { time_records_attributes: { '0' => { id: change_id, time: new_time.to_s } } } }
 
     context 'when user is logged in' do
 
@@ -183,11 +169,8 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-
       before { patch :update, id: day.id, day_record: attrs }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
   end
 
@@ -206,7 +189,7 @@ describe DayRecordsController do
       end
 
       context ' and parameters are wrong' do
-        it { expect{ delete :destroy, id: '11111' }.to raise_error(Mongoid::Errors::DocumentNotFound) }
+        it { expect { delete :destroy, id: '11111' }.to raise_error(Mongoid::Errors::DocumentNotFound) }
       end
 
       context ' and an error occured while updating' do
@@ -226,9 +209,27 @@ describe DayRecordsController do
 
     context 'when user is not logged in' do
       before { delete :destroy, id: day.id }
+      it_behaves_like 'a not authorized request'
+    end
+  end
 
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+  describe '#async_worked_time' do
+
+    context 'when user is logged in' do
+      login_user
+
+      let!(:day) { create(:day_record, user: user) }
+      let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
+
+      before { get :async_worked_time }
+
+      it { expect(JSON.parse(response.body)['time']).to eq '03:00' }
+      it { expect(JSON.parse(response.body)['percentage']).to eq 37.5 }
+    end
+
+    context 'when user is not logged in' do
+      before { delete :async_worked_time }
+      it_behaves_like 'a not authorized request'
     end
   end
 

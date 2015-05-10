@@ -5,11 +5,13 @@ class DashboardPresenter < Burgundy::Item
   end
 
   def total_worked
-    @total_worked ||= current_day_record.try(:total_worked) || DayRecord::ZERO_HOUR
+    return DayRecord::ZERO_HOUR unless current_day_record
+    @total_worked ||= current_day_record.total_worked
   end
 
   def departure_time
-    @departure_time = current_day_record.try(:forecast_departure_time) || DayRecord::ZERO_HOUR
+    return DayRecord::ZERO_HOUR unless current_day_record
+    @departure_time = current_day_record.forecast_departure_time
   end
 
   def percentage_worked
@@ -17,12 +19,12 @@ class DashboardPresenter < Burgundy::Item
     time_1 = base_time.change(hour: workload.hour, min: workload.min)
     time_2 = base_time.change(hour: total_worked.hour, min: total_worked.min)
 
-    (( (time_2 - base_time) / (time_1 - base_time) ) * 100).round(1)
+    (((time_2 - base_time) / (time_1 - base_time)) * 100).round(1)
   end
 
   def next_entrance_time
     return nil unless current_day_record
-    return nil if current_day_record.time_records.size < 1 
+    return nil unless current_day_record.time_records.exists?
     current_day_record.time_records.last.time + 11.hours
   end
 

@@ -98,6 +98,7 @@ pt-BR:
   errors: &errors
     format: "%{attribute} %{message}"
     messages:
+      future_date: não deve ser data futura
       accepted: deve ser aceito
       blank: não pode ficar em branco
       present: deve ficar em branco
@@ -242,3 +243,25 @@ pt-BR:
       gender:
         male: Masculino
         female: Feminino
+
+  closures:
+    create:
+      success: O Fechamento foi criado com sucesso.
+      error: Ocorreu um erro ao criar o Fechamento. Por favor tente novamente.
+    update:
+      success: O Fechamento foi atualizado com sucesso.
+      error: Um erro ocorreu ao atualizar o Fechamento.
+    destroy:
+      success: O Fechamento foi excluído com sucesso.
+      error: Um erro ocorreu ao excluir o Fechamento.
+
+  day_records:
+    create:
+      success: O Registro foi criado com sucesso.
+      error: Ocorreu um erro ao criar o Registro. Por favor tente novamente.
+    update:
+      success: O registro foi atualizado com sucesso.
+      error: Um erro ocorreu ao atualizar o registro.
+    destroy:
+      success: O registro foi excluído com sucesso.
+      error: Um erro ocorreu ao excluir o registro.

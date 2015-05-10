@@ -17,8 +17,8 @@ RSpec.describe Closure do
 
   context 'ordering' do
     let(:user) { create(:user) }
-    let(:closure_1) { create(:closure, start_date: 60.days.ago, end_date: 40.days.ago,user: user) }
-    let(:closure_2) { create(:closure, start_date: 40.days.ago, end_date: 20.days.ago,user: user) }
+    let(:closure_1) { create(:closure, start_date: 60.days.ago, end_date: 40.days.ago, user: user) }
+    let(:closure_2) { create(:closure, start_date: 40.days.ago, end_date: 20.days.ago, user: user) }
     let(:closure_3) { create(:closure, start_date: 20.days.ago, end_date: Date.current, user: user) }
 
     it { expect(user.closures).to eq [closure_3, closure_2, closure_1] }

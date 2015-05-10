@@ -157,14 +157,6 @@ RSpec.describe DayRecord do
       let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
       let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
-      context 'when total_worked is called twice' do
-
-        it 'returns object from memory on second call' do
-          expect(day.balance).to eq(day.balance)
-        end
-
-      end
-
       context 'when is work day' do
 
         context 'when missed the day' do
@@ -282,6 +274,34 @@ RSpec.describe DayRecord do
 
     end
 
+  end
+
+  describe '#labor_laws_violations' do
+    let!(:user) { create(:user_sequence) }
+    let!(:base_time) { DayRecord::ZERO_HOUR }
+    let!(:day)  { create(:day_record, user: user) }
+    let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
+    let!(:time_2) { create(:time_record, time: base_time.change(hour: 19, min: 1), day_record: day) }
+
+    context 'when worked_time exceeds workload above permitted' do
+      context 'and config is enabled' do
+        it { expect(day.labor_laws_violations[:overtime]).to be_truthy }
+      end
+      context 'and config is disabled' do
+        before { user.warn_overtime = false; user.save }
+        it { expect(day.labor_laws_violations[:overtime]).to be_falsey }
+      end
+    end
+
+    context 'when worked_time exceeds permitted without a rest' do
+      context 'and config is enabled' do
+        it { expect(day.labor_laws_violations[:straight_hours]).to be_truthy }
+      end
+      context 'and config is disabled' do
+        before { user.warn_straight_hours = false; user.save }
+        it { expect(day.labor_laws_violations[:straight_hours]).to be_falsey }
+      end
+    end
   end
 
   private

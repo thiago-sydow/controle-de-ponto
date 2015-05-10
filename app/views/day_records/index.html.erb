@@ -6,7 +6,7 @@
 		</small>
   </h1>
 <% end %>
-<%= render 'search_range' %>
+<%= render 'search_range', from: @from, to: @to, balance_period: @balance_period %>
 <div class="row">
   <div class="col-xs-12" style="overflow-x: auto;">
     <table class="table table-bordered table-hover table-list-records">

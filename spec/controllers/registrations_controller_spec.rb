@@ -3,17 +3,17 @@ require 'rails_helper'
 describe RegistrationsController do
 
   before do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
-  describe "GET new" do
+  describe 'GET new' do
     before { get :new }
 
     it { is_expected.to render_template(:new) }
     it { expect(assigns(:user)).to be_instance_of(User) }
   end
 
-  describe "POST create" do
+  describe 'POST create' do
 
     context 'when valid input' do
       let(:attrs) { attributes_for(:user) }
@@ -39,7 +39,7 @@ describe RegistrationsController do
 
   end
 
-  describe "GET edit" do
+  describe 'GET edit' do
     let!(:user) { create(:user) }
     login_user
 
@@ -50,16 +50,16 @@ describe RegistrationsController do
     it { expect(assigns(:dashboard)).not_to be_nil }
   end
 
-  describe "PUT update" do
+  describe 'PUT update' do
     let!(:user) { create(:user) }
     login_user
 
-    context "update with password" do
-      context "with valid attributes" do
+    context 'update with password' do
+      context 'with valid attributes' do
 
         before do
           put :update, user: {
-                                email: "test2@test.com",
+                                email: 'test2@test.com',
                                 password: 'testtest',
                                 password_confirmation: 'testtest',
                                 current_password: user.password
@@ -69,10 +69,10 @@ describe RegistrationsController do
         it { is_expected.to redirect_to authenticated_root_url }
       end
 
-      context "with invalid attributes" do
+      context 'with invalid attributes' do
         before do
           put :update, user: {
-                                email: "test2@test.com",
+                                email: 'test2@test.com',
                                 password: 'testtest',
                                 password_confirmation: 'testtest',
                                 current_password: ''
@@ -85,12 +85,12 @@ describe RegistrationsController do
 
     end
 
-    context "update without password" do
+    context 'update without password' do
 
       before do
         put :update, user: {
                               email: user.email,
-                              first_name: "New Name",
+                              first_name: 'New Name',
                               current_password: ''
                             }
       end

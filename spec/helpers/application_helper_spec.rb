@@ -84,7 +84,7 @@ describe ApplicationHelper do
 
   end
 
-  describe '#flash_class' do
+  describe '.flash_class' do
     context 'success' do
       it { expect(flash_class('success')).to eq 'success' }
     end
@@ -102,7 +102,7 @@ describe ApplicationHelper do
     end
   end
 
-  describe 'flash_icon' do
+  describe '.flash_icon' do
     context 'success' do
       it { expect(flash_icon('success')).to eq 'fa-check' }
     end
@@ -118,6 +118,23 @@ describe ApplicationHelper do
     context 'alert' do
       it { expect(flash_icon('alert')).to eq 'fa-exclamation-triangle' }
     end
+  end
+
+  describe '.display_labor_laws_violations' do
+    context 'overtime violation' do
+      let(:violations) { {overtime: true, straight_hours: false} }
+      let(:expected) { '<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Você ultrapassou o limite de 2 horas extras diárias." title="Art. 49 CLT">  <i class="ace-icon fa fa-exclamation-triangle orange bigger-120"></i></a>' }
+
+      it { expect(display_labor_laws_violations(violations).to_str.tr("\r\n", "")).to eq expected }
+    end
+
+    context 'overtime violation' do
+      let(:violations) { {overtime: false, straight_hours: true} }
+      let(:expected) { '<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Você trabalhou mais que 6 horas consecutivas sem um período de descanso." title="Art. 71 CLT">  <i class="ace-icon fa fa-exclamation-triangle orange bigger-120"></i></a>' }
+
+      it { expect(display_labor_laws_violations(violations).to_str.tr("\r\n", "")).to eq expected }
+    end
+
   end
 
 end

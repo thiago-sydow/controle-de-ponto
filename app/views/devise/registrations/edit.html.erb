@@ -4,122 +4,122 @@
 <% end %>
 
 <div class="col-sm-offset-1 col-sm-10">
-	<div class="space"></div>
+  <div class="space"></div>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f| %>
 
-		<div class="tabbable">
-			<ul class="nav nav-tabs padding-16">
-				<li class="active">
-					<a data-toggle="tab" href="#edit-basic" aria-expanded="true">
-						<i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
-						Informações Básicas
-					</a>
-				</li>
-
-				<li class="">
-					<a data-toggle="tab" href="#edit-settings" aria-expanded="false">
-						<i class="purple ace-icon fa fa-cog bigger-125"></i>
-						Configurações
-					</a>
-				</li>
-
-				<li class="">
-					<a data-toggle="tab" href="#edit-password" aria-expanded="false">
-						<i class="blue ace-icon fa fa-key bigger-125"></i>
-						Senha
-					</a>
-				</li>
+    <div class="tabbable">
+      <ul class="nav nav-tabs padding-16">
+        <li class="active">
+          <a data-toggle="tab" href="#edit-basic" aria-expanded="true">
+            <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
+            Informações Básicas
+          </a>
+        </li>
 
         <li class="">
-					<a data-toggle="tab" href="#cancel-account" aria-expanded="false">
-						<i class="red ace-icon fa fa-times bigger-125"></i>
-						Cancelar Conta
-					</a>
-				</li>
-			</ul>
+          <a data-toggle="tab" href="#edit-settings" aria-expanded="false">
+            <i class="purple ace-icon fa fa-cog bigger-125"></i>
+            Configurações
+          </a>
+        </li>
 
-			<div class="tab-content profile-edit-tab-content">
-				<div id="edit-basic" class="tab-pane active">
+        <li class="">
+          <a data-toggle="tab" href="#edit-password" aria-expanded="false">
+            <i class="blue ace-icon fa fa-key bigger-125"></i>
+            Senha
+          </a>
+        </li>
 
-					<h4 class="header blue bolder smaller">Geral</h4>
+        <li class="">
+          <a data-toggle="tab" href="#cancel-account" aria-expanded="false">
+            <i class="red ace-icon fa fa-times bigger-125"></i>
+            Cancelar Conta
+          </a>
+        </li>
+      </ul>
 
-					<div class="row">
+      <div class="tab-content profile-edit-tab-content">
+        <div id="edit-basic" class="tab-pane active">
 
-						<div class="vspace-12-sm"></div>
+          <h4 class="header blue bolder smaller">Geral</h4>
 
-							<div class="space-4"></div>
+          <div class="row">
 
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="form-field-first">Nome</label>
+            <div class="vspace-12-sm"></div>
 
-								<div class="col-sm-9">
-                  <%= f.input_field :first_name, placeholder: 'Nome', required: true %>
-                  <%= f.full_error :first_name, class: 'text-danger' %>
-								</div>
-							</div>
               <div class="space-4"></div>
 
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="form-field-first">Sobrenome</label>
+              <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-first">Nome</label>
 
-								<div class="col-sm-9">
+                <div class="col-sm-9">
+                  <%= f.input_field :first_name, placeholder: 'Nome', required: true %>
+                  <%= f.full_error :first_name, class: 'text-danger' %>
+                </div>
+              </div>
+              <div class="space-4"></div>
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-first">Sobrenome</label>
+
+                <div class="col-sm-9">
                   <%= f.input_field :last_name, placeholder: 'Nome', required: true %>
                   <%= f.full_error :last_name, class: 'text-danger' %>
-								</div>
-							</div>
-					</div>
+                </div>
+              </div>
+          </div>
 
           <div class="space-4"></div>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="form-field-date">Data de Nascimento</label>
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Data de Nascimento</label>
 
-						<div class="col-sm-9">
-							<div class="input-medium">
-								<div class="input-group">
+            <div class="col-sm-9">
+              <div class="input-medium">
+                <div class="input-group">
                   <%= f.input_field :birthday, placeholder: 'Nome', required: true, class: 'datepicker', value: localize(f.object.birthday, format: "%d/%m/%Y") %>
-									<span class="input-group-addon">
-										<i class="ace-icon fa fa-calendar"></i>
-									</span>
-								</div>
+                  <span class="input-group-addon">
+                    <i class="ace-icon fa fa-calendar"></i>
+                  </span>
+                </div>
                 <%= f.full_error :birthday, class: 'text-danger' %>
-							</div>
-						</div>
-					</div>
+              </div>
+            </div>
+          </div>
 
-					<div class="space-4"></div>
+          <div class="space-4"></div>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right">Sexo</label>
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right">Sexo</label>
 
-						<div class="col-sm-9">
+            <div class="col-sm-9">
               <%= f.input_field :gender, as: :radio_buttons %>
               <%= f.full_error :gender, class: 'text-danger' %>
-						</div>
-					</div>
+            </div>
+          </div>
 
-					<div class="space"></div>
-					<h4 class="header blue bolder smaller">Contato</h4>
+          <div class="space"></div>
+          <h4 class="header blue bolder smaller">Contato</h4>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
 
-						<div class="col-sm-9">
-							<span class="input-icon input-icon-right">
+            <div class="col-sm-9">
+              <span class="input-icon input-icon-right">
                   <%= f.input_field :email, required: true %>
-								<i class="ace-icon fa fa-envelope"></i>
-							</span>
+                <i class="ace-icon fa fa-envelope"></i>
+              </span>
               <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                 <p>Aguardando confirmação para: <%= resource.unconfirmed_email %></p>
               <% end %>
               <%= f.full_error :email, class: 'text-danger' %>
-						</div>
-					</div>
+            </div>
+          </div>
         </div>
 
-				<div id="edit-settings" class="tab-pane">
-					<div class="space-10"></div>
+        <div id="edit-settings" class="tab-pane">
+          <div class="space-10"></div>
 
           <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Jornada de Trabalho</label>
@@ -183,49 +183,49 @@
             </div>
           </div>
 
-				</div>
+        </div>
 
-				<div id="edit-password" class="tab-pane">
-					<div class="space-10"></div>
+        <div id="edit-password" class="tab-pane">
+          <div class="space-10"></div>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">Senha</label>
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">Senha</label>
 
-						<div class="col-sm-9">
+            <div class="col-sm-9">
               <%= f.input_field :password, autocomplete: "off", required: false %>
               <span class="help-inline">
-								<span class="middle">Deixe em branco se não deseja alterá-la</span>
-							</span>
-						</div>
-					</div>
+                <span class="middle">Deixe em branco se não deseja alterá-la</span>
+              </span>
+            </div>
+          </div>
 
-					<div class="space-4"></div>
+          <div class="space-4"></div>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Confirme a senha</label>
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Confirme a senha</label>
 
-						<div class="col-sm-9">
+            <div class="col-sm-9">
               <%= f.input_field :password_confirmation, required: false %>
-						</div>
-					</div>
-				</div>
+            </div>
+          </div>
+        </div>
 
         <div id="cancel-account" class="tab-pane">
-					<div class="space-10"></div>
+          <div class="space-10"></div>
 
-					<div class="form-group">
+          <div class="form-group">
             <h3 class="text-danger">Cancelar Conta</h3>
             <p>
               Que pena ! Lamentamos ver você partir, mas se escolheu encerrar sua conta clique abaixo:
             </p>
-					</div>
+          </div>
 
           <%= link_to 'Cancelar Minha Conta', registration_path(resource_name), data: { confirm: "Todos seus dados serão perdidos. Você tem certeza?" }, method: :delete, class: 'btn btn-danger btn-block' %>
-				</div>
-			</div>
-		</div>
+        </div>
+      </div>
+    </div>
 
-		<div class="clearfix form-actions">
+    <div class="clearfix form-actions">
       <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">Senha Atual</label>
 
@@ -237,12 +237,12 @@
           <%= f.full_error :current_password, class: 'text-danger' %>
         </div>
       </div>
-			<div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9">
         <%= f.button :button, class: 'btn btn-info' do %>
-					<i class="ace-icon fa fa-check bigger-110"></i>
-					Salvar
+          <i class="ace-icon fa fa-check bigger-110"></i>
+          Salvar
         <% end %>
-			</div>
-		</div>
+      </div>
+    </div>
   <% end %>
 </div>

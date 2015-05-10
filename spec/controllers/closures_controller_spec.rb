@@ -19,10 +19,7 @@ describe ClosuresController do
 
     context 'when user is not logged in' do
       before { get :index }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:closures)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -41,12 +38,8 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-
       before { get :edit, id: closure.id }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:closure)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -68,12 +61,8 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-
       before { get :new }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(assigns(:closure)).to be_nil }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -109,11 +98,8 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-
       before { post :create, closure: attrs }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
 
   end
@@ -151,11 +137,8 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-
       before { patch :update, id: closure.id, closure: attrs }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
   end
 
@@ -174,7 +157,7 @@ describe ClosuresController do
       end
 
       context ' and parameters are wrong' do
-        it { expect{ delete :destroy, id: '11111' }.to raise_error(Mongoid::Errors::DocumentNotFound) }
+        it { expect { delete :destroy, id: '11111' }.to raise_error(Mongoid::Errors::DocumentNotFound) }
       end
 
       context ' and an error occured while updating' do
@@ -194,9 +177,7 @@ describe ClosuresController do
 
     context 'when user is not logged in' do
       before { delete :destroy, id: closure.id }
-
-      it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to new_user_session_url }
+      it_behaves_like 'a not authorized request'
     end
   end
 

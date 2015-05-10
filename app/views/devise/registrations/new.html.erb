@@ -1,98 +1,98 @@
 <div id="signup-box" class="signup-box widget-box no-border visible">
-	<%= render 'layouts/flash_messages' %>
-	<div class="widget-body">
-		<div class="widget-main">
-			<h4 class="header green lighter bigger">
-				<i class="ace-icon fa fa-users blue"></i>
-				Cadastre-se
-			</h4>
+  <%= render 'layouts/flash_messages' %>
+  <div class="widget-body">
+    <div class="widget-main">
+      <h4 class="header green lighter bigger">
+        <i class="ace-icon fa fa-users blue"></i>
+        Cadastre-se
+      </h4>
 
-			<div class="space-6"></div>
-			<p> Preencha as informações para começar: </p>
+      <div class="space-6"></div>
+      <p> Preencha as informações para começar: </p>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-				<fieldset>
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+        <fieldset>
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :email, required: true, class: 'form-control', autofocus: true, placeholder: 'Email' %>
-							<i class="ace-icon fa fa-envelope"></i>
-						</span>
-						<%= f.full_error :email, class: 'text-danger' %>
-					</label>
-
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
-              <%= f.input_field :first_name, required: true, class: 'form-control', label: false, placeholder: 'Nome' %>
-							<i class="ace-icon fa fa-user"></i>
-						</span>
-						<%= f.full_error :first_name, class: 'text-danger' %>
-					</label>
-
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
-              <%= f.input_field :last_name, label: false, class: 'form-control', placeholder: 'Sobrenome' %>
-						</span>
-					</label>
-
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
-              <%= f.input_field :birthday, required: true, label: false, class: 'form-control', placeholder: 'Data de Nascimento' %>
-							<i class="ace-icon fa fa-birthday-cake"></i>
-						</span>
-						<%= f.full_error :birthday, class: 'text-danger' %>
-					</label>
+              <i class="ace-icon fa fa-envelope"></i>
+            </span>
+            <%= f.full_error :email, class: 'text-danger' %>
+          </label>
 
           <label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+            <span class="block input-icon input-icon-right">
+              <%= f.input_field :first_name, required: true, class: 'form-control', label: false, placeholder: 'Nome' %>
+              <i class="ace-icon fa fa-user"></i>
+            </span>
+            <%= f.full_error :first_name, class: 'text-danger' %>
+          </label>
+
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
+              <%= f.input_field :last_name, label: false, class: 'form-control', placeholder: 'Sobrenome' %>
+            </span>
+          </label>
+
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
+              <%= f.input_field :birthday, required: true, label: false, class: 'form-control', placeholder: 'Data de Nascimento' %>
+              <i class="ace-icon fa fa-birthday-cake"></i>
+            </span>
+            <%= f.full_error :birthday, class: 'text-danger' %>
+          </label>
+
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :gender, prompt: 'Sexo:', class: 'form-control', label: false %>
-						</span>
-						<%= f.full_error :gender, class: 'text-danger' %>
-					</label>
+            </span>
+            <%= f.full_error :gender, class: 'text-danger' %>
+          </label>
 
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :password, required: true, class: 'form-control', placeholder: 'Senha', hint: ("Minimo de #{@minimum_password_length} caracteres" if @validatable) %>
-							<i class="ace-icon fa fa-lock"></i>
-						</span>
-						<%= f.full_error :password, class: 'text-danger' %>
-					</label>
+              <i class="ace-icon fa fa-lock"></i>
+            </span>
+            <%= f.full_error :password, class: 'text-danger' %>
+          </label>
 
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :password_confirmation, required: true, class: 'form-control', placeholder: 'Confirmação de Senha' %>
-							<i class="ace-icon fa fa-retweet"></i>
-						</span>
-						<%= f.full_error :password_confirmation, class: 'text-danger' %>
-					</label>
+              <i class="ace-icon fa fa-retweet"></i>
+            </span>
+            <%= f.full_error :password_confirmation, class: 'text-danger' %>
+          </label>
 
-					<!-- <label class="block">
-						<input type="checkbox" class="ace">
-						<span class="lbl">
-							I accept the
-							<a href="login.html#">User Agreement</a>
-						</span>
-					</label> -->
+          <!-- <label class="block">
+            <input type="checkbox" class="ace">
+            <span class="lbl">
+              I accept the
+              <a href="login.html#">User Agreement</a>
+            </span>
+          </label> -->
 
-					<div class="space-24"></div>
+          <div class="space-24"></div>
 
-					<div class="clearfix">
+          <div class="clearfix">
             <%= f.button :button, class: 'width-65 pull-right btn btn-sm btn-success', onclick: 'ga("send", "event", "registrations", "create");' do %>
             <span class="bigger-110">Cadastrar</span>
             <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
             <% end %>
 
-					</div>
-				</fieldset>
+          </div>
+        </fieldset>
         <% end %>
-		</div>
+    </div>
 
-		<div class="toolbar center">
+    <div class="toolbar center">
       <%= link_to new_user_session_path, class: 'white-back-to-login-link' do %>
         <i class="ace-icon fa fa-arrow-left"></i>
         Voltar para Login
       <% end %>
-		</div>
-	</div><!-- /.widget-body -->
+    </div>
+  </div><!-- /.widget-body -->
 </div>
 
 <%= javascript_include_tag 'jquery.maskedinput' %>

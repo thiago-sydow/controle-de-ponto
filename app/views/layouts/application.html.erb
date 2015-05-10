@@ -1,30 +1,9 @@
 <%= render partial: 'layouts/header' %>
 
 <div class="main-container" id="main-container">
-  <%= render partial: 'layouts/navbar' %>
+  <%= render 'layouts/sidebar', dashboard: @dashboard %>
   <div class="main-content">
     <div class="main-content-inner">
-      <!-- <div class="breadcrumbs" id="breadcrumbs">
-				<ul class="breadcrumb">
-					<li>
-						<i class="ace-icon fa fa-home home-icon"></i>
-						<a href="form-elements.html#">Home</a>
-					</li>
-
-					<li>
-						<a href="form-elements.html#">Forms</a>
-					</li>
-					<li class="active">Form Elements</li>
-				</ul><!-- /.breadcrumb --> -->
-
-				<!-- <div class="nav-search" id="nav-search">
-					<form class="form-search">
-						<span class="input-icon">
-							<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
-							<i class="ace-icon fa fa-search nav-search-icon"></i>
-						</span>
-					</form>
-				</div><!-- /.nav-search --> -->
 			</div>
       <div class="page-content">
         <%= render 'layouts/flash_messages' %>
