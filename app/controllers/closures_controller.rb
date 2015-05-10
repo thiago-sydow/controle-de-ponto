@@ -1,7 +1,4 @@
-class ClosuresController < ApplicationController
-  include ControllerWithDashboard
-
-  before_action :authenticate_user!
+class ClosuresController < GenericCrudController
 
   before_action :find_closure, only: [:edit, :update, :destroy]
 
@@ -16,44 +13,19 @@ class ClosuresController < ApplicationController
   end
 
   def create
-    @closure = Closure.new(closure_params)
-    @closure.user = current_user
-
-    if @closure.save
-      flash[:success] = 'O Fechamento foi criado com sucesso.'
-      redirect_to closures_path
-    else
-      flash[:error] = 'Ocorreu um erro ao criar o Fechamento. Por favor tente novamente.'
-      render :new
-    end
-
+    @closure = Closure.new(model_params)
+    super
   end
 
   def edit
   end
 
   def update
-
-    if @closure.update_attributes(closure_params)
-      flash[:success] = 'O Fechamento foi atualizado com sucesso.'
-      redirect_to closures_path
-    else
-      flash[:error] = 'Um erro ocorreu ao atualizar o Fechamento.'
-      render action: :edit
-    end
-
+    super
   end
 
   def destroy
-    @closure.destroy
-
-    if @closure.destroyed?
-      flash[:success] = 'O Fechamento foi excluído com sucesso.'
-    else
-      flash[:error] = 'Um erro ocorreu ao excluir o Fechamento.'
-    end
-
-    redirect_to closures_path
+    super
   end
 
   private
@@ -66,7 +38,7 @@ class ClosuresController < ApplicationController
     params.require(:id)
   end
 
-  def closure_params
+  def model_params
     params.require(:closure).permit(:start_date, :end_date)
   end
 

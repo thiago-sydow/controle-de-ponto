@@ -1,40 +1,40 @@
 <div id="forgot-box" class="forgot-box widget-box no-border visible">
-	<div class="widget-body">
-		<div class="widget-main">
-			<h4 class="header blue lighter bigger">
-				<i class="ace-icon fa fa-envelope"></i>
-				Reenviar email de confirmação
-			</h4>
-			<div class="space-6"></div>
-			<p>
+  <div class="widget-body">
+    <div class="widget-main">
+      <h4 class="header blue lighter bigger">
+        <i class="ace-icon fa fa-envelope"></i>
+        Reenviar email de confirmação
+      </h4>
+      <div class="space-6"></div>
+      <p>
         Insira seu email para receber as instruções
-			</p>
+      </p>
 
       <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-				<fieldset>
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+        <fieldset>
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :email, required: true, autofocus: true, class: 'form-control', placeholder: 'Email' %>
-							<i class="ace-icon fa fa-envelope"></i>
-						</span>
-						<%= f.full_error :email, class: 'text-danger' %>
-					</label>
+              <i class="ace-icon fa fa-envelope"></i>
+            </span>
+            <%= f.full_error :email, class: 'text-danger' %>
+          </label>
 
-					<div class="clearfix">
+          <div class="clearfix">
             <%= f.button :button, class: 'width-35 pull-right btn btn-sm btn-primary' do %>
               <i class="ace-icon fa fa-lightbulb-o"></i>
               <span class="bigger-110">Envie-me!</span>
             <% end %>
-					</div>
-				</fieldset>
+          </div>
+        </fieldset>
       <% end %>
-		</div><!-- /.widget-main -->
+    </div><!-- /.widget-main -->
 
-		<div class="toolbar center">
+    <div class="toolbar center">
       <%= link_to new_user_session_path, class: 'white-back-to-login-link' do %>
         <i class="ace-icon fa fa-arrow-left"></i>
         Voltar para Login
       <% end %>
-		</div>
-	</div><!-- /.widget-body -->
+    </div>
+  </div><!-- /.widget-body -->
 </div>

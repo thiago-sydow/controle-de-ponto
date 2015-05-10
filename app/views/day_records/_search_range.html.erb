@@ -10,19 +10,19 @@
           <i class="fa fa-caret-down"></i>
       </a>
       <%= f.input :from, input_html: { name: 'from',
-                                       value: @from.strftime('%d/%m/%Y') } %>
+                                       value: from.strftime('%d/%m/%Y') } %>
       <%= f.input :to, input_html: { name: 'to',
-                                     value: @to.strftime('%d/%m/%Y') } %>
+                                     value: to.strftime('%d/%m/%Y') } %>
       <div class="form-group">
         <%= f.button :submit, 'Filtrar', { class: 'btn btn-primary btn-sm' } %>
       </div>
       <% end %>
     </div>
     <div class="col-xs-6">
-      <h4 class="label label-<%= get_color_balance(@balance_period) %> label-white middle balance-sum">
+      <h4 class="label label-<%= get_color_balance(balance_period) %> label-white middle balance-sum">
         Saldo total para o periodo:
-        <strong class="time-p text-<%= get_color_balance(@balance_period) %>"><%= @balance_period.to_s %>
-          <i class="fa <%= get_icon_balance(@balance_period) %>"></i>
+        <strong class="time-p text-<%= get_color_balance(balance_period) %>"><%= balance_period.to_s %>
+          <i class="fa <%= get_icon_balance(balance_period) %>"></i>
         </strong>
       </h4>
     </div>

@@ -63,12 +63,12 @@
 		</li>
 	</ul><!-- /.nav-list -->
 	<div class="navbar-footer">
-		<div class="infobox <%= get_dashboard_color(@dashboard.total_balance) %>">
+		<div class="infobox <%= get_dashboard_color(dashboard.total_balance) %>">
 			<div class="infobox-icon">
-				<i class="ace-icon fa <%= get_icon_balance(@dashboard.total_balance) %>"></i>
+				<i class="ace-icon fa <%= get_icon_balance(dashboard.total_balance) %>"></i>
 			</div>
 			<div class="infobox-data">
-				<span class="infobox-data-number"><%= @dashboard.total_balance.to_s %></span>
+				<span class="infobox-data-number"><%= dashboard.total_balance.to_s %></span>
 				<div class="infobox-content">Saldo de horas
 					<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="O Saldo de horas é contabilizado à partir do seu último Fechamento informado." title="Saldo de horas">
 						<i class="fa fa-question-circle"></i>
@@ -94,7 +94,7 @@
 			</div>
 
 			<div class="infobox-data">
-				<span class="infobox-data-number"><%= @dashboard.departure_time.to_s(:time) %></span>
+				<span class="infobox-data-number"><%= dashboard.departure_time.to_s(:time) %></span>
 				<div class="infobox-content">Previsão de saída
 					<a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="A previsão de saída utiliza o tempo médio de almoço que você informar nas configurações, enquanto você não registrar uma Entrada 2." title="Previsão de saída">
 						<i class="fa fa-question-circle"></i>
@@ -105,13 +105,13 @@
 
 		<div class="infobox infobox-blue2">
 			<div class="infobox-progress">
-				<div class="easy-pie-chart percentage" data-percent="<%= @dashboard.percentage_worked %>" data-size="60" style="height: 60px; width: 60; line-height: 58px;">
-					<span class="percent"><%= @dashboard.percentage_worked %></span>%
+				<div class="easy-pie-chart percentage" data-percent="<%= dashboard.percentage_worked %>" data-size="60" style="height: 60px; width: 60; line-height: 58px;">
+					<span class="percent"><%= dashboard.percentage_worked %></span>%
 				<canvas height="60" width="60"></canvas></div>
 			</div>
 
 			<div class="infobox-data">
-				<span class="infobox-data-number info-worked-time"><%= @dashboard.total_worked.to_s(:time) %></span>
+				<span class="infobox-data-number info-worked-time"><%= dashboard.total_worked.to_s(:time) %></span>
 
 				<div class="infobox-content">Total de hoje</div>
 			</div>
@@ -124,7 +124,7 @@
 				</div>
 
 				<div class="infobox-data">
-					<span class="infobox-data-number"><%= @dashboard.next_entrance_time.try(:to_s, :time) || '--:--' %></span>
+					<span class="infobox-data-number"><%= dashboard.next_entrance_time.try(:to_s, :time) || '--:--' %></span>
 					<div class="infobox-content">Próxima Entrada
 						<a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Esta é sua próxima entrada recomendada para não infrigir o Art. 66 da CLT." title="Próxima Entrada">
 							<i class="fa fa-question-circle"></i>

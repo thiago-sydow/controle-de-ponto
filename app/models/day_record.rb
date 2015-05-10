@@ -9,8 +9,8 @@ class DayRecord
   field :work_day
   field :missed_day
 
-  enumerize :work_day, in: {yes: 1, no: 0}, default: :yes
-  enumerize :missed_day, in: {yes: 1, no: 0}, default: :no
+  enumerize :work_day, in: { yes: 1, no: 0 }, default: :yes
+  enumerize :missed_day, in: { yes: 1, no: 0 }, default: :no
 
   belongs_to :user
   embeds_many :time_records
@@ -60,7 +60,7 @@ class DayRecord
   end
 
   def sum_times(*times)
-    times.inject{|sum, time| sum + time.hour.hours + time.min.minutes}
+    times.inject { |sum, time| sum + time.hour.hours + time.min.minutes }
   end
 
   def add_lunch_time(time)

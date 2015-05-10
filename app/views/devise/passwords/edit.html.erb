@@ -1,49 +1,49 @@
 <div id="forgot-box" class="forgot-box widget-box no-border visible">
-	<div class="widget-body">
-		<div class="widget-main">
-			<h4 class="header red lighter bigger">
-				<i class="ace-icon fa fa-key"></i>
-				Alterar Senha
-			</h4>
-			<div class="space-6"></div>
-			<p>
+  <div class="widget-body">
+    <div class="widget-main">
+      <h4 class="header red lighter bigger">
+        <i class="ace-icon fa fa-key"></i>
+        Alterar Senha
+      </h4>
+      <div class="space-6"></div>
+      <p>
         Insira seu email para receber as instruções
-			</p>
+      </p>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.input :reset_password_token, as: :hidden %>
         <%= f.full_error :reset_password_token, class: 'text-danger' %>
-				<fieldset>
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+        <fieldset>
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :password, required: true, autofocus: true, class: 'form-control', placeholder: 'Nova Senha' %>
-							<i class="ace-icon fa fa-key"></i>
-						</span>
-						<%= f.full_error :password, class: 'text-danger' %>
-					</label>
+              <i class="ace-icon fa fa-key"></i>
+            </span>
+            <%= f.full_error :password, class: 'text-danger' %>
+          </label>
 
-					<label class="block clearfix">
-						<span class="block input-icon input-icon-right">
+          <label class="block clearfix">
+            <span class="block input-icon input-icon-right">
               <%= f.input_field :password_confirmation, required: true, autofocus: true, class: 'form-control', placeholder: 'Confirme sua nova senha' %>
-							<i class="ace-icon fa fa-retweet"></i>
-						</span>
-						<%= f.full_error :password_confirmation, class: 'text-danger' %>
-					</label>
+              <i class="ace-icon fa fa-retweet"></i>
+            </span>
+            <%= f.full_error :password_confirmation, class: 'text-danger' %>
+          </label>
 
-					<div class="clearfix">
+          <div class="clearfix">
             <%= f.button :button, class: 'btn-block pull-right btn btn-sm btn-danger' do %>
               <span class="bigger-110">Mudar minha Senha</span>
             <% end %>
-					</div>
-				</fieldset>
+          </div>
+        </fieldset>
       <% end %>
-		</div><!-- /.widget-main -->
+    </div><!-- /.widget-main -->
 
-		<div class="toolbar center">
+    <div class="toolbar center">
       <%= link_to new_user_session_path, class: 'back-to-login-link' do %>
         Voltar para Login
         <i class="ace-icon fa fa-arrow-right"></i>
       <% end %>
-		</div>
-	</div><!-- /.widget-body -->
+    </div>
+  </div><!-- /.widget-body -->
 </div>

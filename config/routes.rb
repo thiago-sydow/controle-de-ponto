@@ -4,14 +4,14 @@ Rails.application.routes.draw do
   devise_scope :user do
 
     authenticated :user do
-      root 'day_records#index', as: :authenticated_root
-      resources :day_records do
-        collection do 
+      root to: redirect('/day_records'), as: :authenticated_root
+      resources :day_records, except: [:show] do
+        collection do
           get 'async_worked_time', action: :async_worked_time
         end
       end
 
-      resources :closures
+      resources :closures, except: [:show]
     end
 
     unauthenticated do

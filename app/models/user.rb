@@ -15,7 +15,7 @@ class User
   field :workload, type: Time, default: Time.zone.local(1999, 8, 1).change(hour: 8, minute: 0)
   field :lunch_time, type: Time
 
-  #CLT
+  ## CLT
   field :warn_straight_hours, type: Boolean, default: true
   field :warn_overtime, type: Boolean, default: true
   field :warn_rest_period, type: Boolean, default: true
@@ -26,8 +26,8 @@ class User
   has_many :closures, dependent: :delete
 
   ## Database authenticatable
-  field :email,              type: String, default: ""
-  field :encrypted_password, type: String, default: ""
+  field :email,              type: String, default: ''
+  field :encrypted_password, type: String, default: ''
 
   ## Recoverable
   field :reset_password_token,   type: String
