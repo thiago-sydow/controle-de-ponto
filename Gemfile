@@ -34,6 +34,8 @@ gem 'newrelic_rpm'
 gem 'prawn'
 gem 'prawn-table'
 
+gem 'mail_form'
+
 group :production do
   gem 'rails_12factor'
 end

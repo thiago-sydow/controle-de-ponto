@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
     unauthenticated do
       root 'site#index', as: :unauthenticated_root
+      post '/contato', to: 'site#contact', as: :contact
     end
   end
 
