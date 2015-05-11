@@ -158,7 +158,12 @@ GEM
     passenger (5.0.6)
       rack
       rake (>= 0.8.1)
+    pdf-core (0.5.1)
     powerpack (0.1.0)
+    prawn (2.0.1)
+      pdf-core (~> 0.5.1)
+      ttfunk (~> 1.4.0)
+    prawn-table (0.2.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -293,6 +298,7 @@ GEM
       activesupport
       i18n
     tins (1.3.5)
+    ttfunk (1.4.0)
     turnip (1.2.4)
       gherkin (>= 2.5)
       rspec (>= 2.14.0, < 4.0)
@@ -334,6 +340,8 @@ DEPENDENCIES
   mongoid-rspec (~> 2.1.0)
   newrelic_rpm
   passenger
+  prawn
+  prawn-table
   pry
   pry-byebug
   rack-mini-profiler
