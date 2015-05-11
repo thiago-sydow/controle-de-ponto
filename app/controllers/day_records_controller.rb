@@ -36,6 +36,13 @@ class DayRecordsController < GenericCrudController
     render json: { time: @dashboard.total_worked.to_s(:time), percentage: @dashboard.percentage_worked }
   end
 
+  def export_pdf
+    send_data DayRecord::ExportPdf.new(current_user, from, to).generate.render,
+              filename: "#{current_user.first_name}.pdf",
+              type: 'application/pdf',
+              disposition: 'inline'
+  end
+
   private
 
   def set_date_range

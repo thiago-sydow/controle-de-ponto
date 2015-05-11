@@ -31,6 +31,9 @@ gem 'passenger'
 
 gem 'newrelic_rpm'
 
+gem 'prawn'
+gem 'prawn-table'
+
 group :production do
   gem 'rails_12factor'
 end

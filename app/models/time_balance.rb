@@ -23,6 +23,10 @@ class TimeBalance
     self.hour == 0 && self.minute == 0
   end
 
+  def negative?
+    !(cleared? || positive?)
+  end
+
   def sum(balance)
     calculate((self.hour.hours + self.minute.minutes), (balance.hour.hours + balance.minute.minutes))
 

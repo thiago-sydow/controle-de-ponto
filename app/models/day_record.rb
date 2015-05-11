@@ -102,7 +102,7 @@ class DayRecord
     time_records.each_with_index do |time_record, index|
       diff = Time.diff(reference_time.time, time_record.time)
       total = total + diff[:hour].hours + diff[:minute].minutes if satisfy_conditions(worked_hours, index)
-      check_straight_hours_violation(diff) if worked_hours && (index.odd? || index.zero?)
+      check_straight_hours_violation(diff) if worked_hours && index.odd?
       reference_time = time_record
     end
 
