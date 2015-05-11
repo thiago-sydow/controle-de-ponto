@@ -34,8 +34,9 @@
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav menu">
 	            <li class="active"><a href="#section-home" onclick="ga('send', 'pageview', '/home');" >Incício</a></li>
-	            <li><a href="#section-intro" onclick="ga('send', 'pageview', '/description');">Como funciona?</a></li>
-	            <li><a href="#section-showcase" onclick="ga('send', 'pageview', '/showcase');">Imagens</a></li>
+	            <li><a href="#section-intro" onclick="ga('send', 'pageview', '/como-funciona');">Como funciona?</a></li>
+	            <li><a href="#section-showcase" onclick="ga('send', 'pageview', '/imagens');">Imagens</a></li>
+              <li><a href="#section-contact" onclick="ga('send', 'pageview', '/contato');">Contato</a></li>
 	          </ul>
             <ul class="nav navbar-nav pull-right">
               <li><%= link_to 'Fazer login', new_user_session_path %></li>
@@ -283,47 +284,58 @@
   			</div>
   			<br>
   			<br>
+        <br>
+  			<br>
+  			<br>
+        <div class="row">
+          <div class="col-xs-12 text-center" >
+            <%= link_to 'Cadastre-se', new_user_registration_path, class: 'col-sm-offset-3 col-sm-6 col-xs-12 btn btn-large btn-success btn-cadastro-large' %>
+          </div>
+        </div>
+  			<br>
+  			<br>
   			<br>
   		</div><!-- /container -->
   	</div>
   </section>
 
-  <!-- <section class="section-contact" name="contact">
+  <section class="section-contact" name="contact">
     <div id="footerwrap">
   		<div class="container">
   			<div class="col-lg-5">
-  				<h3>Address</h3>
+  				<h3>Código Aberto</h3>
   				<p>
-  				Av. Greenville 987,<br>
-  				New York,<br>
-  				90873<br>
-  				United States
+            <a href="https://github.com/thiago-sydow/controle-de-ponto/">
+              <i class="fa fa-github"></i>
+              thiago-sydow/controle-de-ponto
+            </a>
+  				</p>
+          <h3>Email para contato</h3>
+  				<p>
+            <a href="mailto:contato@meucontroledeponto.com.br">contato@meucontroledeponto.com.br</a>
   				</p>
   			</div>
 
   			<div class="col-lg-7">
-  				<h3>Escreva uma mensagem</h3>
+  				<h3>Envie uma mensagem !</h3>
+          <%= render 'layouts/flash_messages' %>
   				<br>
-  				<form role="form" action="#" method="post" enctype="plain">
-  				  <div class="form-group">
-  				    <label for="name1">Seu Nome</label>
-  				    <input type="name" name="name" class="form-control" id="name1" placeholder="Nome">
-  				  </div>
-  				  <div class="form-group">
-  				    <label for="email1">Email</label>
-  				    <input type="email" name="email" class="form-control" id="email1" placeholder="Email">
-  				  </div>
-  				  <div class="form-group">
-  				  	<label>Sua mensagem</label>
-  				  	<textarea class="form-control" name="message" rows="3"></textarea>
-  				  </div>
-  				  <br>
-  				  <button type="submit" class="btn btn-large btn-success">Enviar</button>
-  				</form>
+          <%= simple_form_for @contact, url: contact_path, :html => {:class => 'form-horizontal' } do |f| %>
+            <%= f.input :name, :required => true %>
+            <%= f.input :email, :required => true %>
+            <%= f.input :message, :as => :text, :required => true %>
+            <div class= "hidden">
+              <%= f.input :nickname, :hint => 'Leave this field blank!' %>
+            </div>
+            <div class="form-group">
+              </br>
+              <%= f.button :submit, 'Enviar', :class=> "btn btn-primary" %>
+            </div>
+          <% end %>
   			</div>
   		</div>
   	</div>
-  </section> -->
+  </section>
 
 	<%= javascript_include_tag 'jquery.min' %>
   <%= javascript_include_tag 'jquery.smint' %>
@@ -337,5 +349,10 @@
   	  interval: 3500
   	});
 	</script>
+  <% if @render_from_form %>
+  <script>
+    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+  </script>
+  <% end %>
   </body>
 </html>

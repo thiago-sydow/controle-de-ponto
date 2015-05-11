@@ -1,0 +1,16 @@
+pt-BR:
+  mail_form:
+    action:
+      success: Obrigado pela mensagem. Nós entraremos em contato em breve!
+      error: Houve um problema ao enviar sua mensagem.
+    models:
+      contact: "Your site contact form"
+    attributes:
+      contact:
+        name: Nome
+        email: E-mail
+        message: Mensagem
+    request:
+      title: Technical information about the user
+      remote_ip: Endereço IP
+      user_agent: Browser
