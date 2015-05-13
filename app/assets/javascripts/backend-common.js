@@ -9,6 +9,13 @@ var updateTime = function() {
   });
 };
 
+var updateTimeLabels = function() {
+  $('.time-records-container').find('.nested-fields').each(function(index){
+    $(this).find('.entrance-exit').text(index % 2 === 0 ? 'Entrada ' : 'Saída ' );
+    $(this).find('.number-of-type').text(Math.ceil((index + 1) / 2));
+  });
+};
+
 $(function(){
 
   $.fn.twitter_bootstrap_confirmbox.defaults = {
@@ -29,11 +36,6 @@ $(function(){
   $('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
   $('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não', onColor: 'success', offColor: 'danger'});
 
-  $('.time-records-container').find('.nested-fields').each(function(index){
-    $(this).find('.entrance-exit').text(index % 2 === 0 ? 'Entrada ' : 'Saída ' );
-    $(this).find('.number-of-type').text(Math.ceil((index + 1) / 2));
-  });
-
   $('.time-records-container')
   .on('cocoon:before-insert', function(e, insertedItem) {
     var count = $('.nested-fields').length;
@@ -44,6 +46,9 @@ $(function(){
   })
   .on('cocoon:after-insert', function(e, insertedItem) {
     $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+  })
+  .on('cocoon:after-remove', function(e, insertedItem) {
+    updateTimeLabels();
   });
 
   $('.easy-pie-chart.percentage').each(function(){
@@ -62,5 +67,6 @@ $(function(){
 		});
 	});
 
+  updateTimeLabels();
   updateTime();
 });
