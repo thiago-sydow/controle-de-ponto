@@ -18,11 +18,11 @@
       <%= render 'time_record_fields', f: time_record %>
     <% end %>
 
-    <div class="col-xs-12 col-md-1 text-center" style="margin-top: 15px;">
+    <div class="col-xs-12 col-md-1 text-center add-container" style="margin-top: 15px;">
       <%= link_to_add_association '<i class="fa fa-plus-circle fa-3x text-success"></i>'.html_safe, f, :time_records,
         {
-          'data-association-insertion-node' => '.nested-fields:last',
-          'data-association-insertion-method' => 'after'
+          'data-association-insertion-node' => '.add-container',
+          'data-association-insertion-method' => 'before'
         } %>
     </div>
   </div>
