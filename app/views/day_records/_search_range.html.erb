@@ -2,20 +2,20 @@
   <div class="col-xs-12">
     <div class="col-xs-12 col-sm-6">
       <%= simple_form_for :date_range, wrapper: :inline_form,
-                                       html: { class: 'form-inline' },
+                                       html: { class: 'form-inline row' },
                                        url: day_records_path,
                                        method: :get do |f| %>
-      <a href="#" class="btn btn-default btn-sm" id="daterange-btn">
+      <a href="#" class="btn btn-default btn-sm col-xs-2 hidden-xs" id="daterange-btn">
           <i class="fa fa-calendar"></i> Datas
           <i class="fa fa-caret-down"></i>
       </a>
       <%= f.input :from, input_html: { name: 'from',
-                                       value: from.strftime('%d/%m/%Y') } %>
+                                       value: from.strftime('%d/%m/%Y'), class: 'col-xs-12 text-center' }, wrapper_html: { class: 'col-xs-5 col-sm-4' } %>
       <%= f.input :to, input_html: { name: 'to',
-                                     value: to.strftime('%d/%m/%Y') } %>
-      <div class="form-group">
+                                     value: to.strftime('%d/%m/%Y'), class: 'col-xs-12 text-center' }, wrapper_html: { class: 'col-xs-5 col-sm-4' } %>
+      <div class="form-group col-xs-2">
         <%= f.button :submit, 'Filtrar', { class: 'btn btn-primary btn-sm' } %>
-      </div>
+      </div> 
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-4">
@@ -26,7 +26,7 @@
         </strong>
       </h4>
     </div>
-    <div class="col-xs-12 col-sm-2 pull-right text-right">
+    <div class="col-xs-12 col-sm-2 pull-right text-right row">
       <div class="btn-group">
 				<button data-toggle="dropdown" class="btn dropdown-toggle" aria-expanded="false">
 					Exportar
