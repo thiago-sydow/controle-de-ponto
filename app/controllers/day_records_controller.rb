@@ -29,7 +29,7 @@ class DayRecordsController < GenericCrudController
 
   def destroy
     super
-  end
+  end 
 
   def async_worked_time
     set_dashboard
@@ -41,6 +41,14 @@ class DayRecordsController < GenericCrudController
               filename: "#{current_user.first_name}.pdf",
               type: 'application/pdf',
               disposition: 'inline'
+  end
+
+  def add_now
+    current_day = current_user.day_records.today.first_or_create
+    current_day.time_records.create(time: Time.current)
+    flash[:success] =  t "day_records.create.success"
+
+    redirect_to action: :index
   end
 
   private

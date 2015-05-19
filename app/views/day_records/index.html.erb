@@ -4,6 +4,7 @@
 		  <i class="ace-icon fa fa-angle-double-right"></i>
 		  Visualize os seus registros de forma fácil
 		</small>
+    <%= link_to 'Registrar agora', add_now_day_records_path, class: 'btn btn-success btn-sm' %>
   </h1>
 <% end %>
 <%= render 'search_range', from: @from, to: @to, balance_period: @balance_period %>
