@@ -12,7 +12,8 @@ class DayRecord::ExportPdf
     @data = user.day_records.where(reference_date: from..to)
     @from = from.strftime('%d/%m/%Y')
     @to = to.strftime('%d/%m/%Y')
-    @header = TABLE_HEADER.dup.insert(1, entrance_exits).flatten
+    @dynamic_headers = entrance_exits
+    @header = TABLE_HEADER.dup.insert(1, @dynamic_headers).flatten
   end
 
   def generate
@@ -71,10 +72,12 @@ class DayRecord::ExportPdf
     rows = []
     data.map do |day|
       text_balance = day.balance.negative? ? '-' : '+'
+      times = day.time_records.collect(&:time).map { |time| time.to_s(:time) }
+      times.fill('', (times.size)..(@header.size - 4))
 
       rows << [
         day.reference_date.strftime('%d/%m/%Y'),
-        day.time_records.collect(&:time).map { |time| time.to_s(:time) },
+        times,
         day.total_worked.to_s(:time),
         { content: "#{text_balance} #{day.balance.to_s}", background_color: day.balance.negative? ? 'f7ecf2' : 'dff0d8' }
       ].flatten

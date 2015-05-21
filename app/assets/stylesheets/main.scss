@@ -162,7 +162,6 @@ hr {
 	}
 	p {
 		color: $white;
-		font-size: 18px;
 	}
 }
 #c {
@@ -174,4 +173,28 @@ hr {
 	}
 }
 
-.btn-cadastro-large { font-size: 60px; }
+.navbar-nav > li > a.btn-cadastro-menu {
+	color: #FFF;
+	background-color: #428BCA;
+	border-color: #357EBD;
+  display: inline-block;
+	margin-bottom: 0px;
+	font-weight: normal;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	font-size: 14px;
+	line-height: 1.42857;
+	border-radius: 4px;
+
+  &:focus, &:hover {
+    color: #FFF;
+		background-color: #3071A9;
+		border-color: #285E8E;
+  }
+}
+
+.btn-cadastro-large { font-size: 3em; }

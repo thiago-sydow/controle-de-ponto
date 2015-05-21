@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html prefix="og: http://ogp.me/ns#" lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Controle os horários de entrada, intervalo, saída e horas-extras de forma simples, prática e rápida." />
     <meta name="author" content="Thiago von Sydow <thiagovs05@gmail.com>">
+
+    <meta property="og:title" content="Meu Controle de Ponto" />
+    <meta property="og:url" content="http://www.meucontroledeponto.com.br" />
+    <meta property="og:image" content="<%= image_url 'slideshow2.png' %>" />
+
     <%= render partial: 'shared/favicons' %>
 
     <title>Meu Controle de Ponto - Controle as suas horas trabalhadas.</title>
@@ -40,7 +45,7 @@
 	          </ul>
             <ul class="nav navbar-nav pull-right">
               <li><%= link_to 'Fazer login', new_user_session_path %></li>
-              <li><%= link_to 'Criar uma conta', new_user_registration_path %></li>
+              <li><%= link_to 'Criar uma conta', new_user_registration_path, class: 'btn-cadastro-menu' %></li>
             </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
@@ -63,7 +68,7 @@
               <%= image_tag 'arrow1.png', class: 'hidden-xs hidden-sm hidden-md' %>
   	    		</div>
   	    		<div class="col-lg-8">
-              <%= image_tag 'meucontrole_estatisticas.png', class: 'pull-left img-responsive', style: 'width: 22%;' %>
+              <%= image_tag 'sidebar-example.png', class: 'pull-left img-responsive', style: 'width: 22%;' %>
               <%= image_tag 'meucontrole_intro.png', class: 'pull-right img-responsive', style: 'width: 77%;' %>
   	    		</div>
   	    		<div class="col-lg-2">
@@ -265,19 +270,23 @@
   					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
   					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                 <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
   					  </ol>
 
   					  <!-- Wrapper for slides -->
   					  <div class="carousel-inner">
   					    <div class="item active">
-                  <%= image_tag 'showcase_1.png' %>
-  					    </div>
-  					    <div class="item">
-                  <%= image_tag 'showcase_2.png' %>
+                  <%= image_tag 'slideshow2.png' %>
   					    </div>
                 <div class="item">
-                  <%= image_tag 'showcase_3.png' %>
+                  <%= image_tag 'slideshow3.png' %>
   					    </div>
+                <div class="item">
+                  <%= image_tag 'slideshow4.png' %>
+                </div>
+                <div class="item">
+                  <%= image_tag 'slideshow5.png' %>
+                </div>
   					  </div>
   					</div>
   				</div>
