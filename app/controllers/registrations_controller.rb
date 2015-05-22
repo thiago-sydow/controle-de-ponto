@@ -1,7 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
+  include BeforeRender
+
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  before_action :set_dashboard, only: [:edit]
+  before_render :set_dashboard, except: [:new, :create]
 
   def update
     @user = User.find(current_user.id)
