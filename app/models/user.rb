@@ -11,19 +11,7 @@ class User
 
   field :first_name, type: String
   field :last_name, type: String
-  field :birthday, type: Date
-  field :workload, type: Time, default: Time.zone.local(1999, 8, 1).change(hour: 8, minute: 0)
-  field :lunch_time, type: Time
-
-  ## CLT
-  field :warn_straight_hours, type: Boolean, default: true
-  field :warn_overtime, type: Boolean, default: true
-  field :warn_rest_period, type: Boolean, default: true
-
-  validates_presence_of :first_name, :last_name, :birthday, :gender, :workload
-
-  has_many :day_records, dependent: :delete
-  has_many :closures, dependent: :delete
+  field :birthday, type: Date  
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -48,5 +36,13 @@ class User
   field :confirmed_at,         type: Time
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
+
+  validates_presence_of :first_name, :last_name, :birthday, :gender
+
+  has_many :accounts
+
+  def current_account
+    accounts.active.first
+  end
 
 end

@@ -5,8 +5,7 @@ RSpec.describe User do
   it { expect(build(:user)).to be_valid }
 
   context 'associations' do
-    it { expect(subject).to have_many :day_records }
-    it { expect(subject).to have_many :closures }
+    it { expect(subject).to have_many :accounts }
   end
 
   context 'validations' do
@@ -16,7 +15,6 @@ RSpec.describe User do
     it { expect(subject).to validate_presence_of :last_name }
     it { expect(subject).to validate_presence_of :birthday }
     it { expect(subject).to validate_presence_of :gender }
-    it { expect(subject).to validate_presence_of :workload }
   end
 
   context 'authenticate user' do
