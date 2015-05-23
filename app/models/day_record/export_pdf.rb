@@ -7,9 +7,9 @@ class DayRecord::ExportPdf
     'Saldo'
   ]
 
-  def initialize(user, from, to)
-    @user = user
-    @data = user.day_records.where(reference_date: from..to)
+  def initialize(account, from, to)
+    @account = account
+    @data = account.day_records.where(reference_date: from..to)
     @from = from.strftime('%d/%m/%Y')
     @to = to.strftime('%d/%m/%Y')
     @dynamic_headers = entrance_exits
@@ -91,7 +91,7 @@ class DayRecord::ExportPdf
   def entrance_exits
     headers = []
 
-    DayRecord.max_time_count_for_user(@user).times do |index|
+    DayRecord.max_time_count_for_account(@account).times do |index|
       headers << h.get_time_label_from_number(index)
     end
 

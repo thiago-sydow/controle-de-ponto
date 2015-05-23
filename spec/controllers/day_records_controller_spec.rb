@@ -3,9 +3,10 @@ require 'rails_helper'
 describe DayRecordsController do
 
   let!(:user) { create(:user) }
+  let!(:account) { create(:account, user: user) }
 
   describe '#index' do
-    let!(:day) { create(:day_record, user: user) }
+    let!(:day) { create(:day_record, account: account) }
 
     context 'when user is logged in' do
       login_user
@@ -17,8 +18,8 @@ describe DayRecordsController do
       it { expect(response).to render_template(:index) }
 
       context 'when date range is provided' do
-        let!(:day_2) { create(:day_record, user: user, reference_date: 2.days.ago) }
-        let!(:day_3) { create(:day_record, user: user, reference_date: 3.days.ago) }
+        let!(:day_2) { create(:day_record, account: account, reference_date: 2.days.ago) }
+        let!(:day_3) { create(:day_record, account: account, reference_date: 3.days.ago) }
 
         context 'and covers all dates' do
           before { get :index, from: 3.days.ago.to_s }
@@ -55,7 +56,7 @@ describe DayRecordsController do
   end
 
   describe '#edit' do
-    let(:day) { create(:day_record, user: user) }
+    let(:day) { create(:day_record, account: account) }
 
     context 'when user is logged in' do
       login_user
@@ -98,7 +99,7 @@ describe DayRecordsController do
   end
 
   describe '#create' do
-    let!(:attrs) { attributes_for(:day_record_with_times, user: user) }
+    let!(:attrs) { attributes_for(:day_record_with_times, account: account) }
 
     context 'when user is logged in' do
       login_user
@@ -122,7 +123,7 @@ describe DayRecordsController do
 
         it { expect(response).to render_template(:new) }
         it { expect(flash[:error]).not_to be_nil }
-        it { expect(user.day_records.count).to eq(0) }
+        it { expect(account.day_records.count).to eq(0) }
       end
 
     end
@@ -135,7 +136,7 @@ describe DayRecordsController do
   end
 
   context '#update' do
-    let!(:day) { create(:day_record_with_times, user: user) }
+    let!(:day) { create(:day_record_with_times, account: account) }
     let!(:change_id) { day.time_records.first.id }
     let(:new_time) { Time.current.change(hour: 9, min: 56) }
     let(:attrs) { { time_records_attributes: { '0' => { id: change_id, time: new_time.to_s } } } }
@@ -175,7 +176,7 @@ describe DayRecordsController do
   end
 
   describe '#destroy' do
-    let!(:day) { create(:day_record, user: user) }
+    let!(:day) { create(:day_record, account: account) }
     let(:find_day) { DayRecord.find(day.id) }
 
     context 'when user is logged in' do
@@ -218,7 +219,7 @@ describe DayRecordsController do
     context 'when user is logged in' do
       login_user
 
-      let!(:day) { create(:day_record, user: user) }
+      let!(:day) { create(:day_record, account: account) }
       let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
 
       before { get :async_worked_time }

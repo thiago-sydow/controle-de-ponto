@@ -5,63 +5,63 @@ RSpec.describe DayRecord do
   it { expect(build(:day_record)).to be_valid }
 
   context 'associations' do
-    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :account }
     it { is_expected.to embed_many :time_records }
   end
 
   context 'validations' do
     it { is_expected.to validate_presence_of :reference_date }
-    it { is_expected.to validate_uniqueness_of(:reference_date).scoped_to :user_id }
+    it { is_expected.to validate_uniqueness_of(:reference_date).scoped_to :account_id }
   end
 
   context 'ordering' do
-    let(:user) { create(:user) }
-    let(:day_1) { create(:day_record, reference_date: 3.days.ago, user: user) }
-    let(:day_2) { create(:day_record, reference_date: 2.days.ago, user: user) }
-    let(:day_3) { create(:day_record, reference_date: 1.days.ago, user: user) }
+    let(:account) { create(:account) }
+    let(:day_1) { create(:day_record, reference_date: 3.days.ago, account: account) }
+    let(:day_2) { create(:day_record, reference_date: 2.days.ago, account: account) }
+    let(:day_3) { create(:day_record, reference_date: 1.days.ago, account: account) }
 
-    it { expect(user.day_records).to eq [day_3, day_2, day_1] }
+    it { expect(account.day_records).to eq [day_3, day_2, day_1] }
   end
 
-  describe '#max_time_count_for_user' do
-    let!(:user)   { create(:user_sequence) }
-    let!(:user_1) { create(:user_sequence) }
-    let!(:user_2) { create(:user_sequence) }
-    let!(:day_1)  { create(:day_record, user: user_1) }
-    let!(:day_2)  { create(:day_record, reference_date: 3.days.ago, user: user_2) }
+  describe '#max_time_count_for_account' do
+    let!(:account)   { create(:account_sequence) }
+    let!(:account_1) { create(:account_sequence) }
+    let!(:account_2) { create(:account_sequence) }
+    let!(:day_1)  { create(:day_record, account: account_1) }
+    let!(:day_2)  { create(:day_record, reference_date: 3.days.ago, account: account_2) }
     let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day_1) }
     let!(:time_2) { create(:time_record, time: 2.hours.ago, day_record: day_2) }
     let!(:time_3) { create(:time_record, time: 1.hours.ago, day_record: day_2) }
 
     context 'when no day records exists' do
-      it { expect(DayRecord.max_time_count_for_user(user)).to eq 0 }
+      it { expect(DayRecord.max_time_count_for_account(account)).to eq 0 }
     end
 
     context 'when day record exist but no time records' do
-      let!(:day)  { create(:day_record, user: user) }
+      let!(:day)  { create(:day_record, account: account) }
 
-      it { expect(DayRecord.max_time_count_for_user(user)).to eq 0 }
+      it { expect(DayRecord.max_time_count_for_account(account)).to eq 0 }
     end
 
     context 'when time records exists' do
-      it { expect(DayRecord.max_time_count_for_user(user_1)).to eq 1 }
+      it { expect(DayRecord.max_time_count_for_account(account_1)).to eq 1 }
     end
 
-    context 'when multiple users have time records' do
-      it { expect(DayRecord.max_time_count_for_user(user_1)).to eq 1 }
-      it { expect(DayRecord.max_time_count_for_user(user_2)).to eq 2 }
+    context 'when multiple accounts have time records' do
+      it { expect(DayRecord.max_time_count_for_account(account_1)).to eq 1 }
+      it { expect(DayRecord.max_time_count_for_account(account_2)).to eq 2 }
     end
 
   end
 
   describe 'Time Statistics' do
-    let!(:user) { create(:user_sequence) }
+    let!(:account) { create(:account_sequence) }
     let!(:base_time) { DayRecord::ZERO_HOUR }
 
     describe '#total_worked' do
 
       context 'without time records' do
-        let!(:day)  { create(:day_record, user: user) }
+        let!(:day)  { create(:day_record, account: account) }
 
         it { expect(day.total_worked).to eq base_time }
       end
@@ -69,7 +69,7 @@ RSpec.describe DayRecord do
       context 'with time records' do
 
         context 'when reference_date is not today' do
-          let!(:day)  { create(:day_record, reference_date: 3.days.ago, user: user) }
+          let!(:day)  { create(:day_record, reference_date: 3.days.ago, account: account) }
           let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
           let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
@@ -104,7 +104,7 @@ RSpec.describe DayRecord do
         end
 
         context 'when reference_date is today' do
-          let!(:day)  { create(:day_record, user: user) }
+          let!(:day)  { create(:day_record, account: account) }
           let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
           let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
@@ -142,7 +142,7 @@ RSpec.describe DayRecord do
       end
 
       context 'when total_worked is called twice' do
-        let!(:day)  { create(:day_record, user: user) }
+        let!(:day)  { create(:day_record, account: account) }
 
         it 'returns object from memory on second call' do
           expect(day.total_worked).to eq(day.total_worked)
@@ -153,7 +153,7 @@ RSpec.describe DayRecord do
     end
 
     describe '#balance' do
-      let!(:day)  { create(:day_record, user: user) }
+      let!(:day)  { create(:day_record, account: account) }
       let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
       let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
@@ -162,7 +162,7 @@ RSpec.describe DayRecord do
         context 'when missed the day' do
 
           it 'ignore time records created and set to full workload negative' do
-            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.user.workload, base_time)
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.account.workload, base_time)
             day.missed_day = :yes
             day.save
             day.balance
@@ -173,7 +173,7 @@ RSpec.describe DayRecord do
         context 'when not missed the day' do
 
           it 'calculates the balance normally' do
-            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.user.workload, day.total_worked)
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.account.workload, day.total_worked)
             day.balance
           end
 
@@ -211,12 +211,12 @@ RSpec.describe DayRecord do
     end
 
     describe '#forecast_departure_time' do
-      let!(:empty_day)  { create(:day_record, reference_date: 4.days.ago, user: user) }
+      let!(:empty_day)  { create(:day_record, reference_date: 4.days.ago, account: account) }
 
       it { expect(empty_day.forecast_departure_time).to eq base_time }
 
       context 'when reference_date is not today' do
-        let!(:day)  { create(:day_record, reference_date: 3.days.ago, user: user) }
+        let!(:day)  { create(:day_record, reference_date: 3.days.ago, account: account) }
         let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
         let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
@@ -224,7 +224,7 @@ RSpec.describe DayRecord do
       end
 
       context 'when reference_date is today' do
-        let!(:day)  { create(:day_record, user: user) }
+        let!(:day)  { create(:day_record, account: account) }
         let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
         let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
@@ -255,8 +255,8 @@ RSpec.describe DayRecord do
 
         end
 
-        context 'user lunch_time config is present' do
-          before { user.lunch_time = Time.current.change(hour: 1, min: 0); user.save }
+        context 'account lunch_time config is present' do
+          before { account.lunch_time = Time.current.change(hour: 1, min: 0); account.save }
 
           context 'at most 2 time records' do
             it { expect(day.forecast_departure_time).to eq base_time.change(hour: 17, min: 5) }
@@ -277,9 +277,9 @@ RSpec.describe DayRecord do
   end
 
   describe '#labor_laws_violations' do
-    let!(:user) { create(:user_sequence) }
+    let!(:account) { create(:account_sequence) }
     let!(:base_time) { DayRecord::ZERO_HOUR }
-    let!(:day)  { create(:day_record, user: user) }
+    let!(:day)  { create(:day_record, account: account) }
     let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
     let!(:time_2) { create(:time_record, time: base_time.change(hour: 19, min: 1), day_record: day) }
 
@@ -288,7 +288,7 @@ RSpec.describe DayRecord do
         it { expect(day.labor_laws_violations[:overtime]).to be_truthy }
       end
       context 'and config is disabled' do
-        before { user.warn_overtime = false; user.save }
+        before { account.warn_overtime = false; account.save }
         it { expect(day.labor_laws_violations[:overtime]).to be_falsey }
       end
     end
@@ -298,7 +298,7 @@ RSpec.describe DayRecord do
         it { expect(day.labor_laws_violations[:straight_hours]).to be_truthy }
       end
       context 'and config is disabled' do
-        before { user.warn_straight_hours = false; user.save }
+        before { account.warn_straight_hours = false; account.save }
         it { expect(day.labor_laws_violations[:straight_hours]).to be_falsey }
       end
     end

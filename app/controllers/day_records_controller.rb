@@ -4,9 +4,9 @@ class DayRecordsController < GenericCrudController
   before_action :set_date_range, only: [:index]
 
   def index
-    @day_records = current_user.day_records.where(reference_date: from..to).page params[:page]
+    @day_records = current_user.current_account.day_records.where(reference_date: from..to).page params[:page]
     @balance_period = @day_records.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
-    @max_time_records = DayRecord.max_time_count_for_user(current_user)
+    @max_time_records = DayRecord.max_time_count_for_account(current_user.current_account)
   end
 
   def new
@@ -37,14 +37,14 @@ class DayRecordsController < GenericCrudController
   end
 
   def export_pdf
-    send_data DayRecord::ExportPdf.new(current_user, from, to).generate.render,
+    send_data DayRecord::ExportPdf.new(current_user.current_account, from, to).generate.render,
               filename: "#{current_user.first_name}.pdf",
               type: 'application/pdf',
               disposition: 'inline'
   end
 
   def add_now
-    current_day = current_user.day_records.today.first_or_create
+    current_day = current_user.current_account.day_records.today.first_or_create
     current_day.time_records.create(time: Time.current)
     flash[:success] =  t "day_records.create.success"
 
