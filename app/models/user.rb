@@ -41,6 +41,8 @@ class User
 
   has_many :accounts
 
+  accepts_nested_attributes_for :accounts, reject_if: :all_blank, allow_destroy: true
+
   def current_account
     accounts.active.first
   end
