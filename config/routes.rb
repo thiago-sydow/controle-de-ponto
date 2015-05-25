@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations' }, format: false
 
   devise_scope :user do
 
     authenticated :user do
       root to: redirect('/day_records'), as: :authenticated_root
-      resources :day_records, except: [:show] do
+
+      resources :day_records, except: [:show], format: false do
         collection do
           get 'async_worked_time', action: :async_worked_time
           get 'export_pdf', action: :export_pdf
@@ -13,12 +14,12 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :closures, except: [:show]
+      resources :closures, except: [:show], format: false
     end
 
     unauthenticated do
       root 'site#index', as: :unauthenticated_root
-      post '/contato', to: 'site#contact', as: :contact
+      post '/contato', to: 'site#contact', as: :contact, format: false
     end
   end
 
