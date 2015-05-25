@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe TimeBalance do
 
-  let!(:base_time) { TimeBalance::BASE_TIME }
   let(:balance) { TimeBalance.new }
 
   describe '#positive?' do
