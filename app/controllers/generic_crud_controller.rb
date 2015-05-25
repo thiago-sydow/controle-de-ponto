@@ -5,11 +5,6 @@ class GenericCrudController < ApplicationController
 
   before_render :set_dashboard
 
-  def set_dashboard
-    return nil unless current_user
-    @dashboard ||= DashboardPresenter.new(current_user.current_account)
-  end
-
   protected
 
   def create
