@@ -3,10 +3,10 @@ require 'rails_helper'
 describe ClosuresController do
 
   let!(:user) { create(:user) }
-  let!(:account) { create(:account, user: user) }
+  let!(:account) { user.current_account }
 
   describe '#index' do
-    let(:closure) { create(:closure, account: account) }
+    let!(:closure) { create(:closure, account: account) }
 
     context 'when user is logged in' do
       login_user

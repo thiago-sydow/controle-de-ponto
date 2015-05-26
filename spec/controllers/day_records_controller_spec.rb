@@ -3,7 +3,7 @@ require 'rails_helper'
 describe DayRecordsController do
 
   let!(:user) { create(:user) }
-  let!(:account) { create(:account, user: user) }
+  let!(:account) { user.current_account }
 
   describe '#index' do
     let!(:day) { create(:day_record, account: account) }

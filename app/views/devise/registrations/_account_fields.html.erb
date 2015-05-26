@@ -2,13 +2,16 @@
   <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Nome</label>
   
   <div class="col-sm-9">
+    <%= link_to_remove_association '<span class="text-danger"> <i class="fa fa-trash fa-3x"></i></span>'.html_safe, f, class: 'pull-right col-xs-2 col-sm-1',
+      wrapper_class: 'account-pane', data: { confirm: t('helpers.links.account_confirm') } %>
     <div class="input-medium">
       <div class="input-group">
         <%= f.input_field :name, required: true %>
-        <%= f.full_error :workload, class: 'text-danger' %>
+        <%= f.full_error :name, class: 'text-danger' %>
       </div>
     </div>
   </div>
+
 </div>
 
 <div class="form-group">

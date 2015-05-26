@@ -37,14 +37,28 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
-  validates_presence_of :first_name, :last_name, :birthday, :gender
 
   has_many :accounts
-
   accepts_nested_attributes_for :accounts, reject_if: :all_blank, allow_destroy: true
+
+  validates_presence_of :first_name, :last_name, :birthday, :gender
+
+  after_create :create_default_account
+  after_save :check_current_account
 
   def current_account
     accounts.active.first
+  end
+
+  private
+
+  def create_default_account
+    accounts.create({ name: 'Emprego CLT', active: true }, CltWorkerAccount)
+  end
+
+  def check_current_account
+    return if current_account
+    accounts.first.set(active: true)
   end
 
 end
