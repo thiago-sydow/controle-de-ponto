@@ -40,6 +40,43 @@
 
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
+          <li class="green">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">
+                <span class="badge badge-success"><%= current_user.current_account.name %></span>
+                <i class="fa fa-retweet fa-2x"></i>
+              </a>
+
+              <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                <li class="dropdown-header">
+                  Selecione a conta para trocar
+                </li>
+
+                <li class="dropdown-content">
+                  <ul class="dropdown-menu dropdown-navbar">
+                    <% current_user.accounts.each do |account| %>
+                      <li>
+                        <%= link_to change_current_account_path(account.id), method: :patch do %>
+
+                          <p class="text-center lead account-chooser-item">
+                            <% if account == current_user.current_account %>
+                              <i class="fa fa-check text-success"></i>
+                            <% end %>
+                            <%= account.name %>
+                          </p>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+
+                <li class="dropdown-footer">
+                  <%= link_to edit_user_registration_path do %>
+                    <i class="ace-icon fa fa-cog"></i>
+                    Ir para <b>Configurações</b>
+                  <% end %>                                    
+                </li>
+              </ul>
+            </li>
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<span class="user-info">
@@ -71,4 +108,4 @@
 					</ul>
 				</div>
 			</div><!-- /.navbar-container -->
-		</div>
+		</div>

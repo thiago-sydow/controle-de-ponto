@@ -20,7 +20,7 @@
         <li class="">
           <a data-toggle="tab" href="#edit-settings" aria-expanded="false">
             <i class="purple ace-icon fa fa-cog bigger-125"></i>
-            Configurações
+            Contas
           </a>
         </li>
 
@@ -34,7 +34,7 @@
         <li class="">
           <a data-toggle="tab" href="#cancel-account" aria-expanded="false">
             <i class="red ace-icon fa fa-times bigger-125"></i>
-            Cancelar Conta
+            Excluir Usuário
           </a>
         </li>
       </ul>
@@ -188,13 +188,13 @@
           <div class="space-10"></div>
 
           <div class="form-group">
-            <h3 class="text-danger">Cancelar Conta</h3>
+            <h3 class="text-danger">Excluir Usuário</h3>
             <p>
-              Que pena ! Lamentamos ver você partir, mas se escolheu encerrar sua conta clique abaixo:
+              Que pena ! Lamentamos ver você partir, mas se escolheu excluir seu usuário clique abaixo no "Grande botão vermelho":
             </p>
           </div>
 
-          <%= link_to 'Cancelar Minha Conta', registration_path(resource_name), data: { confirm: "Todos seus dados serão perdidos. Você tem certeza?" }, method: :delete, class: 'btn btn-danger btn-block' %>
+          <%= link_to 'Excluir Usuário', registration_path(resource_name), data: { confirm: "Todos seus dados serão perdidos. Você tem certeza?" }, method: :delete, class: 'btn btn-danger btn-block' %>
         </div>
       </div>
     </div>
