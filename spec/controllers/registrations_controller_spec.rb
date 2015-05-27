@@ -52,6 +52,7 @@ describe RegistrationsController do
   end
 
   describe 'PUT update' do
+    let!(:account_atts) { { '0' => attributes_for(:account) } }
     let!(:user) { create(:user) }
     login_user
 
@@ -63,7 +64,8 @@ describe RegistrationsController do
                                 email: 'test2@test.com',
                                 password: 'testtest',
                                 password_confirmation: 'testtest',
-                                current_password: user.password
+                                current_password: user.password,
+                                accounts_attributes: account_atts
                               }
         end
 
@@ -93,7 +95,8 @@ describe RegistrationsController do
         put :update, user: {
                               email: user.email,
                               first_name: 'New Name',
-                              current_password: ''
+                              current_password: '',
+                              accounts_attributes: account_atts
                             }
       end
 
