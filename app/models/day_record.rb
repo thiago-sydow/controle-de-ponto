@@ -12,8 +12,6 @@ class DayRecord
   enumerize :work_day, in: { yes: 1, no: 0 }, default: :yes
   enumerize :missed_day, in: { yes: 1, no: 0 }, default: :no
 
-  belongs_to :user
-
   belongs_to :account
   embeds_many :time_records
 

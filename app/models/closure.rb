@@ -5,7 +5,6 @@ class Closure
   field :end_date, type: Date
 
   belongs_to :account
-  belongs_to :user
 
   validates_presence_of :start_date, :end_date
 
