@@ -49,6 +49,13 @@ class User
   has_many :day_records
   has_many :closures
 
+  field :warn_straight_hours, type: Boolean, default: true
+  field :warn_overtime, type: Boolean, default: true
+  field :warn_rest_period, type: Boolean, default: true
+  
+  field :workload, type: Time, default: Time.zone.local(1999, 8, 1).change(hour: 8, minute: 0)
+  field :lunch_time, type: Time
+
   def current_account
     accounts.active.first
   end
