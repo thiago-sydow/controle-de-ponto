@@ -37,23 +37,29 @@ class User
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
 
-
-  has_many :accounts
+  has_many :accounts, dependent: :delete
   accepts_nested_attributes_for :accounts, reject_if: :all_blank, allow_destroy: true
 
   validates_presence_of :first_name, :last_name, :birthday, :gender
+  validates_length_of :accounts, minimum: 1
 
-  after_create :create_default_account
+  before_validation :create_default_account
   after_save :check_current_account
 
   def current_account
     accounts.active.first
   end
 
+  def change_current_account_to(id)
+    current_account.set(active: false)
+    accounts.find(id).set(active: true)
+  end
+
   private
 
   def create_default_account
-    accounts.create({ name: 'Emprego CLT', active: true }, CltWorkerAccount)
+    return unless new_record?
+    accounts.build({ name: 'Emprego CLT', active: true }, CltWorkerAccount)
   end
 
   def check_current_account

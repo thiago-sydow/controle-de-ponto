@@ -14,5 +14,5 @@ class Account
   has_many :closures, dependent: :delete
 
   scope :active, -> { where(active: true) }
-  
+
 end
