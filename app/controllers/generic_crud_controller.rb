@@ -5,14 +5,10 @@ class GenericCrudController < ApplicationController
 
   before_render :set_dashboard
 
-  def set_dashboard
-    @dashboard ||= DashboardPresenter.new(current_user)
-  end
-
   protected
 
   def create
-    get_instance_variable.user = current_user
+    get_instance_variable.account = current_user.current_account
 
     if get_instance_variable.save
       flash[:success] =  t "#{controller_name}.create.success"

@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/thiago-sydow/cocoon.git
+  revision: 4f888d686c2d6e6b1918176a45b23179c5cc1ee8
+  specs:
+    cocoon (1.2.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -48,7 +54,6 @@ GEM
     burgundy (0.1.0)
     byebug (4.0.5)
       columnize (= 0.9.0)
-    cocoon (1.2.6)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -325,7 +330,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.2.0)
   burgundy
-  cocoon
+  cocoon!
   coffee-rails (~> 4.1.0)
   coveralls
   database_cleaner

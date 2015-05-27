@@ -1,7 +1,5 @@
 class TimeBalance
 
-  BASE_TIME = Time.zone.local(1999, 8, 1)
-
   attr_accessor :hour, :minute
 
   def initialize

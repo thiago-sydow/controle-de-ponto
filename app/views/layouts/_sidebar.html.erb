@@ -83,7 +83,7 @@
 			</div>
 
 			<div class="infobox-data">
-				<span class="infobox-data-number"><%= current_user.workload.to_s(:time) %></span>
+				<span class="infobox-data-number"><%= current_user.current_account.workload.to_s(:time) %></span>
 				<div class="infobox-content">Jornada de trabalho</div>
 			</div>
 		</div>
@@ -117,7 +117,7 @@
 			</div>
 		</div>
 
-		<% if current_user.warn_rest_period %>
+		<% if current_user.current_account.warn_rest_period %>
 			<div class="infobox infobox-orange2">
 				<div class="infobox-icon">
 					<i class="ace-icon fa fa-sign-in"></i>

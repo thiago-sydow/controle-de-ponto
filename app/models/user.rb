@@ -11,19 +11,7 @@ class User
 
   field :first_name, type: String
   field :last_name, type: String
-  field :birthday, type: Date
-  field :workload, type: Time, default: Time.zone.local(1999, 8, 1).change(hour: 8, minute: 0)
-  field :lunch_time, type: Time
-
-  ## CLT
-  field :warn_straight_hours, type: Boolean, default: true
-  field :warn_overtime, type: Boolean, default: true
-  field :warn_rest_period, type: Boolean, default: true
-
-  validates_presence_of :first_name, :last_name, :birthday, :gender, :workload
-
-  has_many :day_records, dependent: :delete
-  has_many :closures, dependent: :delete
+  field :birthday, type: Date  
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -48,5 +36,45 @@ class User
   field :confirmed_at,         type: Time
   field :confirmation_sent_at, type: Time
   field :unconfirmed_email,    type: String # Only if using reconfirmable
+
+  has_many :accounts, dependent: :delete
+  accepts_nested_attributes_for :accounts, reject_if: :all_blank, allow_destroy: true
+
+  validates_presence_of :first_name, :last_name, :birthday, :gender
+  validates_length_of :accounts, minimum: 1
+
+  before_validation :create_default_account
+  after_save :check_current_account
+
+  has_many :day_records
+  has_many :closures
+
+  field :warn_straight_hours, type: Boolean, default: true
+  field :warn_overtime, type: Boolean, default: true
+  field :warn_rest_period, type: Boolean, default: true
+  
+  field :workload, type: Time, default: Time.zone.local(1999, 8, 1).change(hour: 8, minute: 0)
+  field :lunch_time, type: Time
+
+  def current_account
+    accounts.active.first
+  end
+
+  def change_current_account_to(id)
+    current_account.set(active: false)
+    accounts.find(id).set(active: true)
+  end
+
+  private
+
+  def create_default_account
+    return unless new_record?
+    accounts.build({ name: 'Emprego CLT', active: true }, CltWorkerAccount)
+  end
+
+  def check_current_account
+    return if current_account
+    accounts.first.set(active: true)
+  end
 
 end

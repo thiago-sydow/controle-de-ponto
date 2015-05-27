@@ -238,6 +238,8 @@ pt-BR:
       closure:
         start_date: Data Inicial
         end_date: Data Final
+      account:
+        name: Nome
   enumerize:
     defaults:
       gender:

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     authenticated :user do
       root to: redirect('/day_records'), as: :authenticated_root
 
+      patch 'change_current_account/:id', to: 'accounts#change_current', format: false, as: :change_current_account
+
       resources :day_records, except: [:show], format: false do
         collection do
           get 'async_worked_time', action: :async_worked_time
@@ -14,7 +16,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :closures, except: [:show], format: false
+      resources :closures, except: [:show], format: false      
     end
 
     unauthenticated do

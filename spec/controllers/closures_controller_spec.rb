@@ -3,9 +3,10 @@ require 'rails_helper'
 describe ClosuresController do
 
   let!(:user) { create(:user) }
+  let!(:account) { user.current_account }
 
   describe '#index' do
-    let(:closure) { create(:closure, user: user) }
+    let!(:closure) { create(:closure, account: account) }
 
     context 'when user is logged in' do
       login_user
@@ -25,7 +26,7 @@ describe ClosuresController do
   end
 
   describe '#edit' do
-    let(:closure) { create(:closure, user: user) }
+    let(:closure) { create(:closure, account: account) }
 
     context 'when user is logged in' do
       login_user
@@ -68,7 +69,7 @@ describe ClosuresController do
   end
 
   describe '#create' do
-    let!(:attrs) { attributes_for(:closure, user: user) }
+    let!(:attrs) { attributes_for(:closure, account: account) }
 
     context 'when user is logged in' do
       login_user
@@ -92,7 +93,7 @@ describe ClosuresController do
 
         it { expect(response).to render_template(:new) }
         it { expect(flash[:error]).not_to be_nil }
-        it { expect(user.closures.count).to eq(0) }
+        it { expect(account.closures.count).to eq(0) }
       end
 
     end
@@ -105,7 +106,7 @@ describe ClosuresController do
   end
 
   context '#update' do
-    let!(:closure) { create(:closure, user: user) }
+    let!(:closure) { create(:closure, account: account) }
     let(:attrs) { { end_date: Date.current.yesterday } }
 
     context 'when user is logged in' do
@@ -143,7 +144,7 @@ describe ClosuresController do
   end
 
   describe '#destroy' do
-    let!(:closure) { create(:closure, user: user) }
+    let!(:closure) { create(:closure, account: account) }
     let(:find_closure) { Closure.find(closure.id) }
 
     context 'when user is logged in' do
