@@ -46,6 +46,9 @@ class User
   before_validation :create_default_account
   after_save :check_current_account
 
+  has_many :day_records
+  has_many :closures
+
   def current_account
     accounts.active.first
   end
