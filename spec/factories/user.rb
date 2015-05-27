@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :user do
     email 'person@example.com'
-    accounts { |a| [a.association(:account)] }
 
     factory :user_sequence do
       sequence(:email) { |n| "person#{n}@example.com" }

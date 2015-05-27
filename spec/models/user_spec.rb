@@ -24,25 +24,12 @@ RSpec.describe User do
     it { expect(user.valid_password?('falsepassword')).not_to be }
   end
 
-
   context 'callbacks' do
-    pending '.after_create' do
+    context '.after_create' do
       let!(:user) { create(:user) }
 
       it  { expect(user.accounts.size).to eq 1 }
       it  { expect(user.current_account).not_to be_nil }
-    end
-
-    context '.after_save' do
-      let!(:user) { create(:user) }
-
-      pending 'removed current_account' do
-        #before { user.accounts.destroy_all }
-
-        it  { expect(user.accounts.size).to eq 1 }
-        it  { expect(user.current_account).not_to be_nil }
-      end
-
     end
 
   end
