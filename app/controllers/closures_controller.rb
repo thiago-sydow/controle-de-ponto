@@ -3,7 +3,7 @@ class ClosuresController < GenericCrudController
   before_action :find_closure, only: [:edit, :update, :destroy]
 
   def index
-    @closures = current_user.closures.page params[:page]
+    @closures = current_user.current_account.closures.page params[:page]
   end
 
   def new

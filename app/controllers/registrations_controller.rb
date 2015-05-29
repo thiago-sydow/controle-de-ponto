@@ -22,10 +22,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def set_dashboard
-    @dashboard ||= DashboardPresenter.new(current_user)
-  end
-
   def update_user
     if needs_password?(@user, params)
       @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
@@ -56,15 +52,11 @@ class RegistrationsController < Devise::RegistrationsController
         :last_name,
         :email,
         :gender,
-        :birthday,
-        :workload,
-        :lunch_time,
-        :warn_straight_hours,
-        :warn_overtime,
-        :warn_rest_period,
+        :birthday,        
         :password,
         :password_confirmation,
-        :current_password)
+        :current_password,
+        accounts_attributes: [:id, :name, :workload, :lunch_time, :warn_straight_hours, :warn_overtime, :warn_rest_period, :_type, :_destroy])
     end
   end
 

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :day_record do
-    user
+    account
     reference_date Date.current
     work_day :yes
     missed_day :no

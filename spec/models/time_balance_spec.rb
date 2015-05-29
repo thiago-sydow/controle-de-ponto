@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe TimeBalance do
 
-  let!(:base_time) { TimeBalance::BASE_TIME }
   let(:balance) { TimeBalance.new }
 
   describe '#positive?' do
@@ -79,15 +78,15 @@ RSpec.describe TimeBalance do
   end
 
   describe '#sum' do
-
+    let!(:base_hour) { Time.current.change(hour: 8, min: 0) }
     context 'negative balances' do
       let!(:balance_1) { TimeBalance.new }
 
       context 'both are negatives' do
 
         before do
-          balance.calculate_balance(3.hours.ago, 8.hours.ago)
-          balance_1.calculate_balance(2.hours.ago, 3.hours.ago)
+          balance.calculate_balance(base_hour + 8.hours, base_hour + 3.hours)
+          balance_1.calculate_balance(base_hour + 3.hours, base_hour + 2.hours)
         end
 
         it { expect(balance.sum(balance_1).hour).to eq -6 }
@@ -97,8 +96,8 @@ RSpec.describe TimeBalance do
       context 'when other is negative' do
 
         before do
-          balance.calculate_balance(2.hours.ago, 1.hours.ago)
-          balance_1.calculate_balance(2.hours.ago, 6.hours.ago)
+          balance.calculate_balance(base_hour + 1.hour, base_hour + 2.hours)
+          balance_1.calculate_balance(base_hour + 6.hours, base_hour + 2.hours)
         end
 
         it { expect(balance.sum(balance_1).hour).to eq -3 }
@@ -108,8 +107,8 @@ RSpec.describe TimeBalance do
       context 'when other is cleared' do
 
         before do
-          balance.calculate_balance(1.hours.ago, 2.hours.ago)
-          balance_1.calculate_balance(2.hours.ago, 2.hours.ago)
+          balance.calculate_balance(base_hour + 2.hours, base_hour + 1.hour)
+          balance_1.calculate_balance(base_hour + 2.hours, base_hour + 2.hours)
         end
 
         it { expect(balance.sum(balance_1).hour).to eq -1 }
@@ -121,17 +120,18 @@ RSpec.describe TimeBalance do
         let!(:balance_4) { TimeBalance.new }
 
         before do
-          balance.calculate_balance(1.hours.ago + 10.minutes, 2.hours.ago)
-          balance_1.calculate_balance(2.hours.ago, 3.hours.ago + 29.minutes)
-          balance_2.calculate_balance(3.hours.ago +  45.minutes, 8.hours.ago)
-          balance_3.calculate_balance(6.hours.ago, 4.hours.ago - 16.minutes)
-          balance_4.calculate_balance(5.hours.ago +  59.minutes, 6.hours.ago)
+          
+          balance.calculate_balance(base_hour + 10.minutes, base_hour + 1.hour)
+          balance_1.calculate_balance(base_hour - 2.hours, base_hour - 3.hours + 29.minutes)
+          balance_2.calculate_balance(base_hour +  45.minutes, base_hour + 5)
+          balance_3.calculate_balance(base_hour + 6.hours, base_hour + 3.hours - 16.minutes)
+          balance_4.calculate_balance(base_hour - 5.hours +  59.minutes, base_hour + 3.hours)
 
           balance.sum(balance_1).sum(balance_2).sum(balance_3).sum(balance_4)
         end
 
-        it { expect(balance.hour).to eq -7 }
-        it { expect(balance.minute).to eq -41 }
+        it { expect(balance.hour).to eq 3 }
+        it { expect(balance.minute).to eq 19 }
       end
 
     end

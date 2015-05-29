@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 describe DashboardPresenter do
-  let!(:user) { create(:user_sequence) }
-  let!(:day)  { create(:day_record, user: user) }
+  let!(:account) { create(:account_sequence) }
+  let!(:day)  { create(:day_record, account: account) }
   let!(:base_time) { DayRecord::ZERO_HOUR }
   let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
   let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
-  let!(:dashboard) { DashboardPresenter.new(user) }
+  let!(:dashboard) { DashboardPresenter.new(account) }
 
   describe '.total_balance' do
     it { expect(dashboard.total_balance.hour).to eq -4 }
     it { expect(dashboard.total_balance.minute).to eq -4 }
 
     context 'when there are closures' do
-      let!(:closure) { create(:closure, user: user, end_date: Date.current.tomorrow) }
+      let!(:closure) { create(:closure, account: account, end_date: Date.current.tomorrow) }
 
       it { expect(dashboard.total_balance.hour).to eq 0 }
       it { expect(dashboard.total_balance.minute).to eq 0 }

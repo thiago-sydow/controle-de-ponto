@@ -5,6 +5,7 @@ pt-BR:
       back: "Voltar"
       cancel: "Cancelar"
       confirm: "Você tem certeza?"
+      account_confirm: "Você tem certeza? <br> Todos os registros da conta serão perdidos. <br> Este processo é irreversível."
       destroy: "Excluir"
       new: "Novo"
       edit: "Editar"

@@ -12,13 +12,13 @@ class DayRecord
   enumerize :work_day, in: { yes: 1, no: 0 }, default: :yes
   enumerize :missed_day, in: { yes: 1, no: 0 }, default: :no
 
-  belongs_to :user
+  belongs_to :account
   embeds_many :time_records
 
   accepts_nested_attributes_for :time_records, reject_if: :all_blank, allow_destroy: true
 
   validates_presence_of :reference_date
-  validates_uniqueness_of :reference_date, scope: :user_id
+  validates_uniqueness_of :reference_date, scope: :account_id
 
   validate :future_reference_date
 
@@ -26,8 +26,8 @@ class DayRecord
 
   scope :today, -> { where(reference_date: Date.current) }
 
-  def self.max_time_count_for_user(user)
-    where(user: user).map { |day| day.time_records.count }.max || 0
+  def self.max_time_count_for_account(account)
+    where(account: account).map { |day| day.time_records.count }.max || 0
   end
 
   def total_worked
@@ -47,7 +47,7 @@ class DayRecord
     return ZERO_HOUR if time_records.empty? || !reference_date.today?
     rest = calculate_hours(false)
 
-    add_lunch_time(sum_times(time_records.first.time, user.workload, rest))
+    add_lunch_time(sum_times(time_records.first.time, account.workload, rest))
   end
 
   def labor_laws_violations
@@ -68,17 +68,17 @@ class DayRecord
   end
 
   def add_lunch_time(time)
-    return time unless user.lunch_time
+    return time unless account.lunch_time
     return time unless time_records.size < 3
 
-    sum_times(time, user.lunch_time)
+    sum_times(time, account.lunch_time)
   end
 
   def balance_for_working_day
     if missed_day.no?
-      @balance.calculate_balance(user.workload, total_worked)
+      @balance.calculate_balance(account.workload, total_worked)
     else
-      @balance.calculate_balance(user.workload, ZERO_HOUR)
+      @balance.calculate_balance(account.workload, ZERO_HOUR)
     end
   end
 
@@ -125,13 +125,13 @@ class DayRecord
   end
 
   def check_straight_hours_violation(diff)
-    return false unless user.warn_straight_hours
+    return false unless account.warn_straight_hours
     @straight_hours_violation = @straight_hours_violation || (diff[:hour].hours + diff[:minute].minutes) > 6.hours
   end
 
   def check_overtime_violation
-    return false unless user.warn_overtime
-    (total_worked.hour.hours + total_worked.min.minutes) > (user.workload.hour.hours + user.workload.min.minutes + 2.hours)
+    return false unless account.warn_overtime
+    (total_worked.hour.hours + total_worked.min.minutes) > (account.workload.hour.hours + account.workload.min.minutes + 2.hours)
   end
 
   def future_reference_date
