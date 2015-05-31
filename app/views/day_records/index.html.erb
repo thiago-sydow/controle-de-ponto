@@ -4,7 +4,7 @@
 		  <i class="ace-icon fa fa-angle-double-right"></i>
 		  Visualize os seus registros de forma fácil
 		</small>
-    <%= link_to 'Registrar agora', add_now_day_records_path, class: 'btn btn-success btn-sm' %>
+    <%= link_to 'Registrar agora', add_now_day_records_path, class: 'btn btn-success btn-sm', method: :post %>
   </h1>
 <% end %>
 <%= render 'search_range', from: @from, to: @to, balance_period: @balance_period %>
@@ -27,7 +27,9 @@
         <tr title="<%= day_record.observations %>">
           <td>
             <h5 class="text-left"><%= l day_record.reference_date, format: :short %>
-              <%= display_labor_laws_violations(day_record.labor_laws_violations) %>
+              <% if current_user.current_account.class == CltWorkerAccount %>
+                <%= display_labor_laws_violations(day_record.labor_laws_violations) %>
+              <% end %>
             </h5>
           </td>
           <% @max_time_records.times do |index| %>
