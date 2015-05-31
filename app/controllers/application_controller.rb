@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
 
   protected
   
-  def set_dashboard
+  def set_presenter
     return nil unless current_user
-    @dashboard ||= DashboardPresenter.new(current_user.current_account)
+    @account_presenter ||= AccountPresenter.new(current_user.current_account)
   end
 
 end
