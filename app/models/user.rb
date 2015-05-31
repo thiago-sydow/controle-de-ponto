@@ -1,5 +1,7 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
+
   extend Enumerize
 
   devise :database_authenticatable, :registerable,
@@ -51,8 +53,9 @@ class User
   end
 
   def change_current_account_to(id)
-    current_account.set(active: false)
-    accounts.find(id).set(active: true)
+    return unless accounts.count > 1
+    current_account.update_attribute(:active, false)
+    accounts.find(id).update_attribute(:active, true)
   end
 
   private
@@ -64,7 +67,7 @@ class User
 
   def check_current_account
     return if current_account
-    accounts.first.set(active: true)
+    accounts.first.update_attribute(:active, true)
   end
 
 end
