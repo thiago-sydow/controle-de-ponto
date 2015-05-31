@@ -125,11 +125,13 @@ class DayRecord
   end
 
   def check_straight_hours_violation(diff)
+    return false unless account.class == CltWorkerAccount
     return false unless account.warn_straight_hours
     @straight_hours_violation = @straight_hours_violation || (diff[:hour].hours + diff[:minute].minutes) > 6.hours
   end
 
   def check_overtime_violation
+    return false unless account.class == CltWorkerAccount
     return false unless account.warn_overtime
     (total_worked.hour.hours + total_worked.min.minutes) > (account.workload.hour.hours + account.workload.min.minutes + 2.hours)
   end
