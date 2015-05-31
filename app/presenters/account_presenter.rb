@@ -1,4 +1,4 @@
-class DashboardPresenter < Burgundy::Item
+class AccountPresenter < Burgundy::Item
 
   def total_balance
     @total_balance ||= days_since_last_closure.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
