@@ -1,0 +1,6 @@
+pt-BR:
+  account:
+    CltWorkerAccount:
+      workload: Jornada de trabalho
+    StudentAccount:
+      workload: Jornada de estudo
