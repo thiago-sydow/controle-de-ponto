@@ -1,0 +1,3 @@
+class StudentAccount < Account
+
+end
