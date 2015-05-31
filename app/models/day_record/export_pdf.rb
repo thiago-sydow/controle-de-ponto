@@ -45,7 +45,7 @@ class DayRecord::ExportPdf
     inline_format: true,
     style: :italic
 
-    pdf.text_box "#{from} à #{to}",
+    pdf.text_box "#{@account.name}\n#{from} à #{to}",
     size: 12,
     style: :bold,
     align: :right,
