@@ -29,6 +29,21 @@
       </div>
     </div>
   </div>
+  <% if f.object.class == SelfEmployedAccount %>
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-date"><%= t "account.#{f.object._type}.hourly_rate" %></label>
+
+    <div class="col-sm-9">
+      <div class="input-medium">
+        <div class="input-group">
+          <div class="input-group-addon">R$</div>
+          <%= f.input_field :hourly_rate, value: f.object.hourly_rate %>
+          <%= f.full_error :hourly_rate, class: 'text-danger' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
   <% if f.object.class == CltWorkerAccount %>
   <div class="form-group">
     <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Tempo médio de Almoço</label>
