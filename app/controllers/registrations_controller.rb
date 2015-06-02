@@ -56,7 +56,7 @@ class RegistrationsController < Devise::RegistrationsController
         :password,
         :password_confirmation,
         :current_password,
-        accounts_attributes: [:id, :name, :workload, :lunch_time, :warn_straight_hours, :warn_overtime, :warn_rest_period, :hourly_rate, :_type, :_destroy])
+        accounts_attributes: [:id, :name, :workload, :lunch_time, :warn_straight_hours, :warn_overtime, :warn_rest_period, :_type, :_destroy])
     end
   end
 

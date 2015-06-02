@@ -1,8 +1,6 @@
 <% case current_user.current_account.class %>
 <% when StudentAccount %>
   <%= render 'accounts/student_widget', account_presenter: account_presenter %>
-<% when SelfEmployedAccount %>
-  <%= render 'accounts/self_employed_widget', account_presenter: account_presenter %>
 <% else %>
   <%= render 'accounts/clt_worker_widget', account_presenter: account_presenter %>
 <% end %>
