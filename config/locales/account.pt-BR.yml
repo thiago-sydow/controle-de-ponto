@@ -4,3 +4,6 @@ pt-BR:
       workload: Jornada de trabalho
     StudentAccount:
       workload: Jornada de estudo
+    SelfEmployedAccount:
+      workload: Jornada diária
+      hourly_rate: Valor/Hora

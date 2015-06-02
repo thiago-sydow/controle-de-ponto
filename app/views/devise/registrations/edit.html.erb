@@ -150,6 +150,15 @@
                       }
                     %>
                   </li>
+                  <li class="add-account">
+                    <%= link_to_add_association 'Conta de Autônomo', f, :accounts,
+                      {
+                        'data-association-insertion-node' => '.account-pane:last-of-type',
+                        'data-association-insertion-method' => 'append',
+                        wrap_object: Proc.new { |_account| SelfEmployedAccount.new } 
+                      }
+                    %>
+                  </li>
                 </ul>
                 
               </li>
