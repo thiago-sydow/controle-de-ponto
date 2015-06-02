@@ -1,8 +1,8 @@
 ## Controle de Ponto
 [![Codeship Status for thiago-sydow/controle-de-ponto](https://codeship.com/projects/e40a1530-b789-0132-2537-76108d3aca64/status?branch=master)](https://codeship.com/projects/71279)
 [![Code Climate](https://codeclimate.com/github/thiago-sydow/controle-de-ponto/badges/gpa.svg)](https://codeclimate.com/github/thiago-sydow/controle-de-ponto)
-[![Coverage Status](https://coveralls.io/repos/thiago-sydow/controle-de-ponto/badge.svg?branch=feature-dashboard)](https://coveralls.io/r/thiago-sydow/controle-de-ponto?branch=master)
-[![PullReview stats](https://www.pullreview.com/github/thiago-sydow/controle-de-ponto/badges/major-refactor.svg?)](https://www.pullreview.com/github/thiago-sydow/controle-de-ponto/reviews/master)
+[![Coverage Status](https://coveralls.io/repos/thiago-sydow/controle-de-ponto/badge.svg?branch=master)](https://coveralls.io/r/thiago-sydow/controle-de-ponto?branch=master)
+[![PullReview stats](https://www.pullreview.com/github/thiago-sydow/controle-de-ponto/badges/master.svg?)](https://www.pullreview.com/github/thiago-sydow/controle-de-ponto/reviews/master)
 
 Aplicação para controle pessoal de horas trabalhadas. Relatórios, visualização de horário de saída, total trabalhado no dia.
 
