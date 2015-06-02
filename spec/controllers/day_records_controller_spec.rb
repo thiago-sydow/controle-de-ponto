@@ -234,4 +234,44 @@ describe DayRecordsController do
     end
   end
 
+  describe '#add_now' do
+
+    context 'when user is logged in' do
+      login_user
+
+      let!(:day) { create(:day_record, account: account) }
+      let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
+
+      before { post :add_now }
+
+      it { expect(day.reload.time_records.size).to eq 2}
+      it { expect(response).to redirect_to day_records_path }
+    end
+
+    context 'when user is not logged in' do
+      before { post :add_now }
+      it_behaves_like 'a not authorized request'
+    end
+  end
+
+  describe '#export_pdf' do
+
+    context 'when user is logged in' do
+      login_user
+
+      let!(:day) { create(:day_record, account: account) }
+      let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
+
+      before { get :export_pdf }
+
+      it { expect(response.headers["Content-Type"]).to eq "application/pdf"}
+      it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{account.user.first_name}.pdf\"" }
+    end
+
+    context 'when user is not logged in' do
+      before { get :export_pdf }
+      it_behaves_like 'a not authorized request'
+    end
+  end
+
 end

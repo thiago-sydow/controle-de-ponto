@@ -32,15 +32,14 @@ class DayRecordsController < GenericCrudController
   end 
 
   def async_worked_time
-    set_dashboard
-    render json: { time: @dashboard.total_worked.to_s(:time), percentage: @dashboard.percentage_worked }
+    set_presenter
+    render json: { time: @account_presenter.total_worked.to_s(:time), percentage: @account_presenter.percentage_worked }
   end
 
   def export_pdf
     send_data DayRecord::ExportPdf.new(current_user.current_account, from, to).generate.render,
               filename: "#{current_user.first_name}.pdf",
-              type: 'application/pdf',
-              disposition: 'inline'
+              type: 'application/pdf'
   end
 
   def add_now

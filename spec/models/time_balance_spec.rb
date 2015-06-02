@@ -44,6 +44,26 @@ RSpec.describe TimeBalance do
     end
   end
 
+  describe '#negative?' do
+    context 'when time_2 is greater' do
+      before { balance.calculate_balance(3.hours.ago, 2.hours.ago) }
+
+      it { expect(balance.negative?).to be_falsey }
+    end
+
+    context 'when time_1 is greater' do
+      before { balance.calculate_balance(2.hours.ago, 3.hours.ago) }
+
+      it { expect(balance.negative?).to be_truthy }
+    end
+
+    context 'when are equal' do
+      before { balance.calculate_balance(2.hours.ago, 2.hours.ago) }
+
+      it { expect(balance.negative?).to be_falsey }
+    end
+  end
+
   describe '#to_s' do
     context 'when time_2 time is greater' do
       let!(:balance_1) { TimeBalance.new }

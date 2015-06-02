@@ -10,7 +10,7 @@ describe RegistrationsController do
     before { get :new }
 
     it { is_expected.to render_template(:new) }
-    it { expect(assigns(:dashboard)).to be_nil }
+    it { expect(assigns(:account_presenter)).to be_nil }
     it { expect(assigns(:user)).to be_instance_of(User) }
   end
 
@@ -35,7 +35,7 @@ describe RegistrationsController do
 
       it { is_expected.to render_template(:new) }
       it { expect(assigns(:user).errors.empty?).to be_falsey }
-      it { expect(assigns(:dashboard)).to be_nil }
+      it { expect(assigns(:account_presenter)).to be_nil }
     end
 
   end
@@ -48,7 +48,7 @@ describe RegistrationsController do
       get :edit
     end
 
-    it { expect(assigns(:dashboard)).not_to be_nil }
+    it { expect(assigns(:account_presenter)).not_to be_nil }
   end
 
   describe 'PUT update' do
@@ -84,7 +84,7 @@ describe RegistrationsController do
 
         it { is_expected.to render_template :edit }
         it { expect(assigns(:user).errors).not_to be_empty }
-        it { expect(assigns(:dashboard)).not_to be_nil }
+        it { expect(assigns(:account_presenter)).not_to be_nil }
       end
 
     end

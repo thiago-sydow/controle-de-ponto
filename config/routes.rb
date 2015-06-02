@@ -12,7 +12,7 @@ Rails.application.routes.draw do
         collection do
           get 'async_worked_time', action: :async_worked_time
           get 'export_pdf', action: :export_pdf
-          get 'add_now', action: :add_now
+          post 'add_now', action: :add_now
         end
       end
 

@@ -141,6 +141,15 @@
                       }
                     %>
                   </li>
+                  <li class="add-account">
+                    <%= link_to_add_association 'Conta de Estudos', f, :accounts,
+                      {
+                        'data-association-insertion-node' => '.account-pane:last-of-type',
+                        'data-association-insertion-method' => 'append',
+                        wrap_object: Proc.new { |_account| StudentAccount.new } 
+                      }
+                    %>
+                  </li>
                 </ul>
                 
               </li>
@@ -149,9 +158,7 @@
             <!-- Tab panes -->
             <div class="tab-content accounts-contents">
               <%= f.fields_for :accounts do |account| %>
-              <div role="tabpanel" class="account-pane tab-pane <%= 'active' if account.object == f.object.current_account %>" id="acc-<%= account.object.id %>">
                 <%= render 'account_fields', f: account %>
-              </div>                
               <% end %>
             </div>
 

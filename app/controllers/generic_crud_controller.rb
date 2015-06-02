@@ -3,7 +3,7 @@ class GenericCrudController < ApplicationController
 
   before_action :authenticate_user!
 
-  before_render :set_dashboard
+  before_render :set_presenter
 
   protected
 
