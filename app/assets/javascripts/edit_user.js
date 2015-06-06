@@ -1,5 +1,7 @@
 $(function(){
 
+  $('.input-money').maskMoney().maskMoney({thousands: '.', decimal: ','});
+
   var errorField = $('.input-group > .text-danger:first'); 
 
   if (errorField.length > 0) {
