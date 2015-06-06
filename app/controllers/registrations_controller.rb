@@ -29,6 +29,7 @@ class RegistrationsController < Devise::RegistrationsController
       # remove the virtual current_password attribute
       # update_without_password doesn't know how to ignore it
       params[:user].delete(:current_password)
+      fix_currency
       @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
     end
   end
@@ -63,4 +64,15 @@ class RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(_resource)
     new_user_registration_path
   end
+
+  private
+
+  def fix_currency
+    params[:user][:accounts_attributes].values.each do |value|
+      next unless value.has_key? "hourly_rate"
+      value["hourly_rate"] = value.fetch("hourly_rate").gsub('.', '').gsub(',', '.')
+    end
+
+  end
+
 end

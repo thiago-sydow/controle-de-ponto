@@ -23,6 +23,7 @@
   </div>
 </div>
 
+<% unless current_user.current_account.workload == current_user.current_account.workload.midnight %>
 <div class="infobox infobox-blue2">
   <div class="infobox-progress">
     <div class="easy-pie-chart percentage" data-percent="<%= account_presenter.percentage_worked %>" data-size="60" style="height: 60px; width: 60; line-height: 58px;">
@@ -36,3 +37,21 @@
     <div class="infobox-content">Total de hoje</div>
   </div>
 </div>
+<% end %>
+
+<% unless current_user.current_account.hourly_rate == 0 %>
+  <div class="infobox infobox-orange2">
+    <div class="infobox-icon">
+      <i class="ace-icon fa fa-usd"></i>
+    </div>
+
+    <div class="infobox-data">
+      <span class="infobox-data-number"><%= number_to_currency(account_presenter.total_earned) %></span>
+      <div class="infobox-content">Ganhos
+        <a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="O cálculo de ganhos leva em conta o total de horas trabalhadas, e não o seu saldo." data-title="Ganhos pelo tempo trabalhado" >
+          <i class="fa fa-question-circle"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <% end %>

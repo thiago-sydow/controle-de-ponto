@@ -137,6 +137,7 @@ class DayRecord
   end
 
   def future_reference_date
+    return unless reference_date
     errors.add(:reference_date, :future_date) if reference_date.future?
   end
 

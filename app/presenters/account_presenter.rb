@@ -15,6 +15,8 @@ class AccountPresenter < Burgundy::Item
   end
 
   def percentage_worked
+    return 0 unless current_day_record
+
     base_time = DayRecord::ZERO_HOUR
     time_1 = base_time.change(hour: workload.hour, min: workload.min)
     time_2 = base_time.change(hour: total_worked.hour, min: total_worked.min)
@@ -28,6 +30,12 @@ class AccountPresenter < Burgundy::Item
     current_day_record.time_records.last.time + 11.hours
   end
 
+  def total_earned
+    return 0 unless hourly_rate > 0
+    earns_by_second = hourly_rate / 3600
+    @total_earned ||= days_since_last_closure.inject(0.0) { |sum, day| sum + (earns_by_second * (day.total_worked.hour.hours + day.total_worked.min.minutes))  }
+  end
+
   private
 
   def current_day_record
@@ -35,8 +43,13 @@ class AccountPresenter < Burgundy::Item
   end
 
   def days_since_last_closure
-    return day_records unless closures.last
-    day_records.where(:reference_date.gt => closures.last.end_date)
+    return @days_included if @days_included
+
+    @days_included = if closures.last
+                      day_records.where(:reference_date.gt => closures.last.end_date)
+                    else
+                      day_records
+                    end
   end
 
 end
