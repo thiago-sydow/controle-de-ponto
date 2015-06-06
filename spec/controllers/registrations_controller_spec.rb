@@ -103,6 +103,22 @@ describe RegistrationsController do
       it { is_expected.to redirect_to authenticated_root_url }
     end
 
+    context 'update SelfEmployedAcccount' do
+      let!(:account_atts) { { '0' => attributes_for(:account), '1' => attributes_for(:account_self_employed, hourly_rate: 50) } }
+
+      before do
+        put :update, user: {
+                              email: user.email,
+                              first_name: 'New Name',
+                              current_password: '',
+                              accounts_attributes: account_atts
+                            }
+      end
+
+      it { is_expected.to redirect_to authenticated_root_url }
+      it { expect(SelfEmployedAccount.first.hourly_rate).to eq 50 }
+    end
+
   end
 
 end

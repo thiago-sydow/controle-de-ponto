@@ -51,6 +51,26 @@ describe AccountPresenter do
 
       it { expect(presenter.next_entrance_time).to eq base_time.change(hour: 23, min: 0) }
     end
-  end 
+  end
+
+  describe '#total_earned' do
+    let!(:self_emp_account) { create(:account_self_employed_sequence, hourly_rate: 0) }
+    let!(:day) { create(:day_record, account: self_emp_account) }
+    let!(:presenter) { AccountPresenter.new(self_emp_account) }
+
+    context 'when hourly_rate is 0' do
+      it { expect(presenter.total_earned).to eq 0 }
+    end
+
+    context 'when hourly_rate is greater than 0' do
+      let!(:time_1) { create(:time_record, time: base_time.change(hour: 12, min: 0), day_record: day) }
+      let!(:time_2) { create(:time_record, time: base_time.change(hour: 14, min: 1), day_record: day) }
+
+      before { self_emp_account.hourly_rate = 30; self_emp_account.save! }
+
+      it { expect(presenter.total_earned).to eq 60.50 }
+    end
+
+  end
 
 end
