@@ -1,10 +1,10 @@
 class DayRecordsController < GenericCrudController
 
   before_action :find_record, only: [:edit, :update, :destroy]
-  before_action :set_date_range, only: [:index]
+  before_action :set_date_range, only: [:index, :export]
 
   def index
-    @day_records = current_user.current_account.day_records.where(reference_date: from..to).page params[:page]
+    @day_records = current_user.current_account.day_records.where(reference_date: @from..@to).page params[:page]
     @balance_period = @day_records.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
     @max_time_records = DayRecord.max_time_count_for_account(current_user.current_account)
   end
@@ -36,10 +36,20 @@ class DayRecordsController < GenericCrudController
     render json: { time: @account_presenter.total_worked.to_s(:time), percentage: @account_presenter.percentage_worked }
   end
 
-  def export_pdf
-    send_data DayRecord::ExportPdf.new(current_user.current_account, from, to).generate.render,
-              filename: "#{current_user.first_name}.pdf",
-              type: 'application/pdf'
+  def export
+
+    case export_format_param
+    when 'xlsx'
+      file_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      file = DayRecord::ExportSheet.new(current_user.current_account, @from, @to)
+    else
+      file_type = 'application/pdf'
+      file = DayRecord::ExportPdf.new(current_user.current_account, @from, @to)
+    end
+
+    send_data file.generate,
+      filename: "#{current_user.first_name} - #{current_user.current_account.name} - #{@from.strftime('%d/%m/%Y')} à #{@to.strftime('%d/%m/%Y')}.#{export_format_param}",
+      type: file_type
   end
 
   def add_now
@@ -51,6 +61,10 @@ class DayRecordsController < GenericCrudController
   end
 
   private
+
+  def export_format_param
+    params.require(:format)
+  end
 
   def set_date_range
     @from = from
