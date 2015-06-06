@@ -25,7 +25,7 @@ gem 'jquery-datatables-rails', '~> 3.2.0'
 gem 'kaminari'
 
 gem 'burgundy'
-gem 'rollbar', '~> 1.4.4'
+gem 'rollbar', '~> 1.5.3'
 
 gem 'passenger'
 
@@ -35,6 +35,10 @@ gem 'prawn'
 gem 'prawn-table'
 
 gem 'mail_form'
+
+gem 'axlsx'
+gem 'rubyzip'
+gem 'roo'
 
 group :production do
   gem 'rails_12factor'
