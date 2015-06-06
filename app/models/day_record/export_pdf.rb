@@ -1,24 +1,9 @@
-class DayRecord::ExportPdf
-  attr_reader :data, :from, :to
-
-  TABLE_HEADER = [
-    'Dia',
-    'Total',
-    'Saldo'
-  ]
-
-  def initialize(account, from, to)
-    @account = account
-    @data = account.day_records.where(reference_date: from..to)
-    @from = from.strftime('%d/%m/%Y')
-    @to = to.strftime('%d/%m/%Y')
-    @dynamic_headers = entrance_exits
-    @header = TABLE_HEADER.dup.insert(1, @dynamic_headers).flatten
-  end
+class DayRecord::ExportPdf < DayRecord::BaseExport
 
   def generate
-    render
     pdf
+    render
+    @pdf.render
   end
 
   private
@@ -70,6 +55,8 @@ class DayRecord::ExportPdf
 
   def table_rows
     rows = []
+    balance_sum = TimeBalance.new
+
     data.map do |day|
       text_balance = day.balance.negative? ? '-' : '+'
       times = day.time_records.collect(&:time).map { |time| time.to_s(:time) }
@@ -83,22 +70,19 @@ class DayRecord::ExportPdf
       ].flatten
 
       rows << [ { content: "       Observações: #{day.observations}", colspan: @header.size } ] unless day.observations.blank?
+
+      balance_sum.sum(day.balance)
     end
 
+
+    text_balance = balance_sum.negative? ? '-' : '+'
+    sum_row = [
+      { content: "Saldo Total", colspan: @header.size - 1, font_style: :bold },
+      { content: "#{text_balance} #{balance_sum.to_s}", background_color: balance_sum.negative? ? 'f7ecf2' : 'dff0d8', font_style: :bold }
+    ]
+
+    rows << sum_row
     rows
   end
 
-  def entrance_exits
-    headers = []
-
-    DayRecord.max_time_count_for_account(@account).times do |index|
-      headers << h.get_time_label_from_number(index)
-    end
-
-    headers
-  end
-
-  def h
-    ApplicationController.helpers
-  end
 end

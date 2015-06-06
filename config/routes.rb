@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :day_records, except: [:show], format: false do
         collection do
           get 'async_worked_time', action: :async_worked_time
-          get 'export_pdf', action: :export_pdf
+          get 'export', action: :export
           post 'add_now', action: :add_now
         end
       end

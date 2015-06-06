@@ -34,8 +34,11 @@
 				</button>
 				<ul class="dropdown-menu dropdown-default">
 					<li>
-						<a href="<%= export_pdf_day_records_path %>">Para PDF</a>
+            <%= link_to 'Para PDF', export_day_records_path(format: 'pdf', from: from, to: to) %>
 					</li>
+          <li>
+            <%= link_to 'Para XLSX', export_day_records_path(format: 'xlsx', from: from, to: to) %>
+          </li>
 				</ul>
 			</div>
     </div>

@@ -254,22 +254,42 @@ describe DayRecordsController do
     end
   end
 
-  describe '#export_pdf' do
+  describe '#export' do
 
     context 'when user is logged in' do
       login_user
 
       let!(:day) { create(:day_record, account: account) }
       let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
+      let(:from) { subject.instance_variable_get(:@from)}
+      let(:to) { subject.instance_variable_get(:@to)}
+      let(:file_name) { "#{user.first_name} - #{user.current_account.name} - #{from.strftime('%d/%m/%Y')} à #{to.strftime('%d/%m/%Y')}" }
 
-      before { get :export_pdf }
+      context 'type PDF' do
+        before { get :export, format: 'pdf' }
 
-      it { expect(response.headers["Content-Type"]).to eq "application/pdf"}
-      it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{account.user.first_name}.pdf\"" }
+        it { expect(response.headers["Content-Type"]).to eq "application/pdf"}
+        it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{file_name}.pdf\"" }
+      end
+
+      context 'type XLSX' do
+        before { get :export, format: 'xlsx' }
+
+        it { expect(response.headers["Content-Type"]).to eq "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
+        it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{file_name}.xlsx\"" }
+      end
+
+      context 'with date range' do
+        before { get :export, format: 'pdf', from: 2.days.ago.to_s, to: Date.current.to_s }
+
+        it { expect(from).to eq 2.days.ago.to_date }
+        it { expect(to).to eq Date.current }
+      end
+
     end
 
     context 'when user is not logged in' do
-      before { get :export_pdf }
+      before { get :export }
       it_behaves_like 'a not authorized request'
     end
   end
