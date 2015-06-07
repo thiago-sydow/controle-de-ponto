@@ -121,18 +121,26 @@ describe ApplicationHelper do
   end
 
   describe '.display_labor_laws_violations' do
+    let!(:user) { create(:user) }
+    let!(:account) { create(:account, user: user) }
+    let!(:day) { create(:day_record, account: account) }
+
     context 'overtime violation' do
       let(:violations) { {overtime: true, straight_hours: false} }
       let(:expected) { '<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Você ultrapassou o limite de 2 horas extras diárias." title="Art. 49 CLT">  <i class="ace-icon fa fa-exclamation-triangle orange bigger-120"></i></a>' }
 
-      it { expect(display_labor_laws_violations(violations).to_str.tr("\r\n", "")).to eq expected }
+      before { allow(day).to receive(:labor_laws_violations).and_return(violations) }
+
+      it { expect(display_labor_laws_violations(day, account).to_str.tr("\r\n", "")).to eq expected }
     end
 
-    context 'overtime violation' do
+    context 'straight_hours violation' do
       let(:violations) { {overtime: false, straight_hours: true} }
       let(:expected) { '<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Você trabalhou mais que 6 horas consecutivas sem um período de descanso." title="Art. 71 CLT">  <i class="ace-icon fa fa-exclamation-triangle orange bigger-120"></i></a>' }
 
-      it { expect(display_labor_laws_violations(violations).to_str.tr("\r\n", "")).to eq expected }
+      before { allow(day).to receive(:labor_laws_violations).and_return(violations) }
+
+      it { expect(display_labor_laws_violations(day, account).to_str.tr("\r\n", "")).to eq expected }
     end
 
   end

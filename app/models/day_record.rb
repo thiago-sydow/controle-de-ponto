@@ -1,5 +1,6 @@
 class DayRecord
   include Mongoid::Document
+  include DayRecord::AccountManipulable
   extend Enumerize
 
   ZERO_HOUR = Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0)
@@ -40,38 +41,15 @@ class DayRecord
 
     work_day.yes? ? balance_for_working_day : balance_for_non_working_day
 
+    account_manipulate_balance
+
     @balance
-  end
-
-  def forecast_departure_time
-    return ZERO_HOUR if time_records.empty? || !reference_date.today?
-    rest = calculate_hours(false)
-
-    add_lunch_time(sum_times(time_records.first.time, account.workload, rest))
-  end
-
-  def labor_laws_violations
-    @violations ||= check_labor_laws_violations
   end
 
   private
 
-  def check_labor_laws_violations
-    {
-      overtime: check_overtime_violation,
-      straight_hours: @straight_hours_violation
-    }
-  end
-
   def sum_times(*times)
     times.inject { |sum, time| sum + time.hour.hours + time.min.minutes }
-  end
-
-  def add_lunch_time(time)
-    return time unless account.lunch_time
-    return time unless time_records.size < 3
-
-    sum_times(time, account.lunch_time)
   end
 
   def balance_for_working_day
@@ -104,7 +82,7 @@ class DayRecord
     time_records.each_with_index do |time_record, index|
       diff = Time.diff(reference_time.time, time_record.time)
       total = total + diff[:hour].hours + diff[:minute].minutes if satisfy_conditions(worked_hours, index)
-      check_straight_hours_violation(diff) if worked_hours && index.odd?
+      account_manipulate_over_diff(diff, worked_hours, index)
       reference_time = time_record
     end
 
@@ -122,18 +100,6 @@ class DayRecord
 
     now_diff = Time.diff(last_time_record, Time.current)
     (total + now_diff[:hour].hours) + now_diff[:minute].minutes
-  end
-
-  def check_straight_hours_violation(diff)
-    return false unless account.class == CltWorkerAccount
-    return false unless account.warn_straight_hours
-    @straight_hours_violation = @straight_hours_violation || (diff[:hour].hours + diff[:minute].minutes) > 6.hours
-  end
-
-  def check_overtime_violation
-    return false unless account.class == CltWorkerAccount
-    return false unless account.warn_overtime
-    (total_worked.hour.hours + total_worked.min.minutes) > (account.workload.hour.hours + account.workload.min.minutes + 2.hours)
   end
 
   def future_reference_date

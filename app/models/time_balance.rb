@@ -3,14 +3,11 @@ class TimeBalance
   attr_accessor :hour, :minute
 
   def initialize
-    self.hour = 0
-    self.minute = 0
+    reset
   end
 
   def calculate_balance(time_1, time_2)
     calculate(-(time_1.hour.hours + time_1.min.minutes), (time_2.hour.hours + time_2.min.minutes))
-
-    @cleared = time_1 == time_2
   end
 
   def positive?
@@ -33,6 +30,15 @@ class TimeBalance
 
   def to_s
     '%02d:%02d' % [self.hour.abs, self.minute.abs]
+  end
+
+  def to_seconds
+    (self.hour.abs.hours + self.minute.abs.minutes)
+  end
+
+  def reset
+    self.hour = 0
+    self.minute = 0
   end
 
   private
