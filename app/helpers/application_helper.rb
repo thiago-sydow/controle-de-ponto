@@ -35,8 +35,9 @@ module ApplicationHelper
     flashes[type]['icon']
   end
 
-  def display_labor_laws_violations(violations)
-    (render 'day_records/labor_law_violation', violations: violations).html_safe
+  def display_labor_laws_violations(day, account)
+    return unless account.class == CltWorkerAccount
+    (render 'day_records/labor_law_violation', violations: day.labor_laws_violations).html_safe
   end
 
   private
