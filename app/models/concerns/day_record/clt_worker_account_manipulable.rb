@@ -47,7 +47,15 @@ module DayRecord::CltWorkerAccountManipulable
 
   def check_overtime_violation
     return false unless account.warn_overtime
-    (total_worked.hour.hours + total_worked.min.minutes) > (account.workload.hour.hours + account.workload.min.minutes + 2.hours)
+     total_worked_duration > overtime_limit
+  end
+
+  def total_worked_duration
+    (total_worked.hour.hours + total_worked.min.minutes)
+  end
+
+  def overtime_duration_limit
+    (account.workload.hour.hours + account.workload.min.minutes + 2.hours)
   end
 
 end
