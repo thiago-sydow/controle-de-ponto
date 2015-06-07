@@ -7,4 +7,6 @@ class CltWorkerAccount < Account
   field :warn_overtime, type: Boolean, default: true
   field :warn_rest_period, type: Boolean, default: true
 
+  field :allowance_time, type: Time
+
 end
