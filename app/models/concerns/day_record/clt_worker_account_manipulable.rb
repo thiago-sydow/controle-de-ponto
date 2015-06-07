@@ -1,8 +1,6 @@
 module DayRecord::CltWorkerAccountManipulable
   extend ActiveSupport::Concern
   
-  ZERO_HOUR = Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0)
-  
   included do
     
   end
@@ -25,7 +23,7 @@ module DayRecord::CltWorkerAccountManipulable
   end
 
   def forecast_departure_time
-    return ZERO_HOUR if time_records.empty? || !reference_date.today?
+    return DayRecord::ZERO_HOUR if time_records.empty? || !reference_date.today?
     rest = calculate_hours(false)
 
     add_lunch_time(sum_times(time_records.first.time, account.workload, rest))
@@ -43,13 +41,11 @@ module DayRecord::CltWorkerAccountManipulable
   end
 
   def check_straight_hours_violation(diff)
-    return false unless account.class == CltWorkerAccount
     return false unless account.warn_straight_hours
     @straight_hours_violation = @straight_hours_violation || (diff[:hour].hours + diff[:minute].minutes) > 6.hours
   end
 
   def check_overtime_violation
-    return false unless account.class == CltWorkerAccount
     return false unless account.warn_overtime
     (total_worked.hour.hours + total_worked.min.minutes) > (account.workload.hour.hours + account.workload.min.minutes + 2.hours)
   end
