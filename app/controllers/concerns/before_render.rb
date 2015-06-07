@@ -8,7 +8,7 @@ module BeforeRender
 
   def render_with_before_render_action(*options, &block)
     run_callbacks :render do
-      render_without_before_render_action *options, &block
+      render_without_before_render_action(*options, &block)
     end
   end
 
