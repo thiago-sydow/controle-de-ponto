@@ -1,0 +1,1 @@
+ZERO_HOUR = Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0)

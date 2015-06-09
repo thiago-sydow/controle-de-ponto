@@ -56,7 +56,7 @@ RSpec.describe DayRecord do
 
   describe 'Time Statistics' do
     let!(:account) { create(:account_sequence) }
-    let!(:base_time) { DayRecord::ZERO_HOUR }
+    let!(:base_time) { ZERO_HOUR }
 
     describe '#total_worked' do
 
@@ -278,7 +278,7 @@ RSpec.describe DayRecord do
 
   describe '#labor_laws_violations' do
     let!(:account) { create(:account_sequence) }
-    let!(:base_time) { DayRecord::ZERO_HOUR }
+    let!(:base_time) { ZERO_HOUR }
     let!(:day)  { create(:day_record, account: account) }
     let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
     let!(:time_2) { create(:time_record, time: base_time.change(hour: 19, min: 1), day_record: day) }

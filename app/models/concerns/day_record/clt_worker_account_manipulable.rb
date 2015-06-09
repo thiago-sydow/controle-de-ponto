@@ -1,9 +1,5 @@
 module DayRecord::CltWorkerAccountManipulable
   extend ActiveSupport::Concern
-  
-  included do
-    
-  end
 
   def clt_manipulate_balance
     return unless account.allowance_time  
@@ -23,7 +19,7 @@ module DayRecord::CltWorkerAccountManipulable
   end
 
   def forecast_departure_time
-    return DayRecord::ZERO_HOUR if time_records.empty? || !reference_date.today?
+    return ZERO_HOUR if time_records.empty? || !reference_date.today?
     rest = calculate_hours(false)
 
     add_lunch_time(sum_times(time_records.first.time, account.workload, rest))
