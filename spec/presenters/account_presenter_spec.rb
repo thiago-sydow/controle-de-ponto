@@ -3,7 +3,7 @@ require 'rails_helper'
 describe AccountPresenter do
   let!(:account) { create(:account_sequence) }
   let!(:day)  { create(:day_record, account: account) }
-  let!(:base_time) { DayRecord::ZERO_HOUR }
+  let!(:base_time) { ZERO_HOUR }
   let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
   let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
   let!(:account_presenter) { AccountPresenter.new(account) }

@@ -5,19 +5,19 @@ class AccountPresenter < Burgundy::Item
   end
 
   def total_worked
-    return DayRecord::ZERO_HOUR unless current_day_record
+    return ZERO_HOUR unless current_day_record
     @total_worked ||= current_day_record.total_worked
   end
 
   def departure_time
-    return DayRecord::ZERO_HOUR unless current_day_record
+    return ZERO_HOUR unless current_day_record
     @departure_time = current_day_record.forecast_departure_time
   end
 
   def percentage_worked
     return 0 unless current_day_record
 
-    base_time = DayRecord::ZERO_HOUR
+    base_time = ZERO_HOUR
     time_1 = base_time.change(hour: workload.hour, min: workload.min)
     time_2 = base_time.change(hour: total_worked.hour, min: total_worked.min)
 

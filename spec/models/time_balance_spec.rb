@@ -64,35 +64,22 @@ RSpec.describe TimeBalance do
     end
   end
 
-  describe '#to_s' do
-    context 'when time_2 time is greater' do
-      let!(:balance_1) { TimeBalance.new }
+  describe 'representations' do
+    let!(:balance_1) { TimeBalance.new }
 
-      before do
-        balance.calculate_balance(3.hours.ago, 2.hours.ago + 1.minute)
-        balance_1.calculate_balance(2.hours.ago, 8.hours.ago + 75.minutes)
-      end
+    before do
+      balance.calculate_balance(3.hours.ago, 2.hours.ago + 1.minute)
+      balance_1.calculate_balance(2.hours.ago, 8.hours.ago + 75.minutes)
+    end
 
+    describe '#to_s' do
       it { expect(balance.to_s).to eq '01:01' }
       it { expect(balance_1.to_s).to eq '04:45' }
     end
 
-    context 'when time_1 is greater' do
-      let!(:balance_1) { TimeBalance.new }
-
-      before do
-        balance.calculate_balance(2.hours.ago, 3.hours.ago + 1.minute)
-        balance_1.calculate_balance(2.hours.ago, 6.hours.ago + 17.minutes)
-      end
-
-      it { expect(balance.to_s).to eq '00:59' }
-      it { expect(balance_1.to_s).to eq '03:43' }
-    end
-
-    context 'when are equal' do
-      before { balance.calculate_balance(2.hours.ago, 2.hours.ago) }
-
-      it { expect(balance.to_s).to eq '00:00' }
+    describe '#to_seconds' do
+      it { expect(balance.to_seconds).to eq 3660 }
+      it { expect(balance_1.to_seconds).to eq 17100 }
     end
 
   end
