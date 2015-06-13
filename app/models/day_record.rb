@@ -39,7 +39,7 @@ class DayRecord
 
     work_day.yes? ? balance_for_working_day : balance_for_non_working_day
 
-    account_manipulate_balance
+    account_manipulate_balance(@balance)
 
     @balance
   end

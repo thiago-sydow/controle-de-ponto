@@ -1,10 +1,10 @@
 module DayRecord::CltWorkerAccountManipulable
   extend ActiveSupport::Concern
 
-  def clt_manipulate_balance
-    return unless account.allowance_time  
+  def clt_manipulate_balance(balance)
+    return unless account.allowance_time
     allowance = (account.allowance_time.hour.hours + account.allowance_time.min.minutes)
-    @balance.reset if @balance.to_seconds <= allowance
+    balance.reset if balance.to_seconds <= allowance
   end
 
   def clt_manipulate_over_diff(diff, worked_hours, index)
@@ -38,12 +38,12 @@ module DayRecord::CltWorkerAccountManipulable
 
   def check_straight_hours_violation(diff)
     return false unless account.warn_straight_hours
-    @straight_hours_violation = @straight_hours_violation || (diff[:hour].hours + diff[:minute].minutes) > 6.hours
+    @straight_hours_violation ||= (diff[:hour].hours + diff[:minute].minutes) > 6.hours
   end
 
   def check_overtime_violation
     return false unless account.warn_overtime
-     total_worked_duration > overtime_duration_limit
+    total_worked_duration > overtime_duration_limit
   end
 
   def total_worked_duration
