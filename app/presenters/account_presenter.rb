@@ -39,17 +39,17 @@ class AccountPresenter < Burgundy::Item
   private
 
   def current_day_record
-    @current_day_record ||= day_records.where(reference_date: Date.current).first
+    return @current_day_record unless @current_day_record.nil?
+
+    @current_day_record = day_records.where(reference_date: Date.current).first || false
   end
 
   def days_since_last_closure
-    return @days_included if @days_included
-
-    @days_included = if closures.last
-                      day_records.where(:reference_date.gt => closures.last.end_date)
-                    else
-                      day_records
-                    end
+    @days_included ||= if closures.exists?
+                         day_records.where(:reference_date.gt => closures.last.end_date)
+                       else
+                         day_records
+                       end
   end
 
 end

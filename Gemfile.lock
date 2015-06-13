@@ -125,6 +125,10 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    lograge (0.3.2)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -353,6 +357,7 @@ DEPENDENCIES
   jquery-datatables-rails (~> 3.2.0)
   jquery-rails
   kaminari
+  lograge
   mail_form
   mailcatcher
   mongoid (~> 4.0.0)
