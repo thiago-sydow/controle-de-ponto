@@ -56,6 +56,7 @@ class User
     return unless accounts.count > 1
     current_account.update_attribute(:active, false)
     accounts.find(id).update_attribute(:active, true)
+    @current_account = nil
   end
 
   private
