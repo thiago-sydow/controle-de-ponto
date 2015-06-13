@@ -65,5 +65,4 @@ RSpec.describe User do
       it { expect(user.current_account).to eq new_account }
     end
   end
-
 end
