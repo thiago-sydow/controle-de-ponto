@@ -1,4 +1,4 @@
-module DayRecord::CltWorkerAccountManipulable
+module CltWorkerAccountManipulable
   extend ActiveSupport::Concern
 
   def clt_manipulate_balance(balance)

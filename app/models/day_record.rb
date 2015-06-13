@@ -1,6 +1,6 @@
 class DayRecord
   include Mongoid::Document
-  include DayRecord::AccountManipulable
+  include AccountManipulable
   extend Enumerize
 
   field :reference_date, type: Date, default: -> { Date.current }

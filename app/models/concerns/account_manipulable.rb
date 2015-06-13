@@ -1,7 +1,7 @@
-module DayRecord::AccountManipulable
+module AccountManipulable
   extend ActiveSupport::Concern
 
-  include DayRecord::CltWorkerAccountManipulable
+  include CltWorkerAccountManipulable
 
   def account_manipulate_balance(balance)
     clt_manipulate_balance(balance) if account.class == CltWorkerAccount
