@@ -37,7 +37,7 @@ RSpec.describe User do
       let!(:user) { create(:user) }
 
       before do
-        user.accounts.create({ name: 'Emprego CLT', active: false }, CltWorkerAccount)  
+        user.accounts.create({ name: 'Emprego CLT', active: false }, CltWorkerAccount)
         user.accounts = [user.accounts.not.active.first]
         user.save
       end
@@ -61,8 +61,9 @@ RSpec.describe User do
       let!(:new_account) { create(:account_sequence, active: false, user: user) }
 
       before { user.change_current_account_to(new_account.id) }
-      
+
       it { expect(user.current_account).to eq new_account }
     end
   end
+
 end

@@ -1,7 +1,7 @@
 class AccountPresenter < Burgundy::Item
 
   def total_balance
-    @total_balance ||= days_since_last_closure.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
+    @total_balance ||= days_since_closure.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
   end
 
   def total_worked
@@ -32,24 +32,32 @@ class AccountPresenter < Burgundy::Item
 
   def total_earned
     return 0 unless hourly_rate > 0
-    earns_by_second = hourly_rate / 3600
-    @total_earned ||= days_since_last_closure.inject(0.0) { |sum, day| sum + (earns_by_second * (day.total_worked.hour.hours + day.total_worked.min.minutes))  }
+    @total_earned ||= calculate_earns
   end
 
   private
 
   def current_day_record
     return @current_day_record unless @current_day_record.nil?
-
-    @current_day_record = day_records.where(reference_date: Date.current).first || false
+    @current_day_record = day_records.today.first || false
   end
 
-  def days_since_last_closure
-    @days_included ||= if closures.exists?
-                         day_records.where(:reference_date.gt => closures.last.end_date)
-                       else
-                         day_records
-                       end
+  def days_since_closure
+    @days ||= if closures.exists?
+                day_records.where(:reference_date.gt => closures.last.end_date)
+              else
+                day_records
+              end
+  end
+
+  def calculate_earns
+    days_since_closure.inject(0) { |sum, day| get_earns_sum(sum, day) }
+  end
+
+  def get_earns_sum(sum, day)
+    earns_by_second = hourly_rate / 3600
+    total_seconds = day.total_worked.hour.hours + day.total_worked.min.minutes
+    sum + (earns_by_second * total_seconds)
   end
 
 end

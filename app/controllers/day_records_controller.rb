@@ -29,7 +29,7 @@ class DayRecordsController < GenericCrudController
 
   def destroy
     super
-  end 
+  end
 
   def async_worked_time
     set_presenter
