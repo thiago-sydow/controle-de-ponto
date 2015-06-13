@@ -1,10 +1,10 @@
-module DayRecord::CltWorkerAccountManipulable
+module CltWorkerAccountManipulable
   extend ActiveSupport::Concern
 
-  def clt_manipulate_balance
-    return unless account.allowance_time  
-    allowance = (account.allowance_time.hour.hours + account.allowance_time.min.minutes)
-    @balance.reset if @balance.to_seconds <= allowance
+  def clt_manipulate_balance(balance, allowance_time)
+    return unless allowance_time
+    allowance_period = (allowance_time.hour.hours + allowance_time.min.minutes)
+    balance.reset if balance.to_seconds <= allowance_period
   end
 
   def clt_manipulate_over_diff(diff, worked_hours, index)
@@ -12,9 +12,7 @@ module DayRecord::CltWorkerAccountManipulable
   end
 
   def add_lunch_time(time)
-    return time unless account.lunch_time
-    return time unless time_records.size < 3
-
+    return time unless account.lunch_time && time_records.size < 3
     sum_times(time, account.lunch_time)
   end
 
@@ -32,18 +30,18 @@ module DayRecord::CltWorkerAccountManipulable
   def check_labor_laws_violations
     {
       overtime: check_overtime_violation,
-      straight_hours: @straight_hours_violation
+      straight_hours: @straight_violation
     }
   end
 
   def check_straight_hours_violation(diff)
     return false unless account.warn_straight_hours
-    @straight_hours_violation = @straight_hours_violation || (diff[:hour].hours + diff[:minute].minutes) > 6.hours
+    @straight_violation = (diff[:hour].hours + diff[:minute].minutes) > 6.hours
   end
 
   def check_overtime_violation
     return false unless account.warn_overtime
-     total_worked_duration > overtime_duration_limit
+    total_worked_duration > overtime_duration_limit
   end
 
   def total_worked_duration

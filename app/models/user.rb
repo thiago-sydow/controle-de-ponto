@@ -13,7 +13,7 @@ class User
 
   field :first_name, type: String
   field :last_name, type: String
-  field :birthday, type: Date  
+  field :birthday, type: Date
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -47,15 +47,16 @@ class User
 
   before_validation :create_default_account
   after_save :check_current_account
-  
+
   def current_account
-    accounts.active.first
+    @current_account ||= accounts.active.first
   end
 
   def change_current_account_to(id)
     return unless accounts.count > 1
     current_account.update_attribute(:active, false)
     accounts.find(id).update_attribute(:active, true)
+    @current_account = nil
   end
 
   private

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   protected
-  
+
   def set_presenter
     return nil unless current_user
     @account_presenter ||= AccountPresenter.new(current_user.current_account)

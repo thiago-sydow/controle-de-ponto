@@ -39,6 +39,7 @@ gem 'mail_form'
 gem 'axlsx'
 gem 'rubyzip'
 gem 'roo'
+gem 'lograge'
 
 group :production do
   gem 'rails_12factor'
