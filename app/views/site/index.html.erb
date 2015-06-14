@@ -2,7 +2,8 @@
 <html prefix="og: http://ogp.me/ns#" lang="pt-BR">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Controle os horários de entrada, intervalo, saída e horas-extras de forma simples, prática e rápida." />
     <meta name="author" content="Thiago von Sydow <thiagovs05@gmail.com>">
 
@@ -12,356 +13,326 @@
 
     <%= render partial: 'shared/favicons' %>
 
-    <title>Meu Controle de Ponto - Controle as suas horas trabalhadas.</title>
+    <title>Meu Controle de Ponto - Controle pessoal de horas trabalhadas.</title>
 
     <!-- Custom styles for this template -->
-    <%= stylesheet_link_tag    'main', media: 'all' %>
+    <%= stylesheet_link_tag 'main', media: 'all' %>
 
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
 
     <%= render partial: 'shared/analytics_script' %>
   </head>
 
   <body>
+    <!-- start preloader -->
+		<div class="preloader">
+			<div class="sk-spinner sk-spinner-rotating-plane"></div>
+    	 </div>
+		<!-- end preloader -->
+		<!-- start navigation -->
+		<nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon icon-bar"></span>
+						<span class="icon icon-bar"></span>
+						<span class="icon icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand">
+            <small>
+              <span class="fa-stack fa-1x">
+                <i class="fa fa-calendar-o fa-stack-2x"></i>
+                <i class="fa fa-clock-o" style="right: 6px; bottom: 3px; position: absolute;"></i>
+              </span>
+              <span>Meu Controle de Ponto</span>
+            </small>
+          </a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right text-uppercase">
+						<li><a href="#feature">Funcionalidades</a></li>
+						<li><a href="#contact">Contato</a></li>
+						<li><%= link_to 'Login', new_user_session_path, class: 'external' %></li>
+						<li><%= link_to 'Cadastre-se', new_user_registration_path, class: 'external' %></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- end navigation -->
+		<!-- start home -->
+		<section id="home">
+			<div class="overlay">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-10 wow fadeIn" data-wow-delay="0.3s">
+							<h1 class="text-upper">Meu Controle de Ponto</h1>
+							<p class="tm-white">Administre melhor o seu tempo. Configure uma jornada, seja de trabalho ou estudos, e visualize o total de horas de maneira simples e objetiva.</a></p>
+							<%= image_tag 'home-image.png', class: 'img-responsive', alt: 'home img' %>
+						</div>
+						<div class="col-md-1"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end home -->
+		<!-- start divider -->
+		<section id="divider">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+						<i class="fa fa-chain-broken"></i>
+						<h3 class="text-uppercase">Sem Restrição</h3>
+            <p>Marque quantas entradas e saídas precisar. Você pode editar os seus horários, adicionar anotações e gerar relatórios.</p>
+					</div>
+					<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+						<i class="fa fa-smile-o"></i>
+						<h3 class="text-uppercase">100% Gratuito</h3>
+						<p>Utilize gratuitamente sem restrições.</p>
+					</div>
+					<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+						<i class="fa fa-github"></i>
+						<h3 class="text-uppercase">Open Source</h3>
+						<p>Código totalmente aberto, podendo ser encontrado <a href="https://github.com/thiago-sydow/controle-de-ponto">aqui.</a></p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end divider -->
 
-    <!-- Fixed navbar -->
-	    <div id="navigation" class="navbar navbar-default navbar-fixed-top">
-	      <div class="container">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="#"><b>Meu Controle de Ponto</b></a>
-	        </div>
-	        <div class="navbar-collapse collapse">
-	          <ul class="nav navbar-nav menu">
-	            <li class="active"><a href="#section-home" onclick="ga('send', 'pageview', '/home');" >Início</a></li>
-	            <li><a href="#section-intro" onclick="ga('send', 'pageview', '/como-funciona');">Como funciona?</a></li>
-	            <li><a href="#section-showcase" onclick="ga('send', 'pageview', '/imagens');">Imagens</a></li>
-              <li><a href="#section-contact" onclick="ga('send', 'pageview', '/contato');">Contato</a></li>
-	          </ul>
-            <ul class="nav navbar-nav pull-right">
-              <li><%= link_to 'Fazer login', new_user_session_path %></li>
-              <li><%= link_to 'Criar uma conta', new_user_registration_path, class: 'btn-cadastro-menu' %></li>
-            </ul>
-	        </div><!--/.nav-collapse -->
-	      </div>
-	    </div>
+    <!-- start feature -->
+		<section id="feature" class="feature-block feature-even">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+            <%= image_tag 'feature-exportar.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+					<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Exportar Relatório</h2>
+            <p>
+              Gere um relatório para um período em:
+              <ul>
+                <li>PDF</li>
+                <li>Excel</li>
+              </ul>
+            </p>
+          </div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature -->
 
+    <!-- start feature -->
+		<section class="feature-block">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Fechamentos</h2>
+            <p>
+              Informe um Fechamento para:
+              <ol>
+                <li>Somar o total de horas para o período</li>
+                <li>Reiniciar a contagem do saldo</li>
+              </ol>
+            </p>
+          </div>
+          <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+            <%= image_tag 'feature-fechamento.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature -->
 
-	<section class="section-home" name="home">
-  	<div id="headerwrap">
-  	    <div class="container">
-  	    	<div class="row centered">
-  	    		<div class="col-lg-12">
-  					<h1>Meu Controle de Ponto</h1>
-  					<h3>Controle o seu horário de trabalho de forma prática em qualquer lugar.</h3>
-  					<br>
-  	    		</div>
-
-  	    		<div class="col-lg-2">
-  	    			<h5>Administre melhor o seu tempo</h5>
-  	    			<p>Visualize a previsão do horário de saída, saldo de horas e total de horas trabalhadas de maneira simples e objetiva.</p>
-              <%= image_tag 'arrow1.png', class: 'hidden-xs hidden-sm hidden-md' %>
-  	    		</div>
-  	    		<div class="col-lg-8">
-              <%= image_tag 'sidebar-example.png', class: 'pull-left img-responsive', style: 'width: 22%;' %>
-              <%= image_tag 'meucontrole_intro.png', class: 'pull-right img-responsive', style: 'width: 77%;' %>
-  	    		</div>
-  	    		<div class="col-lg-2">
-  	    			<br>
-              <%= image_tag 'arrow2.png', class: 'hidden-xs hidden-sm hidden-md' %>
-  	    			<h5>SEM RESTRIÇÃO: Marque quantas entradas e saídas quiser!</h5>
-  	    			<p>Você pode editar os seus horários, adicionar anotações e gerar relatórios de qualquer dispositivo com acesso à internet.</p>
-  	    		</div>
-  	    	</div>
-  	    </div> <!--/ .container -->
-  	</div><!--/ #headerwrap -->
-  </section>
-
-
-	<section class="section-intro" name="desc">
-    <!-- INTRO WRAP -->
-  	<div id="intro">
-  		<div class="container">
-  			<div class="row centered">
-  				<h1>Chega de usar planilha para controle de horas trabalhadas</h1>
-  				<br>
-  				<br>
-  				<div class="col-lg-4">
-            <%= image_tag 'intro01.png' %>
-  					<h3>É só configurar e usar! Simples e muito fácil!</h3>
-  					<p>O Meu Controle de Ponto facilita o controle do horário do ponto e de horas extras.</p>
-  				</div>
-  				<div class="col-lg-4">
-            <%= image_tag 'intro02.png' %>
-  					<h3>Software gratuito para controle da sua jornada de trabalho</h3>
-  					<p>Organize os seus horários, jornada, calendários, justificativas, escalas, atrasos, afastamentos, férias, licenças, entre outros.</p>
-  				</div>
-  				<div class="col-lg-4">
-            <%= image_tag 'intro03.png' %>
-  					<h3>Plataforma 100% WEB e fácil atualização.</h3>
-  					<p>Esteja sempre atento se deve horas ou se tem extra para receber. Você registra seus pontos e tem um relatório super completo.</p>
-  				</div>
-  			</div>
-  			<br>
-  			<hr>
-  	    </div> <!--/ .container -->
-  	</div><!--/ #introwrap -->
-  </section>
-
-	<section class="section-features" >
-    <!-- FEATURES WRAP -->
-  	<div id="features">
-  		<div class="container">
-  			<div class="row">
-  				<h1 class="centered">Tenha total controle e saiba qual é o seu saldo de horas de trabalho</h1>
-  				<br>
-  				<br>
-  				<div class="col-lg-6 centered">
-            <%= image_tag 'mobile.png', class: 'centered' %>
-  				</div>
-
-  				<div class="col-lg-6">
-  					<h3>O Meu Controle de Ponto permite que você registre seus horários e tenha um relatório de horas super completo sempre que quiser.</h3>
-  					<br>
-  				<!-- ACCORDION -->
-              <div class="accordion ac" id="accordion2">
-                  <div class="accordion-group">
-                      <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                            CONTROLE TOTAL
-                          </a>
-                      </div><!-- /accordion-heading -->
-                      <div id="collapseOne" class="accordion-body collapse in">
-                          <div class="accordion-inner">
-  						<p>Registre suas entradas e saídas, altere ou exclua os registros sempre que quiser e tenha o cálculo de horas extras e horas devidas.</p>
-  						</div><!-- /accordion-inner -->
-                      </div><!-- /collapse -->
-                  </div><!-- /accordion-group -->
-                  <br>
-
-                  <div class="accordion-group">
-                      <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                            SEM RESTRIÇÃO
-                          </a>
-                      </div>
-                      <div id="collapseTwo" class="accordion-body collapse in">
-                          <div class="accordion-inner">
-  						<p>Registre quantas entradas e saídas quiser por dia.</p>
-  						</div><!-- /accordion-inner -->
-                      </div><!-- /collapse -->
-                  </div><!-- /accordion-group -->
-                  <br>
-
-                   <div class="accordion-group">
-                      <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                            PAINEL
-                          </a>
-                      </div>
-                      <div id="collapseThree" class="accordion-body collapse in">
-                          <div class="accordion-inner">
-  						<p>Visualize o seu saldo diário, o tempo trabalhado e a previsão de saída de forma rápida.</p>
-  						</div><!-- /accordion-inner -->
-                      </div><!-- /collapse -->
-                  </div><!-- /accordion-group -->
-                  <br>
-
-                   <div class="accordion-group">
-                      <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                            RELATÓRIO COMPLETO
-                          </a>
-                      </div>
-                      <div id="collapseFour" class="accordion-body collapse in">
-                          <div class="accordion-inner">
-                						<p>Você pode gerar dados referente a qualquer data, entradas e saídas, carga horária, saldo, faltas ou feriados.</p>
-              						</div><!-- /accordion-inner -->
-                      </div><!-- /collapse -->
-                  </div><!-- /accordion-group -->
-                  <br>
-                  <div class="accordion-group">
-                     <div class="accordion-heading">
-                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                           DIA ÚTIL OU NÃO
-                         </a>
-                     </div>
-                     <div id="collapseFour" class="accordion-body collapse in">
-                         <div class="accordion-inner">
-                           <p>Informe o seu horário de trabalho em finais de semana ou feriados.</p>
-                         </div><!-- /accordion-inner -->
-                     </div><!-- /collapse -->
-                 </div><!-- /accordion-group -->
-                 <br>
-                 <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                          OBSERVAÇÕES
-                        </a>
-                    </div>
-                    <div id="collapseFour" class="accordion-body collapse in">
-                        <div class="accordion-inner">
-                          <p>Inclua observações e lembre-se porquê atrasou ou fez hora-extra.</p>
-                        </div><!-- /accordion-inner -->
-                    </div><!-- /collapse -->
-                </div><!-- /accordion-group -->
-                <br>
-                <div class="accordion-group">
-                   <div class="accordion-heading">
-                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                         CONFIGURAÇÕES
-                       </a>
-                   </div>
-                   <div id="collapseFour" class="accordion-body collapse in">
-                       <div class="accordion-inner">
-                         <p>Você pode configurar a sua jornada de trabalho de acordo com as suas necessidades.</p>
-                       </div><!-- /accordion-inner -->
-                   </div><!-- /collapse -->
-               </div><!-- /accordion-group -->
-               <br>
-               <div class="accordion-group">
-                  <div class="accordion-heading">
-                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                        ENCONTRE
-                      </a>
-                  </div>
-                  <div id="collapseFour" class="accordion-body collapse in">
-                      <div class="accordion-inner">
-                        <p>Os seus horários estão sempre à mão. Pesquise qualquer horário em qualquer data.</p>
-                      </div><!-- /accordion-inner -->
-                  </div><!-- /collapse -->
-              </div><!-- /accordion-group -->
-              <br>
-              <div class="accordion-group">
-                 <div class="accordion-heading">
-                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                       USABILIDADE
-                     </a>
-                 </div>
-                 <div id="collapseFour" class="accordion-body collapse in">
-                     <div class="accordion-inner">
-                       <p>Basta se cadastrar e começar a usar. É o fim dos arquivos excel para controle de horas trabalhadas.</p>
-                     </div><!-- /accordion-inner -->
-                 </div><!-- /collapse -->
-             </div><!-- /accordion-group -->
-  					</div><!-- Accordion -->
-  				</div>
-  			</div>
-  		</div><!--/ .container -->
-  	</div><!--/ #features -->
-	</section>
-
-
-	<section class="section-showcase" name="showcase">
-    <div id="showcase">
-  		<div class="container">
-  			<div class="row">
-  				<h1 class="centered">Veja algumas imagens</h1>
-  				<br>
-  				<div class="col-lg-8 col-lg-offset-2">
-  					<div id="carousel-example-generic" class="carousel slide">
-  					  <!-- Indicators -->
-  					  <ol class="carousel-indicators">
-  					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-  					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-  					  </ol>
-
-  					  <!-- Wrapper for slides -->
-  					  <div class="carousel-inner">
-  					    <div class="item active">
-                  <%= image_tag 'slideshow2.png' %>
-  					    </div>
-                <div class="item">
-                  <%= image_tag 'slideshow3.png' %>
-  					    </div>
-                <div class="item">
-                  <%= image_tag 'slideshow4.png' %>
-                </div>
-                <div class="item">
-                  <%= image_tag 'slideshow5.png' %>
-                </div>
-  					  </div>
-  					</div>
-  				</div>
-  			</div>
-  			<br>
-  			<br>
-        <br>
-  			<br>
-  			<br>
+    <!-- start feature -->
+		<section class="feature-block feature-even">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+            <%= image_tag 'feature-criar-contas.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+					<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Múltiplas Contas</h2>
+            <p>
+              Crie quantas contas desejar, entre os tipos:
+              <ul>
+                <li>Emprego CLT</li>
+                <li>Autônomo</li>
+                <li>Estudos</li>
+              </ul>
+            </p>
+          </div>
+				</div>
+        <div class="row" style="height: 50px;">
+        </div>
         <div class="row">
-          <div class="col-xs-12 text-center" >
-            <%= link_to 'Cadastre-se', new_user_registration_path, class: 'col-sm-offset-3 col-sm-6 col-xs-12 btn btn-large btn-success btn-cadastro-large' %>
+          <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+            <p><i class="fa fa-retweet fa-2x"></i>Alterne entre suas contas rapidamente.</p>
+          </div>
+          <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+            <%= image_tag 'feature-trocar-contas.png', class: 'img-responsive', alt: 'home img' %>
           </div>
         </div>
-  			<br>
-  			<br>
-  			<br>
-  		</div><!-- /container -->
-  	</div>
-  </section>
+			</div>
+		</section>
+		<!-- end feature -->
 
-  <section class="section-contact" name="contact">
-    <div id="footerwrap">
-  		<div class="container">
-  			<div class="col-lg-5">
-  				<h3>Código Aberto</h3>
-  				<p>
-            <a href="https://github.com/thiago-sydow/controle-de-ponto/">
-              <i class="fa fa-github"></i>
-              thiago-sydow/controle-de-ponto
-            </a>
-  				</p>
-          <h3>Email para contato</h3>
-  				<p>
-            <a href="mailto:contato@meucontroledeponto.com.br">contato@meucontroledeponto.com.br</a>
-  				</p>
-  			</div>
+		<!-- start feature -->
+		<section class="feature-block">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Trabalhador CLT</h2>
+						<p><span><i class="fa fa-exclamation-triangle fa-2x"></i></span>Seja alertado dos dias em que alguma lei CLT foi infrigida. Visualize sua próxima entrada mínima recomendada.</p>
+						<p><span><i class="fa fa-eye fa-2x"></i></span>Acompanhe tempo real quanto tempo trabalhou, e a previsão do horário de saída.</p>
+					</div>
+					<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+            <%= image_tag 'feature-alertas-clt.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+				</div>
+        <div class="row" style="height: 50px;">
+        </div>
+        <div class="row">
+          <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+            <%= image_tag 'feature-configs-clt.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+					<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+						<p><span><i class="fa fa-cog fa-2x"></i></span>Configure sua jornada de trabalho, tempo de almoço médio, tempo de tolerância.</p>
+						<p><span><i class="fa fa-cog fa-2x"></i></span>Configure quais das leis CLT você deseja ser alertado quando ocorrer uma infração.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature -->
 
-  			<div class="col-lg-7">
-  				<h3>Envie uma mensagem !</h3>
-          <%= render 'layouts/flash_messages' %>
-  				<br>
-          <%= simple_form_for @contact, url: contact_path, :html => {:class => 'form-horizontal' } do |f| %>
-            <%= f.input :name, :required => true %>
-            <%= f.input :email, :required => true %>
-            <%= f.input :message, :as => :text, :required => true %>
-            <div class= "hidden">
-              <%= f.input :nickname, :hint => 'Leave this field blank!' %>
-            </div>
-            <div class="form-group">
-              </br>
-              <%= f.button :submit, 'Enviar', :class=> "btn btn-primary" %>
-            </div>
-          <% end %>
-  			</div>
-  		</div>
-  	</div>
-  </section>
+		<!-- start feature -->
+		<section class="feature-block feature-even" >
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Trabalhador Autônomo</h2>
+						<p><i class="fa fa-eye fa-2x"></i>Visualize o total de horas trabalhadas.</p>
+						<p><i class="fa fa-usd fa-2x"></i>Visualize o total de ganhos.</p>
+					</div>
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+            <%= image_tag 'feature-saldo-autonomo.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+				</div>
+        <div class="row" style="height: 50px;"></div>
+        <div class="row">
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+            <%= image_tag 'feature-configs-autonomo.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<p><i class="fa fa-cog fa-2x"></i>Configure uma jornada diária para organizar seu tempo.</p>
+						<p><i class="fa fa-cog fa-2x"></i>Configure o valor da sua hora para calcular os ganhos.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature -->
 
-	<%= javascript_include_tag 'jquery.min' %>
-  <%= javascript_include_tag 'jquery.smint' %>
-  <%= javascript_include_tag 'bootstrap' %>
-	<script>
-    $('.menu').smint({
-      'scrollSpeed' : 1500,
-      'mySelector' : 'section'
-    });
-  	$('.carousel').carousel({
-  	  interval: 3500
-  	});
-	</script>
-  <% if @render_from_form %>
-  <script>
-    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
-  </script>
-  <% end %>
+    <!-- start feature -->
+		<section class="feature-block">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Estudante</h2>
+						<p><i class="fa fa-eye fa-2x"></i>Visualize o total de horas estudadas.</p>
+						<p><i class="fa fa-line-chart fa-2x"></i>Visualize como você está em relação à sua meta.</p>
+					</div>
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+            <%= image_tag 'feature-saldo-estudos.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+				</div>
+        <div class="row" style="height: 50px;"></div>
+        <div class="row">
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+            <%= image_tag 'feature-configs-estudo.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<p><i class="fa fa-cog fa-2x"></i>Configure sua jornada diária para organizar seu tempo.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature -->
+
+    <!-- start download -->
+		<section id="download" class="feature-even">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Cadastre-se, é grátis!</h2>
+						<p>Cadastre um usuário e começe a controlar suas horas de forma rápida e simples.</p>
+            <%= link_to 'Cadastrar', new_user_registration_path, class: 'btn btn-primary text-uppercase' %>
+					</div>
+					<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+            <%= image_tag 'home-image.png', class: 'img-responsive', alt: 'home img' %>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end download -->
+
+		<!-- start contact -->
+		<section id="contact">
+			<div class="overlay">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+							<h2 class="text-uppercase">Deixe uma mensagem!</h2>
+							<p>Caso tenha alguma dúvida, preencha o formulário ao lado e entraremos em contato assim que possível.</p>
+							<address>
+								<p><i class="fa fa-envelope-o"></i> contato@meucontroledeponto.com.br</p>
+							</address>
+						</div>
+						<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+							<div class="contact-form">
+                <%= render 'layouts/flash_messages' %>
+        				<br>
+                <%= simple_form_for @contact, url: contact_path do |f| %>
+                  <div class="col-md-6">
+                    <%= f.input_field :name, required: true, class: 'form-control', placeholder: 'Nome' %>
+                  </div>
+                  <div class="col-md-6">
+                    <%= f.input_field :email, required: true, class: 'form-control', placeholder: 'Email' %>
+									</div>
+                  <div class="col-md-12">
+                    <%= f.input_field :subject, required: true, class: 'form-control', placeholder: 'Assunto' %>
+									</div>
+                  <div class="col-md-12">
+                    <%= f.input_field :message, as: :text, required: true, class: 'form-control', placeholder: 'Mensagem', rows: 4 %>
+									</div>
+                  <div class= "hidden">
+                    <%= f.input :nickname, hint: 'Leave this field blank!' %>
+                  </div>
+                  <div class="col-md-8">
+                    <%= f.button :submit, 'Enviar', class: "form-control text-uppercase" %>
+									</div>
+                <% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end contact -->
+
+		<!-- start footer -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<p>Desenvolvido por <a href="http://github.com/thiago-sydow">Thiago von Sydow</a></p>
+				</div>
+			</div>
+		</footer>
+
+    <%= javascript_include_tag 'main' %>
+    <% if @render_from_form %>
+      <script>
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+      </script>
+    <% end %>
   </body>
 </html>

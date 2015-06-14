@@ -53,7 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
         :last_name,
         :email,
         :gender,
-        :birthday,        
+        :birthday,
         :password,
         :password_confirmation,
         :current_password,
@@ -62,7 +62,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(_resource)
-    new_user_registration_path
+    thank_you_path
   end
 
   private
