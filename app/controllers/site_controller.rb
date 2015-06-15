@@ -18,6 +18,10 @@ class SiteController < ApplicationController
     render 'index', layout: false
   end
 
+  def thank_you
+    render layout: 'authentication'
+  end
+
   private
 
   def contact_params

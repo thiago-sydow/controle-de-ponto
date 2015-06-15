@@ -8,4 +8,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( edit_user.js ajax_update.js jquery.min.js jquery.smint.js bootstrap.js main.css jquery.maskedinput.js datepicker.pt-BR.js)
+Rails.application.config.assets.precompile += %w( main.js wow.min.js jquery.singlePageNav.min.js edit_user.js ajax_update.js jquery.min.js jquery.smint.js bootstrap.js main.css jquery.maskedinput.js datepicker.pt-BR.js)

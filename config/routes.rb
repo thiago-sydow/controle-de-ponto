@@ -16,11 +16,12 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :closures, except: [:show], format: false      
+      resources :closures, except: [:show], format: false
     end
 
     unauthenticated do
       root 'site#index', as: :unauthenticated_root
+      get  '/obrigado', to: 'site#thank_you', as: :thank_you
       post '/contato', to: 'site#contact', as: :contact, format: false
     end
   end

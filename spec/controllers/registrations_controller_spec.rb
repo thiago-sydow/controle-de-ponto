@@ -21,7 +21,7 @@ describe RegistrationsController do
 
       before { post :create, user: attrs }
 
-      it { is_expected.to redirect_to new_user_registration_url }
+      it { is_expected.to redirect_to thank_you_url }
       it { expect(flash[:notice]).to eq I18n.t('devise.registrations.signed_up_but_unconfirmed') }
     end
 
