@@ -67,7 +67,7 @@ class User
   end
 
   def check_current_account
-    return if current_account
+    return if accounts.active.first
     accounts.first.update_attribute(:active, true)
   end
 
