@@ -4,6 +4,7 @@ FactoryGirl.define do
     reference_date Date.current
     work_day :yes
     missed_day :no
+    medical_certificate :no
     observations 'observations test'
 
     factory :day_record_with_times do
