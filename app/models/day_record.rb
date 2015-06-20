@@ -7,9 +7,11 @@ class DayRecord
   field :observations, type: String
   field :work_day
   field :missed_day
+  field :medical_certificate
 
   enumerize :work_day, in: { yes: 1, no: 0 }, default: :yes
   enumerize :missed_day, in: { yes: 1, no: 0 }, default: :no
+  enumerize :medical_certificate, in: { yes: 1, no: 0 }, default: :no
 
   belongs_to :account
   embeds_many :time_records
@@ -62,7 +64,7 @@ class DayRecord
     if missed_day.no?
       @balance.calculate_balance(ZERO_HOUR, total_worked)
     else
-      @balance.calculate_balance(ZERO_HOUR, ZERO_HOUR)
+      @balance.reset
     end
   end
 
