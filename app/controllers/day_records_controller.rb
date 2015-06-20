@@ -82,7 +82,7 @@ class DayRecordsController < GenericCrudController
   def model_params
     params.require(:day_record).
     permit(
-      :reference_date, :observations, :work_day, :missed_day,
+      :reference_date, :observations, :work_day, :missed_day, :medical_certificate,
       time_records_attributes: [:id, :time, :_destroy]
       )
   end

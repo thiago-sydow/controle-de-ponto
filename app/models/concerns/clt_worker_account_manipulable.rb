@@ -2,9 +2,13 @@ module CltWorkerAccountManipulable
   extend ActiveSupport::Concern
 
   def clt_manipulate_balance(balance, allowance_time)
-    return unless allowance_time
-    allowance_period = (allowance_time.hour.hours + allowance_time.min.minutes)
-    balance.reset if balance.to_seconds <= allowance_period
+
+    if allowance_time
+      allowance_period = (allowance_time.hour.hours + allowance_time.min.minutes)
+      balance.reset if balance.to_seconds <= allowance_period
+    end
+
+    balance.reset if medical_certificate.yes?
   end
 
   def clt_manipulate_over_diff(diff, worked_hours, index)

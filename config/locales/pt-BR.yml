@@ -232,6 +232,7 @@ pt-BR:
         reference_date: Data
         work_day: Dia Útil?
         missed_day: Faltou?
+        medical_certificate: Atestado?
         observations: Observações
       time_record:
         time: Horário

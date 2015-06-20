@@ -160,23 +160,19 @@ RSpec.describe DayRecord do
       context 'when is work day' do
 
         context 'when missed the day' do
-
           it 'ignore time records created and set to full workload negative' do
             expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.account.workload, base_time)
             day.missed_day = :yes
             day.save
             day.balance
           end
-
         end
 
         context 'when not missed the day' do
-
           it 'calculates the balance normally' do
             expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.account.workload, day.total_worked)
             day.balance
           end
-
         end
 
       end
@@ -184,19 +180,15 @@ RSpec.describe DayRecord do
       context 'when is non working day' do
 
         context 'when missed the day' do
-
-          it 'ignore time records created and set to full workload negative' do
-            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(base_time, base_time)
+          it 'ignore time records created and clear balance' do
             day.missed_day = :yes
             day.work_day = :no
             day.save
-            day.balance
+            expect(day.balance.cleared?).to be_truthy
           end
-
         end
 
         context 'when not missed the day' do
-
           it 'ignore time records created and set to full workload negative' do
             expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(base_time, day.total_worked)
             day.missed_day = :no
@@ -204,7 +196,27 @@ RSpec.describe DayRecord do
             day.save
             day.balance
           end
+        end
 
+      end
+
+      context 'when has medical certificate' do
+        it 'reset balance' do
+          day.update_attributes(medical_certificate: :yes)
+          expect(day.balance.cleared?).to be_truthy
+        end
+      end
+
+      context 'when account has allowance_time set' do
+
+        it 'reset balance if it is between allowance period' do
+          account.update_attributes(allowance_time: ZERO_HOUR.change(hour: 4, min: 4))
+          expect(day.balance.cleared?).to be_truthy
+        end
+
+        it 'does not reset balance if it is not between allowance period' do
+          account.update_attributes(allowance_time: ZERO_HOUR.change(hour: 4, min: 3))
+          expect(day.balance.cleared?).to be_falsey
         end
       end
 
