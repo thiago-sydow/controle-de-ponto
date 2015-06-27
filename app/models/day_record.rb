@@ -26,6 +26,7 @@ class DayRecord
   default_scope -> { desc(:reference_date) }
 
   scope :today, -> { where(reference_date: Date.current) }
+  scope :date_range, -> (from, to) { where(reference_date: from..to) }
 
   def self.max_time_count_for_account(account)
     where(account: account).map { |day| day.time_records.count }.max || 0

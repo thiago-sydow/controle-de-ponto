@@ -49,7 +49,7 @@ class User
   after_save :check_current_account
 
   def current_account
-    @current_account ||= accounts.active.first
+    @current_account ||= accounts.active.first || check_accounts
   end
 
   def change_current_account_to(id)
@@ -61,8 +61,22 @@ class User
 
   private
 
+  def check_accounts
+    if accounts.blank?
+      build_default_account
+      save
+      current_account
+    else
+      accounts.first.update_attributes(active: true)
+    end
+  end
+
   def create_default_account
     return unless new_record?
+    build_default_account
+  end
+
+  def build_default_account
     accounts.build({ name: 'Emprego CLT', active: true }, CltWorkerAccount)
   end
 

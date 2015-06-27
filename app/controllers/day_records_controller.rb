@@ -4,7 +4,7 @@ class DayRecordsController < GenericCrudController
   before_action :set_date_range, only: [:index, :export]
 
   def index
-    @day_records = current_user.current_account.day_records.where(reference_date: @from..@to).page params[:page]
+    @day_records = current_user.current_account.day_records.date_range(@from, @to).page params[:page]
     @balance_period = @day_records.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
     @max_time_records = DayRecord.max_time_count_for_account(current_user.current_account)
   end
