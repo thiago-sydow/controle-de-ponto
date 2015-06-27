@@ -65,4 +65,13 @@ RSpec.describe User do
       it { expect(user.current_account).to eq new_account }
     end
   end
+
+  context '#current_account' do
+    let!(:user) { create(:user) }
+    before { user.accounts.destroy_all }
+
+    context 'when not have account, should be create default account' do
+      it { expect(user.current_account).not_to be_nil }
+    end
+  end
 end
