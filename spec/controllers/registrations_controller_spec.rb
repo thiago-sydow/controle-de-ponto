@@ -104,7 +104,7 @@ describe RegistrationsController do
     end
 
     context 'update SelfEmployedAcccount' do
-      let!(:account_atts) { { '0' => attributes_for(:account), '1' => attributes_for(:account_self_employed, hourly_rate: 50) } }
+      let!(:account_atts) { { '0' => attributes_for(:account), '1' => attributes_for(:self_employed_account, hourly_rate: 50) } }
 
       before do
         put :update, user: {

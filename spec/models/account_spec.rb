@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Account, type: :model do
 
-  it { expect(build(:account)).to be_valid }
-
   context 'associations' do
     it { expect(subject).to belong_to :user }
     it { expect(subject).to have_many :day_records }

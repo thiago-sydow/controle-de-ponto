@@ -241,6 +241,8 @@ pt-BR:
         end_date: Data Final
       account:
         name: Nome
+        hourly_rate: Valor/Hora
+
   enumerize:
     defaults:
       gender:

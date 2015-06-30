@@ -31,7 +31,7 @@ class AccountPresenter < Burgundy::Item
   end
 
   def total_earned
-    return 0 unless hourly_rate > 0
+    return 0 unless hourly_rate.to_i > 0
     @total_earned ||= calculate_earns
   end
 
