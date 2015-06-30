@@ -54,7 +54,7 @@ describe AccountPresenter do
   end
 
   describe '#total_earned' do
-    let!(:self_emp_account) { create(:account_self_employed_sequence, hourly_rate: 0) }
+    let!(:self_emp_account) { create(:self_employed_account_sequence, hourly_rate: 0) }
     let!(:day) { create(:day_record, account: self_emp_account) }
     let!(:presenter) { AccountPresenter.new(self_emp_account) }
 

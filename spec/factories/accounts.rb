@@ -10,13 +10,13 @@ FactoryGirl.define do
 
   end
 
-  factory :account_self_employed, class: SelfEmployedAccount do
+  factory :self_employed_account, class: SelfEmployedAccount do
     _type 'SelfEmployedAccount'
     name 'Freelance for Company X'
     active true
     hourly_rate 30
 
-    factory :account_self_employed_sequence do
+    factory :self_employed_account_sequence do
       sequence(:name) { |n| "Account Self Employed #{n}" }
     end
 

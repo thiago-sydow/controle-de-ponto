@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Closure do
 
-  it { expect(build(:closure)).to be_valid }
-
   context 'associations' do
     it { is_expected.to belong_to :account }
   end

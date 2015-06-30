@@ -10,4 +10,5 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Mongoid::Matchers, type: :model
   config.infer_spec_type_from_file_location!
+  FactoryGirl.lint
 end

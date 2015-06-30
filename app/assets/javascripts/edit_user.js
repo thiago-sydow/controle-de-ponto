@@ -1,8 +1,8 @@
 $(function(){
 
-  $('.input-money').maskMoney().maskMoney({thousands: '.', decimal: ','});
+  $('.input-money').maskMoney({thousands: '.', decimal: ','});
 
-  var errorField = $('.input-group > .text-danger:first'); 
+  var errorField = $('.input-group > .text-danger:first');
 
   if (errorField.length > 0) {
     errorField.parents('.tab-pane').each(function(index, value) {
@@ -29,6 +29,7 @@ $(function(){
   .on('cocoon:after-insert', function(e, insertedItem) {
     $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
     $(insertedItem).find('.yes-no-checkbox-switch').bootstrapSwitch({onText: 'Sim', offText: 'Não', onColor: 'success', offColor: 'danger'});
+    $(insertedItem).find('.input-money').maskMoney({thousands: '.', decimal: ','});
 
     var removesLeft = $('.remove_fields').not(':visible');
     removesLeft.show();
@@ -36,7 +37,7 @@ $(function(){
   .on("cocoon:after-remove", function(e, account) {
     var currentTab = $('.account-tabs li.active');
     var prevTab = currentTab.siblings().not('.dropdown').find('a');
-    
+
     currentTab.hide();
     prevTab.tab('show');
 

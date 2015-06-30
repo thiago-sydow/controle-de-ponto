@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User do
 
-  it { expect(build(:user)).to be_valid }
-
   context 'associations' do
     it { is_expected.to have_many :accounts }
   end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ClosuresController do
 
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user_sequence) }
   let!(:account) { user.current_account }
 
   describe '#index' do

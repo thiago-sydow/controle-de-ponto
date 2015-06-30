@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe TimeRecord do
 
-  it { expect(build(:time_record)).to be_valid }
-
   context 'validations' do
     it { is_expected.to validate_presence_of :time }
     it { is_expected.to be_embedded_in :day_record }
