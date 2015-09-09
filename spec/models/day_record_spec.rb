@@ -28,7 +28,6 @@ RSpec.describe DayRecord do
         should_not validate_presence_of(:time_records)
       end
     end
-
   end
 
   context 'ordering' do
