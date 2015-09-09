@@ -110,6 +110,6 @@ class DayRecord
   end
 
   def only_work_day?
-    work_day.yes? and missed_day.no? and medical_certificate.no?
+    work_day.yes? && missed_day.no? && medical_certificate.no?
   end
 end

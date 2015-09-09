@@ -13,14 +13,18 @@ RSpec.describe DayRecord do
 
     context 'when it is only work day' do
       it 'validates the presence of records' do
-        allow_any_instance_of(described_class).to receive(:only_work_day?) { true }
+        allow_any_instance_of(described_class).to receive(:only_work_day?) {
+          true
+        }
         should validate_presence_of(:time_records)
       end
     end
 
     context 'when it is not work day' do
       it 'does not validate the presence of records' do
-        allow_any_instance_of(described_class).to receive(:only_work_day?) { false }
+        allow_any_instance_of(described_class).to receive(:only_work_day?) {
+          false
+        }
         should_not validate_presence_of(:time_records)
       end
     end
