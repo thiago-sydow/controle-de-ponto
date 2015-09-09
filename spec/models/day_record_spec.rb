@@ -10,6 +10,21 @@ RSpec.describe DayRecord do
   context 'validations' do
     it { is_expected.to validate_presence_of :reference_date }
     it { is_expected.to validate_uniqueness_of(:reference_date).scoped_to :account_id }
+
+    context 'when it is only work day' do
+      it 'validates the presence of records' do
+        allow_any_instance_of(described_class).to receive(:only_work_day?) { true }
+        should validate_presence_of(:time_records)
+      end
+    end
+
+    context 'when it is not work day' do
+      it 'does not validate the presence of records' do
+        allow_any_instance_of(described_class).to receive(:only_work_day?) { false }
+        should_not validate_presence_of(:time_records)
+      end
+    end
+
   end
 
   context 'ordering' do

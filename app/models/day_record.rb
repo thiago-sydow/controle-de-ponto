@@ -20,6 +20,7 @@ class DayRecord
 
   validates_presence_of :reference_date
   validates_uniqueness_of :reference_date, scope: :account_id
+  validates :time_records, presence: true, if: :only_work_day?
 
   validate :future_reference_date
 
@@ -108,4 +109,7 @@ class DayRecord
     errors.add(:reference_date, :future_date) if reference_date.future?
   end
 
+  def only_work_day?
+    work_day.yes? and missed_day.no? and medical_certificate.no?
+  end
 end
