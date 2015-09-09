@@ -10,6 +10,9 @@
 #Ignore ruby-gemset file
 .ruby-gemset
 
+#Ignore ruby-version file
+.ruby-version
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
