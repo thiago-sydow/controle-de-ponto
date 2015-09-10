@@ -12,7 +12,7 @@ var closeTimePickerOnTabPress = function() {
       $(this).timepicker('hideWidget');
     }
   });
-}
+};
 
 $(function(){
 
