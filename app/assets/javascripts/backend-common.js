@@ -6,6 +6,14 @@ var updateTimeLabels = function() {
   });
 };
 
+var closeTimePickerOnTabPress = function() {
+  $('.timepicker').unbind('keydown').on('keydown', function(e) {
+    if(e.keyCode == 9) {
+      $(this).timepicker('hideWidget');
+    }
+  });
+};
+
 $(function(){
 
   $.fn.twitter_bootstrap_confirmbox.defaults = {
@@ -36,6 +44,7 @@ $(function(){
   })
   .on('cocoon:after-insert', function(e, insertedItem) {
     $(insertedItem).find('.timepicker').timepicker({showMeridian: false, minuteStep: 1});
+    closeTimePickerOnTabPress();
   })
   .on('cocoon:after-remove', function(e, insertedItem) {
     updateTimeLabels();
@@ -58,4 +67,5 @@ $(function(){
 	});
 
   updateTimeLabels();
+  closeTimePickerOnTabPress();
 });
