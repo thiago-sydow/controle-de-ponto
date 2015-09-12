@@ -12,7 +12,13 @@ class GenericCrudController < ApplicationController
 
     if get_instance_variable.save
       flash[:success] =  t "#{controller_name}.create.success"
-      redirect_to  action: :index
+
+      if params[:save_and_add].present?
+        redirect_to action: :new
+      else
+        redirect_to action: :index
+      end
+
     else
       flash[:error] = t "#{controller_name}.create.error"
       render :new

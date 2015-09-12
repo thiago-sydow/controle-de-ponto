@@ -40,6 +40,12 @@ module ApplicationHelper
     (render 'day_records/labor_law_violation', violations: day.labor_laws_violations).html_safe
   end
 
+  def save_and_add_text(obj)
+    action = obj.new_record? ? 'create' : 'update'
+    save_text = t("helpers.submit.#{action}", model: obj.model_name.human)
+    "#{save_text} #{t('helpers.submit.and_add')}"
+  end
+
   private
 
   def type_label(index)
