@@ -137,6 +137,7 @@ pt-BR:
       create: Criar %{model}
       submit: Salvar %{model}
       update: Atualizar %{model}
+      and_add: e adicionar outro
   number:
     currency:
       format:
