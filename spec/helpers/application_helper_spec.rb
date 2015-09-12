@@ -153,7 +153,7 @@ describe ApplicationHelper do
 
     context 'when it is a existent record' do
       let!(:user) { create(:user) }
-      let!(:day) { create(:day_record, account: user.account) }
+      let!(:day) { create(:day_record, account: user.current_account) }
       let(:expected) { "#{I18n.t('helpers.submit.update', model: DayRecord.model_name.human)} #{I18n.t('helpers.submit.and_add')}" }
 
       it { expect(save_and_add_text(day)).to eq expected }
