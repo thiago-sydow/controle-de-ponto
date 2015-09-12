@@ -145,4 +145,22 @@ describe ApplicationHelper do
 
   end
 
+  describe '.save_and_add_text' do
+
+    context 'when it is a new record' do
+      let(:expected) { "#{I18n.t('helpers.submit.create')} #{I18n.t('helpers.submit.and_add')}" }
+
+      it { expect(save_and_add_text(DayRecord.new)).to eq expected }
+    end
+
+    context 'when it is a existent record' do
+      let!(:user) { create(:user) }
+      let!(:day) { create(:day_record, account: user.account) }
+      let(:expected) { "#{I18n.t('helpers.submit.update')} #{I18n.t('helpers.submit.and_add')}" }
+
+      it { expect(save_and_add_text(day)).to eq expected }
+    end
+
+  end
+
 end

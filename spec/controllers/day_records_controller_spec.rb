@@ -132,7 +132,6 @@ describe DayRecordsController do
         it { expect(response).to redirect_to new_day_record_path }
         it { expect(flash[:success]).not_to be_nil }
       end
-
     end
 
     context 'when user is not logged in' do

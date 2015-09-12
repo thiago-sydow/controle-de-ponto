@@ -16,7 +16,7 @@ class GenericCrudController < ApplicationController
       if params[:save_and_add].present?
         redirect_to action: :new
       else
-        redirect_to  action: :index
+        redirect_to action: :index
       end
 
     else

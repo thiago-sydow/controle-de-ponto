@@ -41,8 +41,8 @@ module ApplicationHelper
   end
 
   def save_and_add_text(obj)
-    create_or_update = obj.new_record? ? 'create' : 'update'
-    save_text = t("helpers.submit.#{create_or_update}", model: obj.model_name.human)
+    action = obj.new_record? ? 'create' : 'update'
+    save_text = t("helpers.submit.#{action}", model: obj.model_name.human)
     "#{save_text}  #{t('helpers.submit.and_add')}"
   end
 
