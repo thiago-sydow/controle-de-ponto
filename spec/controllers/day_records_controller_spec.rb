@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe DayRecordsController do
 
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user_sequence) }
   let!(:account) { user.current_account }
 
   describe '#index' do
@@ -124,6 +124,13 @@ describe DayRecordsController do
         it { expect(response).to render_template(:new) }
         it { expect(flash[:error]).not_to be_nil }
         it { expect(account.day_records.count).to eq(0) }
+      end
+
+      context ' and save_and_add is present' do
+        before { post :create, day_record: attrs, save_and_add: 'xunda' }
+
+        it { expect(response).to redirect_to new_day_record_path }
+        it { expect(flash[:success]).not_to be_nil }
       end
 
     end
