@@ -2,7 +2,7 @@ pt-BR:
   mail_form:
     action:
       success: Obrigado pela mensagem. Nós entraremos em contato em breve!
-      error: Houve um problema ao enviar sua mensagem.
+      error: Houve um problema ao enviar sua mensagem. Verifique se todos os campos estão preenchidos.
     models:
       contact: "Your site contact form"
     attributes:
