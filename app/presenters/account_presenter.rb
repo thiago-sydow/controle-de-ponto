@@ -44,7 +44,7 @@ class AccountPresenter < Burgundy::Item
 
   def days_since_closure
     @days ||= if closures.exists?
-                day_records.where(:reference_date.gt => closures.last.end_date)
+                day_records.where(:reference_date.gt => closures.first.end_date)
               else
                 day_records
               end
