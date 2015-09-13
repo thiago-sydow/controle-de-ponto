@@ -13,7 +13,6 @@ RSpec.describe User do
     it { is_expected.to validate_presence_of :last_name }
     it { is_expected.to validate_presence_of :birthday }
     it { is_expected.to validate_presence_of :gender }
-    it { is_expected.to validate_length_of(:accounts).greater_than(1) }
   end
 
   context 'authenticate user' do
