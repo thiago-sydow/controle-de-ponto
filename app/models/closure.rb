@@ -10,7 +10,7 @@ class Closure
 
   validates_uniqueness_of :start_date, :end_date, scope: :account_id
 
-  default_scope -> { desc(:start_date) }
+  default_scope -> { desc(:end_date) }
 
   def balance
     account.day_records.where(reference_date: start_date..end_date).
