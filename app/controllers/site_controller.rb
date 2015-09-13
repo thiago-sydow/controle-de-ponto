@@ -6,7 +6,6 @@ class SiteController < ApplicationController
 
   def contact
     @contact = Contact.new(contact_params)
-    @contact.request = request
 
     if @contact.deliver
       flash.now[:notice] = t 'mail_form.action.success'
@@ -25,7 +24,7 @@ class SiteController < ApplicationController
   private
 
   def contact_params
-    params.require(:contact).permit(:name, :email, :message, :nickname)
+    params.require(:contact).permit(:name, :email, :subject, :message, :nickname)
   end
 
 end
