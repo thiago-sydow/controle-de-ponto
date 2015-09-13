@@ -10,8 +10,6 @@
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.input :reset_password_token, as: :hidden %>
         <%= f.full_error :reset_password_token, class: 'text-danger' %>
-        <%= f.error_notification %>
-        <% binding.pry %>
         <fieldset>
           <label class="block clearfix">
             <span class="block input-icon input-icon-right">
