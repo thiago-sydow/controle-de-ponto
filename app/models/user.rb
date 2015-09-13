@@ -43,7 +43,6 @@ class User
   accepts_nested_attributes_for :accounts, reject_if: :all_blank, allow_destroy: true
 
   validates_presence_of :first_name, :last_name, :birthday, :gender
-  validates_length_of :accounts, minimum: 1
 
   before_validation :create_default_account
   after_save :check_current_account

@@ -11,8 +11,9 @@ class Contact < MailForm::Base
   def headers
     {
       subject: "#{subject} - Contato do Site",
-      to: "contato@meucontroledeponto.com.br",
-      from: %("#{name}" <#{email}>)
+      to: 'contato@meucontroledeponto.com.br',
+      from: 'info@meucontroledeponto.com.br',
+      reply_to: %("#{name}" <#{email}>)
     }
   end
 end
