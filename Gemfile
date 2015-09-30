@@ -17,7 +17,7 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'font-awesome-rails'
 
 gem 'time_diff'
-gem 'mongoid', '~> 4.0.0'
+gem 'mongoid', '~> 5.0.0'
 gem 'enumerize'
 gem 'cocoon', github: 'thiago-sydow/cocoon'
 gem 'twitter-bootstrap-rails-confirm'
@@ -62,7 +62,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'mongoid-rspec', '~> 2.1.0'
+  gem 'mongoid-rspec', '3.0.0'
   gem 'simplecov', require: false
   gem 'coveralls', require: false
   gem 'turnip'
