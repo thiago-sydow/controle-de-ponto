@@ -56,7 +56,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'zeus'
-  gem 'database_cleaner'
+  gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
   gem 'factory_girl_rails'
 end
 
