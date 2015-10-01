@@ -58,7 +58,7 @@ development:
         # max_pool_size: 5
 
         # The minimum number of connections in the connection pool. (default: 1)
-        # min_pool_size: 1
+        min_pool_size: 2
 
         # The time to wait, in seconds, in the connection pool for a connection
         # to be checked in before timing out. (default: 5)
@@ -70,7 +70,7 @@ development:
 
         # The timeout to wait to execute operations on a socket before raising an error.
         # (default: 5)
-        # socket_timeout: 5
+        socket_timeout: 15
 
         # The name of the replica set to connect to. Servers provided as seeds that do
         # not belong to this replica set will be ignored.
