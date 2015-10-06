@@ -29,7 +29,7 @@ gem 'rollbar', '~> 1.5.3'
 
 gem 'passenger'
 
-gem 'newrelic_rpm'
+gem 'skylight'
 
 gem 'prawn'
 gem 'prawn-table'
