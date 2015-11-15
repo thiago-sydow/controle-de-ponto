@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.2.3'
 
 gem 'rails', '4.2.0'
 
@@ -29,7 +29,7 @@ gem 'rollbar', '~> 1.5.3'
 
 gem 'passenger'
 
-gem 'skylight'
+gem 'newrelic_rpm'
 
 gem 'prawn'
 gem 'prawn-table'
