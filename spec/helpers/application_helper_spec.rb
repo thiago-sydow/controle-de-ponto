@@ -127,7 +127,7 @@ describe ApplicationHelper do
 
     context 'overtime violation' do
       let(:violations) { {overtime: true, straight_hours: false} }
-      let(:expected) { '<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Você ultrapassou o limite de 2 horas extras diárias." title="Art. 49 CLT">  <i class="ace-icon fa fa-exclamation-triangle orange bigger-120"></i></a>' }
+      let(:expected) { '<a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Você ultrapassou o limite de 2 horas extras diárias." title="Art. 59 CLT">  <i class="ace-icon fa fa-exclamation-triangle orange bigger-120"></i></a>' }
 
       before { allow(day).to receive(:labor_laws_violations).and_return(violations) }
 
