@@ -65,7 +65,7 @@ class DayRecord::ExportPdf < DayRecord::BaseExport
       rows << [
         day.reference_date.strftime('%d/%m/%Y'),
         times,
-        day.total_worked.to_s(:time),
+        h.format_seconds_to_time(day.total_worked),
         { content: "#{text_balance} #{day.balance.to_s}", background_color: day.balance.negative? ? 'f7ecf2' : 'dff0d8' }
       ].flatten
 

@@ -1,16 +1,11 @@
-class Closure
-  include Mongoid::Document
-
-  field :start_date, type: Date
-  field :end_date, type: Date
-
+class Closure < ActiveRecord::Base
   belongs_to :account
 
   validates_presence_of :start_date, :end_date
 
   validates_uniqueness_of :start_date, :end_date, scope: :account_id
 
-  default_scope -> { desc(:end_date) }
+  default_scope -> { order(end_date: :desc) }
 
   def balance
     account.day_records.where(reference_date: start_date..end_date).

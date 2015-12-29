@@ -1,5 +1,5 @@
 class DayRecord::ExportSheet < DayRecord::BaseExport
-  
+
   def generate
     sheet
     render
@@ -35,11 +35,11 @@ class DayRecord::ExportSheet < DayRecord::BaseExport
       row = [
         day.reference_date.strftime('%d/%m/%Y'),
         times,
-        day.total_worked.to_s(:time),
+        h.format_seconds_to_time(day.total_worked),
         "#{text_balance} #{day.balance.to_s}",
         day.observations.blank? ? "" : "#{day.observations}"
       ].flatten
-      
+
       balance_sum.sum(day.balance)
 
       sheet.add_row row
