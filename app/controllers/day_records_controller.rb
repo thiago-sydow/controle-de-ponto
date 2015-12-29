@@ -1,4 +1,5 @@
 class DayRecordsController < GenericCrudController
+  include ApplicationHelper
 
   before_action :find_record, only: [:edit, :update, :destroy]
   before_action :set_date_range, only: [:index, :export]
@@ -33,7 +34,7 @@ class DayRecordsController < GenericCrudController
 
   def async_worked_time
     set_presenter
-    render json: { time: @account_presenter.total_worked.to_s(:time), percentage: @account_presenter.percentage_worked }
+    render json: { time: format_seconds_to_time(@account_presenter.total_worked), percentage: @account_presenter.percentage_worked }
   end
 
   def export
