@@ -69,15 +69,22 @@ class RegistrationsController < Devise::RegistrationsController
 
   def fix_attributes
     params[:user][:accounts_attributes].values.each do |value|
-      value["workload"] = time_to_seconds(value.fetch("workload")) if value.has_key? 'workload'
       value["hourly_rate"] = value.fetch("hourly_rate").gsub('.', '').gsub(',', '.') if value.has_key? 'hourly_rate'
-      value["lunch_time"] = time_to_seconds(value.fetch("lunch_time")) if value.has_key? 'lunch_time'
-      value["allowance_time"] = time_to_seconds(value.fetch("allowance_time")) if value.has_key? 'allowance_time'
-      value["warn_overtime"] = value.fetch("warn_overtime") == 'true' if value.has_key? 'warn_overtime'
-      value["warn_rest_period"] = value.fetch("warn_rest_period") == 'true' if value.has_key? 'warn_rest_period'
-      value["warn_straight_hours"] = value.fetch("warn_straight_hours") == 'true' if value.has_key? 'warn_straight_hours'
+      fix_time_attributes(value)
+      fix_warns_attributes(value)
     end
+  end
 
+  def fix_time_attributes(value)
+    value["workload"] = time_to_seconds(value.fetch("workload")) if value.has_key? 'workload'
+    value["lunch_time"] = time_to_seconds(value.fetch("lunch_time")) if value.has_key? 'lunch_time'
+    value["allowance_time"] = time_to_seconds(value.fetch("allowance_time")) if value.has_key? 'allowance_time'
+  end
+
+  def fix_warns_attributes(value)
+    value["warn_overtime"] = value.fetch("warn_overtime") == 'true' if value.has_key? 'warn_overtime'
+    value["warn_rest_period"] = value.fetch("warn_rest_period") == 'true' if value.has_key? 'warn_rest_period'
+    value["warn_straight_hours"] = value.fetch("warn_straight_hours") == 'true' if value.has_key? 'warn_straight_hours'
   end
 
   def time_to_seconds(time)

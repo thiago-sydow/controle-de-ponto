@@ -25,26 +25,36 @@ class DayRecord::ExportSheet < DayRecord::BaseExport
   end
 
   def reports_list(sheet)
+    balance_sum = parse_days(sheet)
+    mount_sum_row(sheet, balance_sum)
+  end
+
+  def parse_days(sheet)
     balance_sum = TimeBalance.new
-
-    data.map do |day|
-      text_balance = day.balance.negative? ? '-' : '+'
-      times = day.time_records.collect(&:time).map { |time| time.to_s(:time) }
-      times.fill('', (times.size)..(@header.size - 5))
-
-      row = [
-        day.reference_date.strftime('%d/%m/%Y'),
-        times,
-        h.format_seconds_to_time(day.total_worked),
-        "#{text_balance} #{day.balance.to_s}",
-        day.observations.blank? ? "" : "#{day.observations}"
-      ].flatten
-
+    
+    data.each do |day|
       balance_sum.sum(day.balance)
-
-      sheet.add_row row
+      sheet.add_row mount_day_row(day)
     end
 
+    balance_sum
+  end
+
+  def mount_day_row(day)
+    text_balance = day.balance.negative? ? '-' : '+'
+    times = day.time_records.collect(&:time).map { |time| time.to_s(:time) }
+    times.fill('', (times.size)..(@header.size - 5))
+
+    [
+      day.reference_date.strftime('%d/%m/%Y'),
+      times,
+      h.format_seconds_to_time(day.total_worked),
+      "#{text_balance} #{day.balance.to_s}",
+      day.observations.to_s
+    ].flatten
+  end
+
+  def mount_sum_row(sheet, balance_sum)
     text_balance = balance_sum.negative? ? '-' : '+'
     sum_row = ['Saldo Total']
     sum_row.fill('', (1)..(@header.size - 1))
