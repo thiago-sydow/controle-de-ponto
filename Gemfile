@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.5'
+gem 'pg'
 
 gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
@@ -17,7 +18,6 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'font-awesome-rails'
 
 gem 'time_diff'
-gem 'mongoid', '~> 5.0.0'
 gem 'enumerize'
 gem 'cocoon', github: 'thiago-sydow/cocoon'
 gem 'twitter-bootstrap-rails-confirm'
@@ -56,17 +56,15 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'zeus'
-  gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'mongoid-rspec', '3.0.0'
   gem 'simplecov', require: false
   gem 'coveralls', require: false
   gem 'turnip'
-  gem 'rspec_candy', '~> 0.3.1'
   gem 'fuubar'
   gem 'faker'
 end
