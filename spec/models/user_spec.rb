@@ -8,7 +8,6 @@ RSpec.describe User do
 
   context 'validations' do
     it { is_expected.to validate_presence_of :email }
-    it { is_expected.to validate_uniqueness_of :email }
     it { is_expected.to validate_presence_of :first_name }
     it { is_expected.to validate_presence_of :last_name }
     it { is_expected.to validate_presence_of :birthday }
@@ -34,8 +33,8 @@ RSpec.describe User do
       let!(:user) { create(:user) }
 
       before do
-        user.accounts.create({ name: 'Emprego CLT', active: false }, CltWorkerAccount)
-        user.accounts = [user.accounts.not.active.first]
+        user.accounts.create({ name: 'Emprego CLT', type: 'CltWorkerAccount' })
+        user.accounts = [user.accounts.first]
         user.save
       end
 
@@ -55,7 +54,7 @@ RSpec.describe User do
     end
 
     context 'when user have more accounts' do
-      let!(:new_account) { create(:account_sequence, active: false, user: user) }
+      let!(:new_account) { create(:account_sequence, user: user) }
 
       before { user.change_current_account_to(new_account.id) }
 

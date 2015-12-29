@@ -1,8 +1,10 @@
 FactoryGirl.define do
   factory :account, class: CltWorkerAccount do
-    _type 'CltWorkerAccount'
+    type 'CltWorkerAccount'
     name 'Account CLT'
-    active true
+    warn_straight_hours true
+    warn_overtime true
+    warn_rest_period true
 
     factory :account_sequence do
       sequence(:name) { |n| "Account CLT #{n}" }
@@ -11,9 +13,8 @@ FactoryGirl.define do
   end
 
   factory :self_employed_account, class: SelfEmployedAccount do
-    _type 'SelfEmployedAccount'
+    type 'SelfEmployedAccount'
     name 'Freelance for Company X'
-    active true
     hourly_rate 30
 
     factory :self_employed_account_sequence do

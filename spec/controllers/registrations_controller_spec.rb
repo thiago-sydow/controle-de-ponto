@@ -116,7 +116,7 @@ describe RegistrationsController do
       end
 
       it { is_expected.to redirect_to authenticated_root_url }
-      it { expect(SelfEmployedAccount.first.hourly_rate).to eq 50 }
+      it { expect(SelfEmployedAccount.first.hourly_rate).to eq '50' }
     end
 
   end

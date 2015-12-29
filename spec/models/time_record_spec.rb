@@ -4,7 +4,7 @@ RSpec.describe TimeRecord do
 
   context 'validations' do
     it { is_expected.to validate_presence_of :time }
-    it { is_expected.to be_embedded_in :day_record }
+    it { is_expected.to belong_to :day_record }
   end
 
   context 'ordering' do

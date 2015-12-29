@@ -4,11 +4,14 @@ RSpec.describe DayRecord do
 
   context 'associations' do
     it { is_expected.to belong_to :account }
-    it { is_expected.to embed_many :time_records }
+    it { is_expected.to have_many :time_records }
   end
 
   context 'validations' do
+    subject { create(:day_record) }
     it { is_expected.to validate_presence_of :reference_date }
+    #https://github.com/thoughtbot/shoulda-matchers/blob/master/lib/shoulda
+    #/matchers/active_record/validate_uniqueness_of_matcher.rb#L26
     it { is_expected.to validate_uniqueness_of(:reference_date).scoped_to :account_id }
   end
 
@@ -54,14 +57,14 @@ RSpec.describe DayRecord do
 
   describe 'Time Statistics' do
     let!(:account) { create(:account_sequence) }
-    let!(:base_time) { ZERO_HOUR }
+    let!(:base_time) { Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0) }
 
     describe '#total_worked' do
 
       context 'without time records' do
         let!(:day)  { create(:day_record, account: account) }
 
-        it { expect(day.total_worked).to eq base_time }
+        it { expect(day.total_worked).to eq 0 }
       end
 
       context 'with time records' do
@@ -72,7 +75,7 @@ RSpec.describe DayRecord do
           let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
           context 'and the number of time records is even' do
-            it { expect(day.total_worked).to eq base_time.change(hour: 3, min: 56) }
+            it { expect(day.total_worked).to eq (3.hours + 56.minutes) }
 
             context 'multiple time records' do
               let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
@@ -80,7 +83,7 @@ RSpec.describe DayRecord do
               let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
               let!(:time_6) { create(:time_record, time: base_time.change(hour: 19, min: 20), day_record: day) }
 
-              it { expect(day.total_worked).to eq base_time.change(hour: 8, min: 10) }
+              it { expect(day.total_worked).to eq (8.hours + 10.minutes) }
             end
 
           end
@@ -88,14 +91,14 @@ RSpec.describe DayRecord do
           context 'and the number of time records is odd' do
             let!(:time_3) { create(:time_record, time: base_time.change(hour: 14, min: 0), day_record: day) }
 
-            it { expect(day.total_worked).to eq base_time.change(hour: 3, min: 56) }
+            it { expect(day.total_worked).to eq (3.hours + 56.minutes) }
 
             context 'multiple time records' do
               let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
               let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
               let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
 
-              it { expect(day.total_worked).to eq base_time.change(hour: 5, min: 30) }
+              it { expect(day.total_worked).to eq (5.hours + 30.minutes) }
             end
 
           end
@@ -107,7 +110,7 @@ RSpec.describe DayRecord do
           let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
           context 'and the number of time records is even' do
-            it { expect(day.total_worked).to eq base_time.change(hour: 3, min: 56) }
+            it { expect(day.total_worked).to eq (3.hours + 56.minutes) }
 
             context 'multiple time records' do
               let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
@@ -115,7 +118,7 @@ RSpec.describe DayRecord do
               let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
               let!(:time_6) { create(:time_record, time: base_time.change(hour: 19, min: 20), day_record: day) }
 
-              it { expect(day.total_worked).to eq base_time.change(hour: 8, min: 10) }
+              it { expect(day.total_worked).to eq (8.hours + 10.minutes) }
             end
 
           end
@@ -123,14 +126,14 @@ RSpec.describe DayRecord do
           context 'and the number of time records is odd' do
             let!(:time_3) { create(:time_record, time: base_time.change(hour: 14, min: 0), day_record: day) }
 
-            it { expect(day.total_worked).to eq sum_current(base_time.change(hour: 3, min: 56), time_3) }
+            it { expect(day.total_worked).to eq sum_current((3.hours + 56.minutes), time_3) }
 
             context 'multiple time records' do
               let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
               let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
               let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
 
-              it { expect(day.total_worked).to eq sum_current(base_time.change(hour: 5, min: 30), time_5) }
+              it { expect(day.total_worked).to eq sum_current((5.hours + 30.minutes), time_5) }
             end
 
           end
@@ -159,7 +162,7 @@ RSpec.describe DayRecord do
 
         context 'when missed the day' do
           it 'ignore time records created and set to full workload negative' do
-            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.account.workload, base_time)
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(day.account.workload, 0)
             day.missed_day = :yes
             day.save
             day.balance
@@ -188,7 +191,7 @@ RSpec.describe DayRecord do
 
         context 'when not missed the day' do
           it 'ignore time records created and set to full workload negative' do
-            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(base_time, day.total_worked)
+            expect_any_instance_of(TimeBalance).to receive(:calculate_balance).with(0, day.total_worked)
             day.missed_day = :no
             day.work_day = :no
             day.save
@@ -208,12 +211,12 @@ RSpec.describe DayRecord do
       context 'when account has allowance_time set' do
 
         it 'reset balance if it is between allowance period' do
-          account.update_attributes(allowance_time: ZERO_HOUR.change(hour: 4, min: 4))
+          account.update_attributes(allowance_time: (4.hours + 4.minutes))
           expect(day.balance.cleared?).to be_truthy
         end
 
         it 'does not reset balance if it is not between allowance period' do
-          account.update_attributes(allowance_time: ZERO_HOUR.change(hour: 4, min: 3))
+          account.update_attributes(allowance_time: (4.hours + 3.minutes))
           expect(day.balance.cleared?).to be_falsey
         end
       end
@@ -223,14 +226,14 @@ RSpec.describe DayRecord do
     describe '#forecast_departure_time' do
       let!(:empty_day)  { create(:day_record, reference_date: 4.days.ago, account: account) }
 
-      it { expect(empty_day.forecast_departure_time).to eq base_time }
+      it { expect(empty_day.forecast_departure_time).to eq 0 }
 
       context 'when reference_date is not today' do
         let!(:day)  { create(:day_record, reference_date: 3.days.ago, account: account) }
         let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
         let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
-        it { expect(day.forecast_departure_time).to eq base_time }
+        it { expect(day.forecast_departure_time).to eq 0 }
       end
 
       context 'when reference_date is today' do
@@ -239,13 +242,13 @@ RSpec.describe DayRecord do
         let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
 
         context 'number of time records is even' do
-          it { expect(day.forecast_departure_time).to eq base_time.change(hour: 16, min: 5) }
+          it { expect(day.forecast_departure_time).to eq (base_time + (16.hours + 5.minutes)) }
 
           context 'multiple time records' do
             let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
             let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
 
-            it { expect(day.forecast_departure_time).to eq base_time.change(hour: 17, min: 5) }
+            it { expect(day.forecast_departure_time).to eq (base_time + (17.hours + 5.minutes)) }
           end
 
         end
@@ -253,29 +256,29 @@ RSpec.describe DayRecord do
         context 'number of time records is odd' do
           let!(:time_3) { create(:time_record, time: base_time.change(hour: 14, min: 1), day_record: day) }
 
-          it { expect(day.forecast_departure_time).to eq base_time.change(hour: 18, min: 5) }
+          it { expect(day.forecast_departure_time).to eq (base_time + (18.hours + 5.minutes)) }
 
           context 'multiple time records' do
             let!(:time_3) { create(:time_record, time: base_time.change(hour:  13, min: 1), day_record: day) }
             let!(:time_4) { create(:time_record, time: base_time.change(hour: 14, min: 35), day_record: day) }
             let!(:time_5) { create(:time_record, time: base_time.change(hour:  16, min: 40), day_record: day) }
 
-            it { expect(day.forecast_departure_time).to eq base_time.change(hour: 19, min: 10) }
+            it { expect(day.forecast_departure_time).to eq (base_time + (19.hours + 10.minutes)) }
           end
 
         end
 
         context 'account lunch_time config is present' do
-          before { account.lunch_time = Time.current.change(hour: 1, min: 0); account.save }
+          before { account.lunch_time = 1.hour; account.save }
 
           context 'at most 2 time records' do
-            it { expect(day.forecast_departure_time).to eq base_time.change(hour: 17, min: 5) }
+            it { expect(day.forecast_departure_time).to eq (base_time + (17.hours + 5.minutes)) }
           end
 
           context 'more than 2 time records' do
             let!(:time_3) { create(:time_record, time: base_time.change(hour: 13, min: 25), day_record: day) }
 
-            it { expect(day.forecast_departure_time).to eq base_time.change(hour: 17, min: 29) }
+            it { expect(day.forecast_departure_time).to eq (base_time + (17.hours + 29.minutes)) }
           end
 
         end
@@ -288,7 +291,7 @@ RSpec.describe DayRecord do
 
   describe '#labor_laws_violations' do
     let!(:account) { create(:account_sequence) }
-    let!(:base_time) { ZERO_HOUR }
+    let!(:base_time) { Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0) }
     let!(:day)  { create(:day_record, account: account) }
     let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
     let!(:time_2) { create(:time_record, time: base_time.change(hour: 19, min: 1), day_record: day) }

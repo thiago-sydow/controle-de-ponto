@@ -158,7 +158,7 @@ describe ClosuresController do
       end
 
       context ' and parameters are wrong' do
-        it { expect { delete :destroy, id: '11111' }.to raise_error(Mongoid::Errors::DocumentNotFound) }
+        it { expect { delete :destroy, id: '11111' }.to raise_error(ActiveRecord::RecordNotFound) }
       end
 
       context ' and an error occured while updating' do
