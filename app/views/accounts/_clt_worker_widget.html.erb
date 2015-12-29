@@ -18,7 +18,7 @@
   </div>
 
   <div class="infobox-data">
-    <span class="infobox-data-number"><%= current_user.current_account.workload.to_s(:time) %></span>
+    <span class="infobox-data-number"><%= format_seconds_to_time(current_user.current_account.workload) %></span>
     <div class="infobox-content"><%= t "account.CltWorkerAccount.workload" %></div>
   </div>
 </div>
@@ -29,7 +29,7 @@
   </div>
 
   <div class="infobox-data">
-    <span class="infobox-data-number"><%= account_presenter.departure_time.to_s(:time) %></span>
+    <span class="infobox-data-number"><%= account_presenter.departure_time.try(:to_s, :time) || '--:--' %></span>
     <div class="infobox-content">Previsão de saída
       <a class="departure-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="A previsão de saída utiliza o tempo médio de almoço que você informar nas configurações, enquanto você não registrar uma Entrada 2." title="Previsão de saída">
         <i class="fa fa-question-circle"></i>
@@ -46,7 +46,7 @@
   </div>
 
   <div class="infobox-data">
-    <span class="infobox-data-number info-worked-time"><%= account_presenter.total_worked.to_s(:time) %></span>
+    <span class="infobox-data-number info-worked-time"><%= format_seconds_to_time(account_presenter.total_worked) %></span>
 
     <div class="infobox-content">Total de hoje</div>
   </div>

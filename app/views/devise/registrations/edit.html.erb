@@ -78,7 +78,7 @@
             <div class="col-sm-9">
               <div class="input-medium">
                 <div class="input-group">
-                  <%= f.input_field :birthday, placeholder: 'Nome', required: true, class: 'datepicker', value: localize(f.object.birthday, format: "%d/%m/%Y") %>
+                  <%= f.input_field :birthday, as: :string, placeholder: 'Nome', required: true, class: 'datepicker', value: localize(f.object.birthday, format: "%d/%m/%Y") %>
                   <span class="input-group-addon">
                     <i class="ace-icon fa fa-calendar"></i>
                   </span>
@@ -137,7 +137,7 @@
                       {
                         'data-association-insertion-node' => '.account-pane:last-of-type',
                         'data-association-insertion-method' => 'append',
-                        wrap_object: Proc.new { |_account| CltWorkerAccount.new } 
+                        wrap_object: Proc.new { |_account| CltWorkerAccount.new }
                       }
                     %>
                   </li>
@@ -146,7 +146,7 @@
                       {
                         'data-association-insertion-node' => '.account-pane:last-of-type',
                         'data-association-insertion-method' => 'append',
-                        wrap_object: Proc.new { |_account| StudentAccount.new } 
+                        wrap_object: Proc.new { |_account| StudentAccount.new }
                       }
                     %>
                   </li>
@@ -155,12 +155,12 @@
                       {
                         'data-association-insertion-node' => '.account-pane:last-of-type',
                         'data-association-insertion-method' => 'append',
-                        wrap_object: Proc.new { |_account| SelfEmployedAccount.new } 
+                        wrap_object: Proc.new { |_account| SelfEmployedAccount.new }
                       }
                     %>
                   </li>
                 </ul>
-                
+
               </li>
             </ul>
 

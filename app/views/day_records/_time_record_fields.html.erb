@@ -1,7 +1,7 @@
 <div class="nested-fields col-xs-12 col-md-2">
   <%= f.input :time, label: false, wrapper_html: { class: 'text-center col-xs-10 col-sm-8', style: 'padding-right: 0;'} do %>
     <span class="text-capitalize entrance-exit">Entrada </span><span class="text-capitalize number-of-type">1</span>
-    <%= f.input_field :time, class: 'optional form-control timepicker text-center pull-left', value: f.object.time.try(:strftime, "%H:%M") %>
+    <%= f.input_field :time, as: :string, class: 'optional form-control timepicker text-center pull-left', value: f.object.time.try(:strftime, "%H:%M") %>
   <% end %>
 
   <%= link_to_remove_association '<span class="text-danger pull-left" style="margin-top: 20px;"> <i class="fa fa-trash fa-2x"></i></span>'.html_safe, f, class: 'col-xs-2 col-sm-1' %>

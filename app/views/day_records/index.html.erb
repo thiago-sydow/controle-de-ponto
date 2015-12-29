@@ -40,7 +40,7 @@
 
           <td class="text-center">
             <p class="time-p">
-              <span><%= day_record.total_worked.to_s(:time) %></span>
+              <span><%= format_seconds_to_time(day_record.total_worked) %></span>
             </p>
           </td>
           <td class="text-center">

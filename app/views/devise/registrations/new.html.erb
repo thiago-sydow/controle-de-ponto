@@ -36,7 +36,7 @@
 
           <label class="block clearfix">
             <span class="block input-icon input-icon-right">
-              <%= f.input_field :birthday, required: true, label: false, class: 'form-control', placeholder: 'Data de Nascimento' %>
+              <%= f.input_field :birthday, as: :string, required: true, label: false, class: 'form-control', placeholder: 'Data de Nascimento' %>
               <i class="ace-icon fa fa-birthday-cake"></i>
             </span>
             <%= f.full_error :birthday, class: 'text-danger' %>
@@ -64,7 +64,7 @@
             </span>
             <%= f.full_error :password_confirmation, class: 'text-danger' %>
           </label>
-          
+
           <div class="space-24"></div>
 
           <div class="clearfix">
