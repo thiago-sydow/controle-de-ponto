@@ -5,6 +5,7 @@ FactoryGirl.define do
     warn_straight_hours true
     warn_overtime true
     warn_rest_period true
+    allowance_time 0
 
     factory :account_sequence do
       sequence(:name) { |n| "Account CLT #{n}" }
@@ -19,6 +20,17 @@ FactoryGirl.define do
 
     factory :self_employed_account_sequence do
       sequence(:name) { |n| "Account Self Employed #{n}" }
+    end
+
+  end
+
+  factory :student_account, class: StudentAccount do
+    type 'StudentAccount'
+    name 'Studies Control'
+    workload 14400
+
+    factory :student_account_sequence do
+      sequence(:name) { |n| "Studies Control Account #{n}" }
     end
 
   end

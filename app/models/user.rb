@@ -32,9 +32,9 @@ class User < ActiveRecord::Base
     if accounts.blank?
       build_default_account
       save
-    else
-      update(current_account: accounts.first)
     end
+
+    update(current_account: accounts.first)
   end
 
   def create_default_account

@@ -32,14 +32,19 @@ RSpec.describe User do
     context '.after_save' do
       let!(:user) { create(:user) }
 
-      before do
-        user.accounts.create({ name: 'Emprego CLT', type: 'CltWorkerAccount' })
-        user.accounts = [user.accounts.first]
-        user.save
+      context 'with accounts' do
+        before { user.accounts.create(CltWorkerAccount.default_build_hash) }
+
+        it { expect(user.accounts.size).to eq 2 }
+        it { expect(user.current_account).not_to be_nil }
       end
 
-      it { expect(user.accounts.size).to eq 1 }
-      it { expect(user.current_account).not_to be_nil }
+      context 'without accounts' do
+        before { user.accounts.destroy_all; user.reload.save }
+
+        it { expect(user.accounts.size).to eq 1 }
+        it { expect(user.current_account).not_to be_nil }
+      end
     end
   end
 
@@ -62,12 +67,4 @@ RSpec.describe User do
     end
   end
 
-  context '#current_account' do
-    let!(:user) { create(:user) }
-    before { user.accounts.destroy_all }
-
-    context 'when not have account, should be create default account' do
-      it { expect(user.current_account).not_to be_nil }
-    end
-  end
 end
