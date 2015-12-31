@@ -7,7 +7,7 @@ class DayRecord < ActiveRecord::Base
   enumerize :medical_certificate, in: { yes: 1, no: 0 }, default: :no
 
   belongs_to :account
-  has_many :time_records
+  has_many :time_records, dependent: :delete_all
 
   accepts_nested_attributes_for :time_records, reject_if: :all_blank, allow_destroy: true
 

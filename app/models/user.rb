@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   enumerize :gender, in: %w(male female), default: nil
 
-  has_many :accounts, dependent: :delete_all
+  has_many :accounts, dependent: :destroy
   accepts_nested_attributes_for :accounts, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :current_account, class_name: Account.to_s

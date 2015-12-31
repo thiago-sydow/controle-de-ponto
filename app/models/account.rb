@@ -4,7 +4,7 @@ class Account < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :day_records, dependent: :delete_all
+  has_many :day_records, dependent: :destroy
   has_many :closures, dependent: :delete_all
 
 end
