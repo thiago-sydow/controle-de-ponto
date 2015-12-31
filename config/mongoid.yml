@@ -1,0 +1,25 @@
+development:
+  # Configure available database clients. (required)
+  clients:
+    # Defines the default client. (required)
+    default:
+      uri: 'mongodb://heroku_app35529032:hkhnsdhalav4lb8nrgu00m2b0s@ds061391.mongolab.com:61391/heroku_app35529032'
+
+  # Configure Mongoid specific options. (optional)
+  options:
+
+test:
+  clients:
+    default:
+      database: controle_de_ponto_test
+      hosts:
+        - localhost:27017
+      options:
+        max_pool_size: 1
+
+# <%= ENV['MONGODB_URL'] %>
+production:
+  clients:
+    default:
+      uri: 'mongodb://heroku_app35529032:hkhnsdhalav4lb8nrgu00m2b0s@ds061391.mongolab.com:61391/heroku_app35529032'
+      options:
