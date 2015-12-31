@@ -3,9 +3,9 @@ class CreateDayRecords < ActiveRecord::Migration
     create_table :day_records do |t|
       t.date :reference_date, null: false
       t.text :observations
-      t.string :work_day
-      t.string :missed_day
-      t.string :medical_certificate
+      t.integer :work_day, limit: 1
+      t.integer :missed_day, limit: 1
+      t.integer :medical_certificate, limit: 1
 
       t.references :account
 

@@ -37,14 +37,14 @@ ActiveRecord::Schema.define(version: 20151227205759) do
   end
 
   create_table "day_records", force: :cascade do |t|
-    t.date     "reference_date",      null: false
+    t.date     "reference_date",                null: false
     t.text     "observations"
-    t.string   "work_day"
-    t.string   "missed_day"
-    t.string   "medical_certificate"
+    t.integer  "work_day",            limit: 2
+    t.integer  "missed_day",          limit: 2
+    t.integer  "medical_certificate", limit: 2
     t.integer  "account_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "time_records", force: :cascade do |t|
