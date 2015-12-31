@@ -41,6 +41,10 @@ gem 'rubyzip'
 gem 'roo'
 gem 'lograge'
 
+#For migration only
+gem 'mongoid'
+gem 'progress'
+
 group :production do
   gem 'rails_12factor'
 end
