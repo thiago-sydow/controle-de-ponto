@@ -5,10 +5,11 @@
 
 Aplicação para controle pessoal de horas trabalhadas. Relatórios, visualização de horário de saída, total trabalhado no dia.
 
-Disponível em [http://www.meucontroledeponto.com.br](http://www.meucontroledeponto.com.br/)
+Disponível gratuitamente em [http://www.meucontroledeponto.com.br](http://www.meucontroledeponto.com.br/)
 
 ## Instalação
-A aplicação utiliza [MongoDB](https://www.mongodb.org), portanto será necessário instalá-lo no ambiente.
+A aplicação utiliza [PostgreSQL](http://www.postgresql.org/), portanto será necessário instalá-lo no ambiente,
+versão mínima **9.4** .
 
 Baixe o repositório
 
@@ -18,6 +19,10 @@ Instale as dependências
 
     bundle install
 
+Configure o banco de dados
+
+    rake db:create
+    rake db:migrate
 
 Rode os testes
 
@@ -56,6 +61,11 @@ ou
     * [ruby-style-guide](https://github.com/bbatsov/ruby-style-guide)
     * [rails-style-guide](https://github.com/bbatsov/rails-style-guide)
     * [betterspecs](http://betterspecs.org/)
+
+## Observações
+O projeto inicialmente foi feito utilizando MongoDB, mas por alguns motivos foi migrado para o PostgeSQL.
+
+Você pode encontrar a última versão que utilizava o Mongo na tag `2.0-mongodb`, e a branch que foi criada a rake para migração de um modelo para o outro na branch `db-migration-branch`.
 
 ## Licença
 MIT License.
