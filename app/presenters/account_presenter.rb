@@ -10,18 +10,13 @@ class AccountPresenter < Burgundy::Item
   end
 
   def departure_time
-    return ZERO_HOUR unless current_day_record
+    return nil unless current_day_record
     @departure_time = current_day_record.forecast_departure_time
   end
 
   def percentage_worked
     return 0 unless current_day_record
-
-    base_time = ZERO_HOUR
-    time_1 = base_time.change(hour: workload.hour, min: workload.min)
-    time_2 = base_time.change(hour: total_worked.hour, min: total_worked.min)
-
-    (((time_2 - base_time) / (time_1 - base_time)) * 100).round(1)
+    ((total_worked.to_f / workload.to_f) * 100).round(1)
   end
 
   def next_entrance_time
@@ -44,20 +39,19 @@ class AccountPresenter < Burgundy::Item
 
   def days_since_closure
     @days ||= if closures.exists?
-                day_records.where(:reference_date.gt => closures.first.end_date)
+                day_records.where('reference_date >= ?', closures.first.end_date)
               else
                 day_records
               end
   end
 
   def calculate_earns
-    days_since_closure.inject(0) { |sum, day| get_earns_sum(sum, day) }
+    days_since_closure.inject(0) { |sum, day| get_earns_sum(sum, day) }.to_f
   end
 
   def get_earns_sum(sum, day)
-    earns_by_second = hourly_rate / 3600
-    total_seconds = day.total_worked.hour.hours + day.total_worked.min.minutes
-    sum + (earns_by_second * total_seconds)
+    earns_by_second = BigDecimal.new(hourly_rate.to_s) / 3600
+    sum + (earns_by_second * day.total_worked)
   end
 
 end

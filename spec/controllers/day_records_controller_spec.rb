@@ -144,19 +144,19 @@ describe DayRecordsController do
   context '#update' do
     let!(:day) { create(:day_record_with_times, account: account) }
     let!(:change_id) { day.time_records.first.id }
-    let(:new_time) { Time.current.change(hour: 9, min: 56) }
+    let!(:new_time) { Time.current.change(hour: 9, min: 56) }
     let(:attrs) { { time_records_attributes: { '0' => { id: change_id, time: new_time.to_s } } } }
 
     context 'when user is logged in' do
-
       login_user
 
       context ' and parameters are right' do
-        before { patch :update, id: day.id, day_record: attrs }
+        before { patch :update, id: day.id, day_record: attrs; day.reload; }
 
         it { is_expected.to redirect_to day_records_path }
         it { expect(flash[:success]).not_to be_nil }
-        it { expect(day.reload.time_records.find(change_id).time).to be_same_second_as(new_time) }
+        it { expect(day.time_records.find(change_id).time.hour).to eq new_time.hour }
+        it { expect(day.time_records.find(change_id).time.min).to eq new_time.min }
       end
 
       context ' and parameters are wrong' do
@@ -196,7 +196,7 @@ describe DayRecordsController do
       end
 
       context ' and parameters are wrong' do
-        it { expect { delete :destroy, id: '11111' }.to raise_error(Mongoid::Errors::DocumentNotFound) }
+        it { expect { delete :destroy, id: '11111' }.to raise_error(ActiveRecord::RecordNotFound) }
       end
 
       context ' and an error occured while updating' do

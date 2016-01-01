@@ -7,8 +7,11 @@ RSpec.describe Closure do
   end
 
   context 'validations' do
+    subject { create(:closure) }
     it { is_expected.to validate_presence_of :start_date }
     it { is_expected.to validate_presence_of :end_date }
+    #https://github.com/thoughtbot/shoulda-matchers/blob/master/lib/shoulda
+    #/matchers/active_record/validate_uniqueness_of_matcher.rb#L26
     it { is_expected.to validate_uniqueness_of(:start_date).scoped_to :account_id }
     it { is_expected.to validate_uniqueness_of(:end_date).scoped_to :account_id }
   end

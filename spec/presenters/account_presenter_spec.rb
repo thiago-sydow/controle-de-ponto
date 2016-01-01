@@ -3,7 +3,7 @@ require 'rails_helper'
 describe AccountPresenter do
   let!(:account) { create(:account_sequence) }
   let!(:day)  { create(:day_record, account: account) }
-  let!(:base_time) { ZERO_HOUR }
+  let!(:base_time) { Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0) }
   let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
   let!(:time_2) { create(:time_record, time: base_time.change(hour: 12, min: 1), day_record: day) }
   let!(:account_presenter) { AccountPresenter.new(account) }
@@ -21,8 +21,7 @@ describe AccountPresenter do
   end
 
   describe '#total_worked' do
-    it { expect(account_presenter.total_worked.hour).to eq 3 }
-    it { expect(account_presenter.total_worked.min).to eq 56 }
+    it { expect(account_presenter.total_worked).to eq (3.hours + 56.minutes) }
   end
 
   describe '#departure_time' do

@@ -8,7 +8,6 @@ RSpec.describe User do
 
   context 'validations' do
     it { is_expected.to validate_presence_of :email }
-    it { is_expected.to validate_uniqueness_of :email }
     it { is_expected.to validate_presence_of :first_name }
     it { is_expected.to validate_presence_of :last_name }
     it { is_expected.to validate_presence_of :birthday }
@@ -33,14 +32,19 @@ RSpec.describe User do
     context '.after_save' do
       let!(:user) { create(:user) }
 
-      before do
-        user.accounts.create({ name: 'Emprego CLT', active: false }, CltWorkerAccount)
-        user.accounts = [user.accounts.not.active.first]
-        user.save
+      context 'with accounts' do
+        before { user.accounts.create(CltWorkerAccount.default_build_hash) }
+
+        it { expect(user.accounts.size).to eq 2 }
+        it { expect(user.current_account).not_to be_nil }
       end
 
-      it { expect(user.accounts.size).to eq 1 }
-      it { expect(user.current_account).not_to be_nil }
+      context 'without accounts' do
+        before { user.accounts.destroy_all; user.reload.save }
+
+        it { expect(user.accounts.size).to eq 1 }
+        it { expect(user.current_account).not_to be_nil }
+      end
     end
   end
 
@@ -55,7 +59,7 @@ RSpec.describe User do
     end
 
     context 'when user have more accounts' do
-      let!(:new_account) { create(:account_sequence, active: false, user: user) }
+      let!(:new_account) { create(:account_sequence, user: user) }
 
       before { user.change_current_account_to(new_account.id) }
 
@@ -63,12 +67,4 @@ RSpec.describe User do
     end
   end
 
-  context '#current_account' do
-    let!(:user) { create(:user) }
-    before { user.accounts.destroy_all }
-
-    context 'when not have account, should be create default account' do
-      it { expect(user.current_account).not_to be_nil }
-    end
-  end
 end

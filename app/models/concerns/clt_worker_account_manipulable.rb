@@ -4,8 +4,7 @@ module CltWorkerAccountManipulable
   def clt_manipulate_balance(balance, allowance_time)
 
     if allowance_time
-      allowance_period = (allowance_time.hour.hours + allowance_time.min.minutes)
-      balance.reset if balance.to_seconds <= allowance_period
+      balance.reset if balance.to_seconds <= allowance_time
     end
 
     balance.reset if medical_certificate.yes?
@@ -17,14 +16,14 @@ module CltWorkerAccountManipulable
 
   def add_lunch_time(time)
     return time unless account.lunch_time && time_records.size < 3
-    sum_times(time, account.lunch_time)
+    [time, account.lunch_time].sum
   end
 
   def forecast_departure_time
     return ZERO_HOUR if time_records.empty? || !reference_date.today?
     rest = calculate_hours(false)
 
-    add_lunch_time(sum_times(time_records.first.time, account.workload, rest))
+    add_lunch_time([time_records.first.time, account.workload, rest].sum)
   end
 
   def labor_laws_violations
@@ -45,15 +44,11 @@ module CltWorkerAccountManipulable
 
   def check_overtime_violation
     return false unless account.warn_overtime
-    total_worked_duration > overtime_duration_limit
-  end
-
-  def total_worked_duration
-    (total_worked.hour.hours + total_worked.min.minutes)
+    total_worked > overtime_duration_limit
   end
 
   def overtime_duration_limit
-    (account.workload.hour.hours + account.workload.min.minutes + 2.hours)
+    (account.workload + 2.hours)
   end
 
 end

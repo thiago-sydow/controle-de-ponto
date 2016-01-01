@@ -1,0 +1,23 @@
+# Based on https://codeship.com/documentation/databases/postgresql/#ruby-on-rails
+development:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  pool: 10
+  username: <%= ENV['PG_USER'] %>
+  template: template1
+  password: <%= ENV['PG_PASSWORD'] %>
+  database: development<%= ENV['TEST_ENV_NUMBER'] %>
+  port: 5434
+  sslmode: disable
+test:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  pool: 10
+  username: <%= ENV['PG_USER'] %>
+  template: template1
+  password: <%= ENV['PG_PASSWORD'] %>
+  database: test<%= ENV['TEST_ENV_NUMBER'] %>
+  port: 5434
+  sslmode: disable

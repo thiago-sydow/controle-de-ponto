@@ -29,7 +29,7 @@ class RegistrationsController < Devise::RegistrationsController
       # remove the virtual current_password attribute
       # update_without_password doesn't know how to ignore it
       params[:user].delete(:current_password)
-      fix_currency
+      fix_attributes
       @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
     end
   end
@@ -57,7 +57,7 @@ class RegistrationsController < Devise::RegistrationsController
         :password,
         :password_confirmation,
         :current_password,
-        accounts_attributes: [:id, :name, :workload, :lunch_time, :warn_straight_hours, :warn_overtime, :warn_rest_period, :hourly_rate, :allowance_time, :_type, :_destroy])
+        accounts_attributes: [:id, :name, :workload, :lunch_time, :warn_straight_hours, :warn_overtime, :warn_rest_period, :hourly_rate, :allowance_time, :type, :_destroy])
     end
   end
 
@@ -67,12 +67,29 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def fix_currency
+  def fix_attributes
     params[:user][:accounts_attributes].values.each do |value|
-      next unless value.has_key? "hourly_rate"
-      value["hourly_rate"] = value.fetch("hourly_rate").gsub('.', '').gsub(',', '.')
+      value["hourly_rate"] = value.fetch("hourly_rate").gsub('.', '').gsub(',', '.') if value.has_key? 'hourly_rate'
+      fix_time_attributes(value)
+      fix_warns_attributes(value)
     end
+  end
 
+  def fix_time_attributes(value)
+    value["workload"] = time_to_seconds(value.fetch("workload")) if value.has_key? 'workload'
+    value["lunch_time"] = time_to_seconds(value.fetch("lunch_time")) if value.has_key? 'lunch_time'
+    value["allowance_time"] = time_to_seconds(value.fetch("allowance_time")) if value.has_key? 'allowance_time'
+  end
+
+  def fix_warns_attributes(value)
+    value["warn_overtime"] = value.fetch("warn_overtime") == 'true' if value.has_key? 'warn_overtime'
+    value["warn_rest_period"] = value.fetch("warn_rest_period") == 'true' if value.has_key? 'warn_rest_period'
+    value["warn_straight_hours"] = value.fetch("warn_straight_hours") == 'true' if value.has_key? 'warn_straight_hours'
+  end
+
+  def time_to_seconds(time)
+    hh, mm = time.split(':')
+    (hh.to_i.hours + mm.to_i.minutes)
   end
 
 end

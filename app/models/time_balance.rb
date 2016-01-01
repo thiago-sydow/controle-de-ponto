@@ -7,7 +7,7 @@ class TimeBalance
   end
 
   def calculate_balance(time_1, time_2)
-    calculate(-(time_1.hour.hours + time_1.min.minutes), (time_2.hour.hours + time_2.min.minutes))
+    calculate(-(parsed_time(time_1)), parsed_time(time_2))
   end
 
   def positive?
@@ -54,6 +54,11 @@ class TimeBalance
       self.minute *= -1
     end
 
+  end
+
+  def parsed_time(time)
+    return time if time.is_a?(Integer)
+    time.hour.hours + time.min.minutes
   end
 
 end

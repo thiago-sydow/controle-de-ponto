@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  database: controle_de_ponto_development
+  encoding: unicode
+  port: 5432
+  host: 127.0.0.1
+
+test: &test
+  adapter: postgresql
+  database: controle_de_ponto_test
+  encoding: unicode
+  port: 5432
+  host: 127.0.0.1

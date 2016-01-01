@@ -1,7 +1,6 @@
-<% case current_user.current_account.class %>
-<% when StudentAccount %>
+<% if current_user.current_account.class == StudentAccount %>
   <%= render 'accounts/student_widget', account_presenter: account_presenter %>
-<% when SelfEmployedAccount %>
+<% elsif current_user.current_account.class == SelfEmployedAccount %>
   <%= render 'accounts/self_employed_widget', account_presenter: account_presenter %>
 <% else %>
   <%= render 'accounts/clt_worker_widget', account_presenter: account_presenter %>

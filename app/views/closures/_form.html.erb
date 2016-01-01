@@ -1,8 +1,8 @@
 <%= simple_form_for closure do |f| %>
 <div class="row">
   <%= f.hidden_field :id %>
-  <%= f.input :start_date, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-2 text-center'}, input_html: { value: localize(f.object.start_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
-  <%= f.input :end_date, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-2 text-center'}, input_html: { value: localize(f.object.end_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
+  <%= f.input :start_date, as: :string, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-2 text-center'}, input_html: { value: localize(f.object.start_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
+  <%= f.input :end_date, as: :string, wrapper_html: {class: 'col-xs-4 col-sm-2 col-md-2 text-center'}, input_html: { value: localize(f.object.end_date, format: "%d/%m/%Y"), class: 'datepicker text-center'} %>
 </div>
   <%= f.button :submit %>
 <% end %>
