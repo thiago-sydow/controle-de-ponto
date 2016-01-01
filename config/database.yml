@@ -11,3 +11,7 @@ test: &test
   encoding: unicode
   port: 5432
   host: 127.0.0.1
+
+production:
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
