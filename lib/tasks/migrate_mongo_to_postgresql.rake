@@ -29,12 +29,12 @@ namespace :migrate do
       end
 
       pg_user.skip_confirmation!
+      pg_user.skip_confirmation_notification!
       pg_user.save!(validate: false) #if !pg_user.valid? && pg_user.errors.size == 1 && user.errors[:password].present?
       pg_user.reload
 
       pg_user.update!(current_account: pg_user.accounts.where(name: current_account_name).first)
 
-      pg_user.confirm!
       puts "WRONG CURRENT #{user.id}|#{user.email}|#{user.current_account.id}" unless user.current_account.name == pg_user.current_account.name
     end
   end
