@@ -24,7 +24,11 @@ class DayRecord < ActiveRecord::Base
   after_initialize :set_default_values
 
   def self.max_time_count_for_account(account)
-    where(account: account).map { |day| day.time_records.count }.max || 0
+    where(account: account)
+    .joins(:time_records)
+    .group(:id)
+    .select('day_records.*, count(time_records.id) as time_count')
+    .map { |day| day.time_count }.max || 0
   end
 
   def total_worked

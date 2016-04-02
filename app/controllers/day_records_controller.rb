@@ -5,9 +5,9 @@ class DayRecordsController < GenericCrudController
   before_action :set_date_range, only: [:index, :export]
 
   def index
-    @day_records = current_user.current_account.day_records.date_range(@from, @to).page params[:page]
+    @day_records = current_account.day_records.includes(:time_records).date_range(@from, @to).page params[:page]
     @balance_period = @day_records.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
-    @max_time_records = DayRecord.max_time_count_for_account(current_user.current_account)
+    @max_time_records = DayRecord.max_time_count_for_account(current_account)
   end
 
   def new
@@ -42,10 +42,10 @@ class DayRecordsController < GenericCrudController
     case export_format_param
     when 'xlsx'
       file_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      file = DayRecord::ExportSheet.new(current_user.current_account, @from, @to)
+      file = DayRecord::ExportSheet.new(current_account, @from, @to)
     else
       file_type = 'application/pdf'
-      file = DayRecord::ExportPdf.new(current_user.current_account, @from, @to)
+      file = DayRecord::ExportPdf.new(current_account, @from, @to)
     end
 
     send_data file.generate,
@@ -54,7 +54,7 @@ class DayRecordsController < GenericCrudController
   end
 
   def add_now
-    current_day = current_user.current_account.day_records.today.first_or_create
+    current_day = current_account.day_records.today.first_or_create
     current_day.time_records.create(time: Time.current)
     flash[:success] =  t "day_records.create.success"
 
@@ -62,6 +62,10 @@ class DayRecordsController < GenericCrudController
   end
 
   private
+
+  def current_account
+    @acc ||= current_user.current_account
+  end
 
   def export_format_param
     params.require(:format)
