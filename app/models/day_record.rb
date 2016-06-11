@@ -6,7 +6,7 @@ class DayRecord < ActiveRecord::Base
   enumerize :missed_day, in: { yes: 1, no: 0 }, default: :no
   enumerize :medical_certificate, in: { yes: 1, no: 0 }, default: :no
 
-  belongs_to :account
+  belongs_to :account, touch: true
   has_many :time_records, dependent: :delete_all
 
   accepts_nested_attributes_for :time_records, reject_if: :all_blank, allow_destroy: true
