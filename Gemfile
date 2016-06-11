@@ -41,6 +41,8 @@ gem 'rubyzip'
 gem 'roo'
 gem 'lograge'
 
+gem 'redis-rails'
+
 group :production do
   gem 'rails_12factor'
 end
