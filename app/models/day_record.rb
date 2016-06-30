@@ -22,6 +22,7 @@ class DayRecord < ActiveRecord::Base
   scope :date_range, -> (from, to) { where(reference_date: from..to) }
 
   after_initialize :set_default_values
+  after_save :touch_closure_if_needed
 
   def self.max_time_count_for_account(account)
     where(account: account)
@@ -104,5 +105,12 @@ class DayRecord < ActiveRecord::Base
 
   def set_default_values
     self.reference_date ||= Date.current
+  end
+
+  def touch_closure_if_needed
+    query = []
+    query << '(start_date >= :date AND :date <= end_date)'
+    query << 'start_date = :date OR end_date = :date'
+    account.closures.where(query.join(' OR '), date: reference_date).each(&:touch).update_all(updated_at: Time.current)
   end
 end
