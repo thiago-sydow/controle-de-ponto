@@ -111,6 +111,6 @@ class DayRecord < ActiveRecord::Base
     query = []
     query << '(start_date >= :date AND :date <= end_date)'
     query << 'start_date = :date OR end_date = :date'
-    account.closures.where(query.join(' OR '), date: reference_date).each(&:touch).update_all(updated_at: Time.current)
+    account.closures.where(query.join(' OR '), date: reference_date).update_all(updated_at: Time.current)
   end
 end
