@@ -18,31 +18,33 @@
     </thead>
     <tbody>
       <% @closures.each do |closure| %>
-      <tr>
-        <td>
-          <h5 class="text-center"><%= l closure.start_date, format: :default %></h5>
-        </td>
-        <td>
-          <h5 class="text-center"><%= l closure.end_date, format: :default %></h5>
-        </td>
-        <td class="text-center">
-          <p class="time-p text-<%= get_color_balance(closure.balance) %>">
-            <strong><%= closure.balance %></strong>
-            <i class="fa <%= get_icon_balance(closure.balance) %>"></i>
-          </p>
-        </td>
-        <td class="text-center">
-          <%= link_to edit_closure_path(closure), class: 'btn btn-primary btn-xs' do %>
-            <i class="fa fa-pencil-square-o"></i>
-            <%= t('helpers.links.edit') %>
-          <% end %>
+        <% cache [closure] do %>
+          <tr>
+            <td>
+              <h5 class="text-center"><%= l closure.start_date, format: :default %></h5>
+            </td>
+            <td>
+              <h5 class="text-center"><%= l closure.end_date, format: :default %></h5>
+            </td>
+            <td class="text-center">
+              <p class="time-p text-<%= get_color_balance(closure.balance) %>">
+                <strong><%= closure.balance %></strong>
+                <i class="fa <%= get_icon_balance(closure.balance) %>"></i>
+              </p>
+            </td>
+            <td class="text-center">
+              <%= link_to edit_closure_path(closure), class: 'btn btn-primary btn-xs' do %>
+                <i class="fa fa-pencil-square-o"></i>
+                <%= t('helpers.links.edit') %>
+              <% end %>
 
-          <%= link_to closure_path(closure), method: :delete, data: { confirm: t('helpers.links.confirm') }, class: 'btn btn-xs btn-danger' do %>
-            <i class="fa fa-trash-o"></i>
-            <%= t('helpers.links.destroy') %>
-          <% end %>
-        </td>
-      </tr>
+              <%= link_to closure_path(closure), method: :delete, data: { confirm: t('helpers.links.confirm') }, class: 'btn btn-xs btn-danger' do %>
+                <i class="fa fa-trash-o"></i>
+                <%= t('helpers.links.destroy') %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

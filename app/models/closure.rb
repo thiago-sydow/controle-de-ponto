@@ -1,5 +1,5 @@
 class Closure < ActiveRecord::Base
-  belongs_to :account
+  belongs_to :account, touch: true
 
   validates_presence_of :start_date, :end_date
 

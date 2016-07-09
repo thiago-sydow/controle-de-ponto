@@ -1,3 +1,4 @@
+<% cache [current_user.current_account] do %>
 <div class="infobox <%= get_dashboard_color(account_presenter.total_balance) %>">
   <div class="infobox-icon">
     <i class="ace-icon fa <%= get_icon_balance(account_presenter.total_balance) %>"></i>
@@ -11,6 +12,7 @@
     </div>
   </div>
 </div>
+<% end %>
 
 <div class="infobox infobox-blue">
   <div class="infobox-icon">
