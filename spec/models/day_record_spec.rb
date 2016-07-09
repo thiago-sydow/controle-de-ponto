@@ -56,20 +56,21 @@ RSpec.describe DayRecord do
   end
 
   describe 'after_save' do
+    let(:acc) { create(:account_sequence) }
+    let!(:day)  { create(:day_record, account: acc, reference_date: 10.days.ago) }
+
     context 'touch related closures' do
-      let!(:account) { create(:account_sequence) }
-      let!(:day)  { create(:day_record, account: account, reference_date: 10.days.ago) }
-      let!(:closure_1) { create(:closure, start_date: 20.days.ago, end_date: Date.today, account: account, updated_at: 1.day.ago) }
-      let!(:closure_2) { create(:closure, start_date: 60.days.ago, end_date: 10.days.ago, account: account, updated_at: 1.day.ago) }
-      let!(:closure_3) { create(:closure, start_date: 10.days.ago, end_date: 2.days.ago, account: account, updated_at: 1.day.ago) }
-      let!(:closure_4) { create(:closure, start_date: 5.days.ago, end_date: 1.day.ago, account: account, updated_at: 1.day.ago) }
+      let!(:closure_1) { create(:closure, start_date: 20.days.ago, end_date: Date.today, account: acc, updated_at: 1.day.ago) }
+      let!(:closure_2) { create(:closure, start_date: 60.days.ago, end_date: 10.days.ago, account: acc, updated_at: 1.day.ago) }
+      let!(:closure_3) { create(:closure, start_date: 10.days.ago, end_date: 2.days.ago, account: acc, updated_at: 1.day.ago) }
+      let!(:closure_4) { create(:closure, start_date: 5.days.ago, end_date: 1.day.ago, account: acc, updated_at: 1.day.ago) }
 
       before { day.save }
 
-      it { expect(closure_1.reload.updated_at.to_date).to eq Date.today }
-      it { expect(closure_2.reload.updated_at.to_date).to eq Date.today }
-      it { expect(closure_3.reload.updated_at.to_date).to eq Date.today }
-      it { expect(closure_4.reload.updated_at.to_date).to eq Date.yesterday }
+      it { expect(Closure.find(closure_1.id).updated_at.to_date).to eq Date.today }
+      it { expect(Closure.find(closure_3.id).updated_at.to_date).to eq Date.today }
+      it { expect(Closure.find(closure_2.id).updated_at.to_date).to eq Date.today }
+      it { expect(Closure.find(closure_4.id).updated_at.to_date).to eq Date.yesterday }
     end
   end
 
