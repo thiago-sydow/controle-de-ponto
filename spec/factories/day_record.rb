@@ -7,6 +7,10 @@ FactoryGirl.define do
     medical_certificate :no
     observations 'observations test'
 
+    factory :day_record_sequence do
+      sequence(:reference_date) { |n| Date.current - n.days }
+    end
+
     factory :day_record_with_times do
       transient do
         times_count 3
@@ -17,5 +21,4 @@ FactoryGirl.define do
       end
     end
   end
-
 end

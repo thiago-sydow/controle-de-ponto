@@ -3,6 +3,7 @@ module Types
     name 'User'
     description 'The account holds configuration and isolate day records'
 
+    field :id, !types.Int, 'The id of the user'
     field :email, !types.String, 'The email of the user'
     field :firstName, !types.String, 'The name of the user', property: :first_name
     field :lastName, !types.String, 'The surname of the user', property: :last_name

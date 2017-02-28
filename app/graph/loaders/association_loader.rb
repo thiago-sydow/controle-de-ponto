@@ -1,10 +1,5 @@
 module Loaders
   class AssociationLoader < GraphQL::Batch::Loader
-    def self.validate(model, association_name)
-      new(model, association_name)
-      nil
-    end
-
     def initialize(model, association_name, page_options)
       @model = model
       @association_name = association_name

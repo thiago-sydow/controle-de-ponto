@@ -51,8 +51,12 @@ class GraphController < ActionController::Base
 
   def query_context
     {
-      current_user: User.find_by(id: doorkeeper_token.resource_owner_id)
+      current_user: current_user
     }
+  end
+
+  def current_user
+    @user ||= User.find_by(id: doorkeeper_token.resource_owner_id)
   end
 
   # Handle form data, JSON body, or a blank value
