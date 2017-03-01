@@ -9,7 +9,7 @@ Doorkeeper.configure do
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
   admin_authenticator do
-    redirect_to(unauthenticated_root_url) unless Rails.env.development? || current_user.try(:id) == ENV['ADMIN_ID']
+    redirect_to(unauthenticated_root_url) unless Rails.env.development? || current_user.try(:id) == ENV['ADMIN_ID'].to_i
   end
 
   # Authorization Code expiration time (default 10 minutes).
