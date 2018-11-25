@@ -36,8 +36,8 @@ gem 'prawn-table'
 
 gem 'mail_form'
 
-gem 'axlsx'
-gem 'rubyzip'
+gem 'axlsx', '~> 3.0.0.pre'
+gem 'rubyzip', '~> 1.2'
 gem 'roo'
 gem 'lograge'
 
