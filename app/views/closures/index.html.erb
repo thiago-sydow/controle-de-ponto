@@ -18,7 +18,7 @@
     </thead>
     <tbody>
       <% @closures.each do |closure| %>
-        <% cache [closure] do %>
+        <% cache closure do %>
           <tr>
             <td>
               <h5 class="text-center"><%= l closure.start_date, format: :default %></h5>
