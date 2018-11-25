@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe AccountPresenter do
-  let!(:account) { create(:account_sequence) }
+  let!(:account) { create(:account) }
   let!(:day)  { create(:day_record, account: account) }
   let!(:base_time) { Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0) }
   let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }
@@ -33,7 +33,7 @@ describe AccountPresenter do
   end
 
   describe '#next_entrance_time' do
-    let!(:new_account) { create(:account_sequence) }
+    let!(:new_account) { create(:account) }
     let!(:current_day) { create(:day_record, account: new_account) }
     let!(:presenter) { AccountPresenter.new(new_account) }
 
@@ -53,7 +53,7 @@ describe AccountPresenter do
   end
 
   describe '#total_earned' do
-    let!(:self_emp_account) { create(:self_employed_account_sequence, hourly_rate: 0) }
+    let!(:self_emp_account) { create(:self_employed_account, hourly_rate: 0) }
     let!(:day) { create(:day_record, account: self_emp_account) }
     let!(:presenter) { AccountPresenter.new(self_emp_account) }
 

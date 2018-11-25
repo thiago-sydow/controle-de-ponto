@@ -59,7 +59,7 @@ RSpec.describe User do
     end
 
     context 'when user have more accounts' do
-      let!(:new_account) { create(:account_sequence, user: user) }
+      let!(:new_account) { create(:account, user: user) }
 
       before { user.change_current_account_to(new_account.id) }
 

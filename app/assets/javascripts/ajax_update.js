@@ -5,9 +5,9 @@ var updateTime = function() {
     var chart = $('.easy-pie-chart.percentage');
     chart.data('easyPieChart').update(response.percentage);
     chart.find('.percent').text(response.percentage);
-    
-    // Random between 1 and 3 minutes
-    var milliseconds = Math.floor(Math.random() * (180 - 60)) + 60;
+
+    // Random between 5 and 10 minutes
+    var milliseconds = Math.floor(Math.random() * (600 - 300)) + 300;
     setTimeout(updateTime, milliseconds * 1000);
   });
 };

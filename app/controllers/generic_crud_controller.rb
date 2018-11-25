@@ -1,9 +1,6 @@
 class GenericCrudController < ApplicationController
-  include BeforeRender
-
   before_action :authenticate_user!
-
-  before_render :set_presenter
+  before_action :set_presenter
 
   protected
 

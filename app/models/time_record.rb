@@ -1,5 +1,5 @@
 class TimeRecord < ActiveRecord::Base
-  belongs_to :day_record
+  belongs_to :day_record, inverse_of: :time_records
 
   validates_presence_of :time
 

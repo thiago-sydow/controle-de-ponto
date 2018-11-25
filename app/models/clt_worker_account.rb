@@ -1,10 +1,12 @@
 class CltWorkerAccount < Account
 
-  store_accessor :preferences, :lunch_time, :warn_straight_hours,
-                 :warn_overtime, :warn_rest_period, :allowance_time
-
-  after_initialize :set_default_values
-
+  typed_store :preferences, coder: ActiveRecord::TypedStore::IdentityCoder do |s|
+    s.boolean :warn_straight_hours, null: false
+    s.boolean :warn_overtime, null: false
+    s.boolean :warn_rest_period, null: false
+    s.integer :lunch_time, null: false, default: 0
+    s.integer :allowance_time, null: false, default: 0
+  end
 
   def self.default_build_hash
     {
@@ -15,12 +17,4 @@ class CltWorkerAccount < Account
       warn_straight_hours: true
     }
   end
-
-  private
-
-  def set_default_values
-    self.lunch_time ||= 0
-    self.allowance_time ||= 0
-  end
-
 end

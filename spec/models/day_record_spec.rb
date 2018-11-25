@@ -25,9 +25,9 @@ RSpec.describe DayRecord do
   end
 
   describe '#max_time_count_for_account' do
-    let!(:account)   { create(:account_sequence) }
-    let!(:account_1) { create(:account_sequence) }
-    let!(:account_2) { create(:account_sequence) }
+    let!(:account)   { create(:account) }
+    let!(:account_1) { create(:account) }
+    let!(:account_2) { create(:account) }
     let!(:day_1)  { create(:day_record, account: account_1) }
     let!(:day_2)  { create(:day_record, reference_date: 3.days.ago, account: account_2) }
     let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day_1) }
@@ -56,7 +56,7 @@ RSpec.describe DayRecord do
   end
 
   describe 'after_save' do
-    let(:acc) { create(:account_sequence) }
+    let(:acc) { create(:account) }
     let!(:day)  { create(:day_record, account: acc, reference_date: 10.days.ago) }
 
     context 'touch related closures' do
@@ -75,7 +75,7 @@ RSpec.describe DayRecord do
   end
 
   describe 'Time Statistics' do
-    let!(:account) { create(:account_sequence) }
+    let!(:account) { create(:account) }
     let!(:base_time) { Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0) }
 
     describe '#total_worked' do
@@ -309,7 +309,7 @@ RSpec.describe DayRecord do
   end
 
   describe '#labor_laws_violations' do
-    let!(:account) { create(:account_sequence) }
+    let!(:account) { create(:account) }
     let!(:base_time) { Time.zone.local(1999, 8, 1).change(hour: 0, minute: 0) }
     let!(:day)  { create(:day_record, account: account) }
     let!(:time_1) { create(:time_record, time: base_time.change(hour:  8, min: 5), day_record: day) }

@@ -6,8 +6,8 @@ class DayRecord < ActiveRecord::Base
   enumerize :missed_day, in: { yes: 1, no: 0 }, default: :no
   enumerize :medical_certificate, in: { yes: 1, no: 0 }, default: :no
 
-  belongs_to :account, touch: true
-  has_many :time_records, dependent: :delete_all
+  belongs_to :account
+  has_many :time_records, inverse_of: :day_record, dependent: :delete_all
 
   accepts_nested_attributes_for :time_records, reject_if: :all_blank, allow_destroy: true
 
@@ -22,6 +22,9 @@ class DayRecord < ActiveRecord::Base
   scope :date_range, -> (from, to) { where(reference_date: from..to) }
 
   after_initialize :set_default_values
+
+  after_save :touch_account
+  after_destroy :touch_account
   after_save :touch_closure_if_needed
 
   def self.max_time_count_for_account(account)
@@ -105,6 +108,10 @@ class DayRecord < ActiveRecord::Base
 
   def set_default_values
     self.reference_date ||= Date.current
+  end
+
+  def touch_account
+    account.touch
   end
 
   def touch_closure_if_needed
