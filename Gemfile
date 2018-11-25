@@ -1,34 +1,33 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.5.1'
 
-gem 'rails', '4.2.5'
+gem 'rails', '~> 5.2.1'
 gem 'pg'
 
 gem 'jquery-rails'
-gem 'sass-rails', '~> 5.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sass-rails'
+gem 'coffee-rails'
 
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 gem 'devise'
-gem 'doorkeeper'
 gem 'simple_form'
 
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 
 gem 'time_diff'
 gem 'enumerize'
 gem 'cocoon', github: 'thiago-sydow/cocoon'
 gem 'twitter-bootstrap-rails-confirm'
-gem 'jquery-datatables-rails', '~> 3.2.0'
+gem 'jquery-datatables-rails'
 gem 'kaminari', '~> 1.0.1'
 
 gem 'burgundy'
-gem 'rollbar', '~> 1.5.3'
+gem 'rollbar'
 
-gem 'passenger'
+gem 'puma'
 
 gem 'newrelic_rpm'
 
@@ -44,12 +43,7 @@ gem 'lograge'
 
 gem 'redis-rails'
 
-gem 'graphql'
-gem 'graphql-batch'
-
-group :production do
-  gem 'rails_12factor'
-end
+gem 'activerecord-typedstore'
 
 group :development do
   gem 'rack-mini-profiler'
@@ -57,13 +51,13 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'rubocop', require: false
-  gem 'mailcatcher'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
   gem 'pry'
   gem 'pry-byebug'
   gem 'zeus'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
 end
 
 group :test do
@@ -73,4 +67,5 @@ group :test do
   gem 'turnip'
   gem 'fuubar'
   gem 'faker'
+  gem 'rails-controller-testing'
 end

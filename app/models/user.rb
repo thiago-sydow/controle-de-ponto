@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :accounts, dependent: :destroy
   accepts_nested_attributes_for :accounts, reject_if: :all_blank, allow_destroy: true
 
-  belongs_to :current_account, class_name: Account.to_s
+  belongs_to :current_account, class_name: Account.to_s, optional: true
 
   validates_presence_of :first_name, :last_name, :birthday, :gender
 

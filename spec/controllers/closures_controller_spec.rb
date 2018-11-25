@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ClosuresController do
 
-  let!(:user) { create(:user_sequence) }
+  let!(:user) { create(:user) }
   let!(:account) { user.current_account }
 
   describe '#index' do
@@ -31,7 +31,7 @@ describe ClosuresController do
     context 'when user is logged in' do
       login_user
 
-      before { get :edit, id: closure.id }
+      before { get :edit, params: { id: closure.id } }
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(assigns(:closure)).to eq(closure) }
@@ -39,7 +39,7 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-      before { get :edit, id: closure.id }
+      before { get :edit, params: { id: closure.id } }
       it_behaves_like 'a not authorized request'
     end
 
@@ -75,7 +75,7 @@ describe ClosuresController do
       login_user
 
       context ' and parameters are right' do
-        before { post :create, closure: attrs }
+        before { post :create, params: { closure: attrs } }
 
         it { expect(response).to redirect_to closures_path }
         it { expect(flash[:success]).not_to be_nil }
@@ -88,7 +88,7 @@ describe ClosuresController do
       context ' and an error occured while creating' do
         before do
           allow_any_instance_of(Closure).to receive(:save).and_return(false)
-          post :create, closure: attrs
+          post :create, params: { closure: attrs }
         end
 
         it { expect(response).to render_template(:new) }
@@ -99,7 +99,7 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-      before { post :create, closure: attrs }
+      before { post :create, params: { closure: attrs } }
       it_behaves_like 'a not authorized request'
     end
 
@@ -114,7 +114,7 @@ describe ClosuresController do
       login_user
 
       context ' and parameters are right' do
-        before { patch :update, id: closure.id, closure: attrs }
+        before { patch :update, params: { id: closure.id, closure: attrs } }
 
         it { is_expected.to redirect_to closures_path }
         it { expect(flash[:success]).not_to be_nil }
@@ -122,13 +122,13 @@ describe ClosuresController do
       end
 
       context ' and parameters are wrong' do
-        it { expect { patch(:update, id: closure.id) }.to raise_error(ActionController::ParameterMissing) }
+        it { expect { patch(:update, params: { id: closure.id }) }.to raise_error(ActionController::ParameterMissing) }
       end
 
       context ' and an error occured while updating' do
         before do
           allow_any_instance_of(Closure).to receive(:update_attributes).and_return(false)
-          patch :update, id: closure.id, closure: attrs
+          patch :update, params: { id: closure.id, closure: attrs }
         end
 
         it { expect(response).to render_template(:edit) }
@@ -138,7 +138,7 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-      before { patch :update, id: closure.id, closure: attrs }
+      before { patch :update, params: { id: closure.id, closure: attrs } }
       it_behaves_like 'a not authorized request'
     end
   end
@@ -151,14 +151,14 @@ describe ClosuresController do
       login_user
 
       context ' and parameters are right' do
-        before { delete :destroy, id: closure.id }
+        before { delete :destroy, params: { id: closure.id } }
 
         it { is_expected.to redirect_to closures_path }
         it { expect(flash[:success]).not_to be_nil }
       end
 
       context ' and parameters are wrong' do
-        it { expect { delete :destroy, id: '11111' }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect { delete :destroy, params: { id: '11111' } }.to raise_error(ActiveRecord::RecordNotFound) }
       end
 
       context ' and an error occured while updating' do
@@ -166,7 +166,7 @@ describe ClosuresController do
         before do
           allow_any_instance_of(Closure).to receive(:destroy).and_return(closure)
           allow_any_instance_of(Closure).to receive(:destroyed?).and_return(false)
-          delete :destroy, id: closure.id
+          delete :destroy, params: { id: closure.id }
         end
 
         it { expect(response).to redirect_to closures_path }
@@ -177,7 +177,7 @@ describe ClosuresController do
     end
 
     context 'when user is not logged in' do
-      before { delete :destroy, id: closure.id }
+      before { delete :destroy, params: { id: closure.id } }
       it_behaves_like 'a not authorized request'
     end
   end

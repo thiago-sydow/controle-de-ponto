@@ -28,16 +28,14 @@ Rode os testes
 
     rspec
 
-Execute o  [mailcatcher](http://mailcatcher.me/) para teste de e-mail no ambiente de desenvolvimento
+Instale e execute o  [mailcatcher](http://mailcatcher.me/) para teste de e-mail no ambiente de desenvolvimento
+    gem install mailcatcher
 
     mailcatcher
 
 Rode a aplicação
 
-    rails s
-ou
-
-    passenger start
+    bin/rails s
 
 ## Como contribuir?
 

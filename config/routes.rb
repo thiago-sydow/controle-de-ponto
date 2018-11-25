@@ -1,15 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }, format: false
 
-  scope :graph do
-    post :introspect, controller: :graph, action: :introspect
-    post :query, controller: :graph, action: :query
-  end
-
   devise_scope :user do
     authenticated :user do
-      use_doorkeeper
-
       root to: redirect('/day_records'), as: :authenticated_root
 
       patch 'change_current_account/:id', to: 'accounts#change_current', format: false, as: :change_current_account

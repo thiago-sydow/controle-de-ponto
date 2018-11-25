@@ -1,4 +1,4 @@
-class CreateDayRecords < ActiveRecord::Migration
+class CreateDayRecords < ActiveRecord::Migration[4.2]
   def change
     create_table :day_records do |t|
       t.date :reference_date, null: false

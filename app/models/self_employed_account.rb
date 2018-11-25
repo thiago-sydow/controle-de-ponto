@@ -1,7 +1,9 @@
 class SelfEmployedAccount < Account
-  store_accessor :preferences, :hourly_rate
+
+  typed_store :preferences, coder: JSON do |s|
+    s.float :hourly_rate, null: false
+  end
 
   validates_presence_of :hourly_rate
   validates_format_of :hourly_rate, with: /\A\d+(?:\.\d{0,2})?\z/
-
 end

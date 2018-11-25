@@ -66,7 +66,7 @@
 
     <div class="col-sm-9 top-10">
       <div class="input-medium">
-          <%= f.input_field :warn_straight_hours, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_straight_hours == true, checked_value: true, unchecked_value: false  %>
+          <%= f.input_field :warn_straight_hours, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_straight_hours == true, checked_value: 'true', unchecked_value: 'false'  %>
       </div>
     </div>
   </div>
@@ -76,7 +76,7 @@
 
     <div class="col-sm-9 top-10">
       <div class="input-medium">
-        <%= f.input_field :warn_overtime, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_overtime, checked_value: true, unchecked_value: false  %>
+        <%= f.input_field :warn_overtime, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_overtime == true, checked_value: 'true', unchecked_value: 'false'  %>
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@
 
     <div class="col-sm-9 top-10">
       <div class="input-medium">
-        <%= f.input_field :warn_rest_period, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_rest_period, checked_value: true, unchecked_value: false  %>
+        <%= f.input_field :warn_rest_period, as: :boolean, class: 'yes-no-checkbox-switch', checked: f.object.warn_rest_period == true, checked_value: 'true', unchecked_value: 'false'  %>
       </div>
     </div>
   </div>

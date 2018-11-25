@@ -1,4 +1,4 @@
-class CreateClosures < ActiveRecord::Migration
+class CreateClosures < ActiveRecord::Migration[4.2]
   def change
     create_table :closures do |t|
       t.date :start_date, null: false

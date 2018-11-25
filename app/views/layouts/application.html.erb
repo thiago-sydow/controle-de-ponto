@@ -1,5 +1,11 @@
 <%= render partial: 'layouts/header' %>
 
+<%
+  if current_user
+    @account_presenter ||= AccountPresenter.new(current_user.current_account)
+  end
+%>
+
 <div class="main-container" id="main-container">
   <%= render 'layouts/sidebar', account_presenter: @account_presenter %>
   <div class="main-content">

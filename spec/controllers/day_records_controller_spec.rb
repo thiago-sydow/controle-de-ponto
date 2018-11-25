@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe DayRecordsController do
 
-  let!(:user) { create(:user_sequence) }
+  let!(:user) { create(:user) }
   let!(:account) { user.current_account }
 
   describe '#index' do
@@ -22,7 +22,7 @@ describe DayRecordsController do
         let!(:day_3) { create(:day_record, account: account, reference_date: 3.days.ago) }
 
         context 'and covers all dates' do
-          before { get :index, from: 3.days.ago.to_s }
+          before { get :index, params: { from: 3.days.ago.to_s } }
 
           it { expect(assigns(:day_records)).to match_array [day, day_2, day_3] }
           it { expect(assigns(:balance_period).hour).to eq day.balance.sum(day_2.balance).sum(day_3.balance).hour }
@@ -30,17 +30,17 @@ describe DayRecordsController do
         end
 
         context 'and excludes recent day_records' do
-          before { get :index, from: 3.days.ago.to_s, to: 2.days.ago.to_s }
+          before { get :index, params: { from: 3.days.ago.to_s, to: 2.days.ago.to_s } }
           it { expect(assigns(:day_records)).to match_array [day_2, day_3] }
         end
 
         context 'and excludes older day_records' do
-          before { get :index, from: 1.days.ago.to_s, to: Time.current.to_s }
+          before { get :index, params: { from: 1.days.ago.to_s, to: Time.current.to_s } }
           it { expect(assigns(:day_records)).to match_array [day] }
         end
 
         context 'with invalid date' do
-          before { get :index, from: Time.current.to_s, to: '35/05/2015' }
+          before { get :index, params: { from: Time.current.to_s, to: '35/05/2015' } }
           it { expect(assigns(:day_records)).to match_array [day] }
         end
 
@@ -61,7 +61,7 @@ describe DayRecordsController do
     context 'when user is logged in' do
       login_user
 
-      before { get :edit, id: day.id }
+      before { get :edit, params: { id: day.id } }
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(assigns(:day_record)).to eq(day) }
@@ -69,7 +69,7 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-      before { get :edit, id: day.id }
+      before { get :edit, params: { id: day.id } }
       it_behaves_like 'a not authorized request'
     end
 
@@ -105,7 +105,7 @@ describe DayRecordsController do
       login_user
 
       context ' and parameters are right' do
-        before { post :create, day_record: attrs }
+        before { post :create, params: { day_record: attrs } }
 
         it { expect(response).to redirect_to day_records_path }
         it { expect(flash[:success]).not_to be_nil }
@@ -118,7 +118,7 @@ describe DayRecordsController do
       context ' and an error occured while creating' do
         before do
           allow_any_instance_of(DayRecord).to receive(:save).and_return(false)
-          post :create, day_record: attrs
+          post :create, params: { day_record: attrs }
         end
 
         it { expect(response).to render_template(:new) }
@@ -127,7 +127,7 @@ describe DayRecordsController do
       end
 
       context ' and save_and_add is present' do
-        before { post :create, day_record: attrs, save_and_add: 'xunda' }
+        before { post :create, params: { day_record: attrs, save_and_add: 'xunda' } }
 
         it { expect(response).to redirect_to new_day_record_path }
         it { expect(flash[:success]).not_to be_nil }
@@ -135,7 +135,7 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-      before { post :create, day_record: attrs }
+      before { post :create, params: { day_record: attrs } }
       it_behaves_like 'a not authorized request'
     end
 
@@ -151,7 +151,7 @@ describe DayRecordsController do
       login_user
 
       context ' and parameters are right' do
-        before { patch :update, id: day.id, day_record: attrs; day.reload; }
+        before { patch :update, params: { id: day.id, day_record: attrs }; day.reload; }
 
         it { is_expected.to redirect_to day_records_path }
         it { expect(flash[:success]).not_to be_nil }
@@ -160,13 +160,13 @@ describe DayRecordsController do
       end
 
       context ' and parameters are wrong' do
-        it { expect { patch(:update, id: day.id) }.to raise_error(ActionController::ParameterMissing) }
+        it { expect { patch(:update, params: { id: day.id }) }.to raise_error(ActionController::ParameterMissing) }
       end
 
       context ' and an error occured while updating' do
         before do
           allow_any_instance_of(DayRecord).to receive(:update_attributes).and_return(false)
-          patch :update, id: day.id, day_record: attrs
+          patch :update, params: { id: day.id, day_record: attrs }
         end
 
         it { expect(response).to render_template(:edit) }
@@ -176,7 +176,7 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-      before { patch :update, id: day.id, day_record: attrs }
+      before { patch :update, params: { id: day.id, day_record: attrs } }
       it_behaves_like 'a not authorized request'
     end
   end
@@ -189,14 +189,14 @@ describe DayRecordsController do
       login_user
 
       context ' and parameters are right' do
-        before { delete :destroy, id: day.id }
+        before { delete :destroy, params: { id: day.id } }
 
         it { is_expected.to redirect_to day_records_path }
         it { expect(flash[:success]).not_to be_nil }
       end
 
       context ' and parameters are wrong' do
-        it { expect { delete :destroy, id: '11111' }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect { delete :destroy, params: { id: '11111' } }.to raise_error(ActiveRecord::RecordNotFound) }
       end
 
       context ' and an error occured while updating' do
@@ -204,7 +204,7 @@ describe DayRecordsController do
         before do
           allow_any_instance_of(DayRecord).to receive(:destroy).and_return(day)
           allow_any_instance_of(DayRecord).to receive(:destroyed?).and_return(false)
-          delete :destroy, id: day.id
+          delete :destroy, params: { id: day.id }
         end
 
         it { expect(response).to redirect_to day_records_path }
@@ -215,7 +215,7 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-      before { delete :destroy, id: day.id }
+      before { delete :destroy, params: { id: day.id } }
       it_behaves_like 'a not authorized request'
     end
   end
@@ -235,7 +235,7 @@ describe DayRecordsController do
     end
 
     context 'when user is not logged in' do
-      before { delete :async_worked_time }
+      before { get :async_worked_time }
       it_behaves_like 'a not authorized request'
     end
   end
@@ -272,21 +272,21 @@ describe DayRecordsController do
       let(:file_name) { "#{user.first_name} - #{user.current_account.name} - #{from.strftime('%d/%m/%Y')} à #{to.strftime('%d/%m/%Y')}" }
 
       context 'type PDF' do
-        before { get :export, format: 'pdf' }
+        before { get :export, params: { format: 'pdf' } }
 
         it { expect(response.headers["Content-Type"]).to eq "application/pdf"}
         it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{file_name}.pdf\"" }
       end
 
       context 'type XLSX' do
-        before { get :export, format: 'xlsx' }
+        before { get :export, params: { format: 'xlsx' } }
 
         it { expect(response.headers["Content-Type"]).to eq "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{file_name}.xlsx\"" }
       end
 
       context 'with date range' do
-        before { get :export, format: 'pdf', from: 2.days.ago.to_s, to: Date.current.to_s }
+        before { get :export, params: { format: 'pdf', from: 2.days.ago.to_s, to: Date.current.to_s } }
 
         it { expect(from).to eq 2.days.ago.to_date }
         it { expect(to).to eq Date.current }
