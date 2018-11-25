@@ -1,6 +1,6 @@
 class SelfEmployedAccount < Account
 
-  typed_store :preferences, coder: JSON do |s|
+  typed_store :preferences, coder: ActiveRecord::TypedStore::IdentityCoder do |s|
     s.float :hourly_rate, null: false
   end
 

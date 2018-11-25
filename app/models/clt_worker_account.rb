@@ -1,6 +1,6 @@
 class CltWorkerAccount < Account
 
-  typed_store :preferences, coder: JSON do |s|
+  typed_store :preferences, coder: ActiveRecord::TypedStore::IdentityCoder do |s|
     s.boolean :warn_straight_hours, null: false
     s.boolean :warn_overtime, null: false
     s.boolean :warn_rest_period, null: false
