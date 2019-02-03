@@ -3,7 +3,11 @@
     <i class="ace-icon fa <%= get_icon_balance(account_presenter.total_balance) %>"></i>
   </div>
   <div class="infobox-data">
-    <span class="infobox-data-number"><%= account_presenter.total_balance.to_s %></span>
+    <span class="infobox-data-number">
+      <% cache current_user.current_account do %>
+        <%= account_presenter.total_balance.to_s %>
+      <% end %>
+    </span>
     <div class="infobox-content">Saldo de horas
       <a class="balance-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="O Saldo de horas é contabilizado à partir do seu último Fechamento informado." title="Saldo de horas">
         <i class="fa fa-question-circle"></i>

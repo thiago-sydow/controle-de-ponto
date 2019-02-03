@@ -20,7 +20,7 @@ module CltWorkerAccountManipulable
   end
 
   def forecast_departure_time
-    return ZERO_HOUR if time_records.empty? || !reference_date.today?
+    return ZERO_HOUR if !reference_date.today? || time_records.empty?
     rest = calculate_hours(false)
 
     add_lunch_time([time_records.first.time, account.workload, rest].sum)

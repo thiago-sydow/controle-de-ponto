@@ -13,7 +13,6 @@ RSpec.describe TimeRecord do
     let(:time_2) { create(:time_record, time: 2.hours.ago, day_record: day) }
     let(:time_3) { create(:time_record, time: 1.hours.ago, day_record: day) }
 
-    it { expect(day.time_records).to eq [time_1, time_2, time_3] }
+    it { expect(day.reload.time_records).to eq [time_1, time_2, time_3] }
   end
-
 end
