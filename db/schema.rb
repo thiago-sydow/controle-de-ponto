@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_25_133315) do
+ActiveRecord::Schema.define(version: 2018_12_26_113324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 2018_11_25_133315) do
     t.integer "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "calculated_worked"
-    t.integer "calculated_balance"
+    t.integer "calculated_hours"
+    t.boolean "time_records_odd"
   end
 
   create_table "oauth_access_grants", id: :serial, force: :cascade do |t|

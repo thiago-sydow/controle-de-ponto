@@ -9,7 +9,7 @@ class DayRecord::BaseExport
 
   def initialize(account, from, to)
     @account = account
-    @data = account.day_records.where(reference_date: from..to)
+    @data = account.day_records.includes(:time_records).where(reference_date: from..to)
     @from = from.strftime('%d/%m/%Y')
     @to = to.strftime('%d/%m/%Y')
     @dynamic_headers = entrance_exits
@@ -17,7 +17,7 @@ class DayRecord::BaseExport
   end
 
   def generate
-    
+
   end
 
   protected

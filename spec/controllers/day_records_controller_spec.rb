@@ -143,7 +143,7 @@ describe DayRecordsController do
 
   context '#update' do
     let!(:day) { create(:day_record_with_times, account: account) }
-    let!(:change_id) { day.time_records.first.id }
+    let(:change_id) { day.reload.time_records.first.id }
     let!(:new_time) { Time.current.change(hour: 9, min: 56) }
     let(:attrs) { { time_records_attributes: { '0' => { id: change_id, time: new_time.to_s } } } }
 
@@ -225,8 +225,8 @@ describe DayRecordsController do
     context 'when user is logged in' do
       login_user
 
-      let!(:day) { create(:day_record, account: account) }
-      let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
+      let(:time_1) { create(:time_record, time: 3.hours.ago) }
+      let!(:day) { create(:day_record, account: account, time_records: [time_1]) }
 
       before { get :async_worked_time }
 

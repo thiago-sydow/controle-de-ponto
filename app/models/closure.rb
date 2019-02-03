@@ -8,7 +8,10 @@ class Closure < ActiveRecord::Base
   default_scope -> { order(end_date: :desc) }
 
   def balance
-    account.day_records.where(reference_date: start_date..end_date).
-    inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
+    Rails.cache.fetch("#{cache_key}/balance") do
+      account
+      .day_records.where(reference_date: start_date..end_date)
+      .inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
+    end
   end
 end
