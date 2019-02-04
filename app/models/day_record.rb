@@ -73,9 +73,13 @@ class DayRecord < ActiveRecord::Base
   def calculate_total_worked_hours
     return calculated_hours unless reference_date.today? && time_records_odd?
 
+    newest_time = time_records.last
+
+    return ZERO_HOUR if newest_time.nil?
+
     # sum the difference between last time entry and current time
     # to show up-to-now calculation
-    now_diff = Time.diff(time_records.last.time, Time.current)
+    now_diff = Time.diff(newest_time.time, Time.current)
     (calculated_hours + now_diff[:hour].hours) + now_diff[:minute].minutes
   end
 
