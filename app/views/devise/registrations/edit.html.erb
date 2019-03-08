@@ -88,6 +88,19 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Fuso Horário</label>
+
+            <div class="col-sm-9">
+              <div class="input-medium">
+                <div class="input-group">
+                  <%= f.input_field :time_zone, required: true, priority: ActiveSupport::TimeZone.country_zones("br") %>
+                </div>
+                <%= f.full_error :time_zone, class: 'text-danger' %>
+              </div>
+            </div>
+          </div>
+
           <div class="space-4"></div>
 
           <div class="form-group">

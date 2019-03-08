@@ -51,6 +51,7 @@ class RegistrationsController < Devise::RegistrationsController
         :email,
         :gender,
         :birthday,
+        :time_zone,
         :password,
         :password_confirmation,
         :current_password,
