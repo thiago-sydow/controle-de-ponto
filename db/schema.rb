@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_26_113324) do
+ActiveRecord::Schema.define(version: 2019_03_08_085530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2018_12_26_113324) do
     t.string "last_name"
     t.date "birthday"
     t.integer "current_account_id"
+    t.string "time_zone", default: "Brasilia", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["current_account_id"], name: "index_users_on_current_account_id"
     t.index ["email"], name: "index_users_on_email", unique: true

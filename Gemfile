@@ -63,7 +63,7 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
-  gem 'coveralls', require: false
+  gem 'codecov', require: false
   gem 'turnip'
   gem 'fuubar'
   gem 'faker'
