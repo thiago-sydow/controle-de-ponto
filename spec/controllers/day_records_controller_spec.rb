@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe DayRecordsController do
-
   let!(:user) { create(:user) }
   let!(:account) { user.current_account }
 
@@ -43,16 +42,13 @@ describe DayRecordsController do
           before { get :index, params: { from: Time.current.to_s, to: '35/05/2015' } }
           it { expect(assigns(:day_records)).to match_array [day] }
         end
-
       end
-
     end
 
     context 'when user is not logged in' do
       before { get :index }
       it_behaves_like 'a not authorized request'
     end
-
   end
 
   describe '#edit' do
@@ -66,17 +62,23 @@ describe DayRecordsController do
       it { expect(response).to have_http_status(:ok) }
       it { expect(assigns(:day_record)).to eq(day) }
       it { expect(response).to render_template(:edit) }
+
+      context ' and the record is not from the user' do
+        let(:other_day) { create(:day_record) }
+
+        before { get :edit, params: { id: other_day.id } }
+
+        it { expect(response).to be_not_found }
+      end
     end
 
     context 'when user is not logged in' do
       before { get :edit, params: { id: day.id } }
       it_behaves_like 'a not authorized request'
     end
-
   end
 
   describe '#new' do
-
     context 'when user is logged in' do
       login_user
 
@@ -95,7 +97,6 @@ describe DayRecordsController do
       before { get :new }
       it_behaves_like 'a not authorized request'
     end
-
   end
 
   describe '#create' do
@@ -173,6 +174,15 @@ describe DayRecordsController do
         it { expect(flash[:error]).not_to be_nil }
       end
 
+      context ' and the record is not from the user' do
+        let(:other_day) { create(:day_record) }
+
+        before do
+          patch :update, params: { id: other_day.id, day_record: attrs }
+        end
+
+        it { expect(response).to be_not_found }
+      end
     end
 
     context 'when user is not logged in' do
@@ -196,7 +206,9 @@ describe DayRecordsController do
       end
 
       context ' and parameters are wrong' do
-        it { expect { delete :destroy, params: { id: '11111' } }.to raise_error(ActiveRecord::RecordNotFound) }
+        before { delete :destroy, params: { id: '11111' } }
+
+        it { expect(response).to be_not_found }
       end
 
       context ' and an error occured while updating' do

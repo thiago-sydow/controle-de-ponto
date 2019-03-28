@@ -5,7 +5,7 @@ class GenericCrudController < ApplicationController
   protected
 
   def create
-    get_instance_variable.account = current_user.current_account
+    get_instance_variable.account = current_account
 
     if get_instance_variable.save
       flash[:success] =  t "#{controller_name}.create.success"
@@ -47,6 +47,11 @@ class GenericCrudController < ApplicationController
     redirect_to action: :index
   end
 
+  protected
+
+  def current_account
+    @acc ||= current_user.current_account
+  end
 
   private
 

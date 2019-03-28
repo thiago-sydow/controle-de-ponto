@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe ClosuresController do
-
   let!(:user) { create(:user) }
   let!(:account) { user.current_account }
 
@@ -22,7 +21,6 @@ describe ClosuresController do
       before { get :index }
       it_behaves_like 'a not authorized request'
     end
-
   end
 
   describe '#edit' do
@@ -36,17 +34,23 @@ describe ClosuresController do
       it { expect(response).to have_http_status(:ok) }
       it { expect(assigns(:closure)).to eq(closure) }
       it { expect(response).to render_template(:edit) }
+
+      context ' and the record is not from the user' do
+        let(:other_closure) { create(:closure) }
+
+        before { get :edit, params: { id: other_closure.id } }
+
+        it { expect(response).to be_not_found }
+      end
     end
 
     context 'when user is not logged in' do
       before { get :edit, params: { id: closure.id } }
       it_behaves_like 'a not authorized request'
     end
-
   end
 
   describe '#new' do
-
     context 'when user is logged in' do
       login_user
 
@@ -135,6 +139,13 @@ describe ClosuresController do
         it { expect(flash[:error]).not_to be_nil }
       end
 
+      context ' and the record is not from the user' do
+        let(:other_closure) { create(:closure) }
+
+        before { patch :update, params: { id: other_closure.id, closure: attrs } }
+
+        it { expect(response).to be_not_found }
+      end
     end
 
     context 'when user is not logged in' do
@@ -158,11 +169,12 @@ describe ClosuresController do
       end
 
       context ' and parameters are wrong' do
-        it { expect { delete :destroy, params: { id: '11111' } }.to raise_error(ActiveRecord::RecordNotFound) }
+        before { delete :destroy, params: { id: '11111' } }
+
+        it { expect(response).to be_not_found }
       end
 
       context ' and an error occured while updating' do
-
         before do
           allow_any_instance_of(Closure).to receive(:destroy).and_return(closure)
           allow_any_instance_of(Closure).to receive(:destroyed?).and_return(false)
@@ -173,7 +185,6 @@ describe ClosuresController do
         it { expect(flash[:error]).not_to be_nil }
         it { expect(find_closure).to eq(closure) }
       end
-
     end
 
     context 'when user is not logged in' do
@@ -181,5 +192,4 @@ describe ClosuresController do
       it_behaves_like 'a not authorized request'
     end
   end
-
 end
