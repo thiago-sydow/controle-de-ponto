@@ -64,10 +64,6 @@ class DayRecordsController < GenericCrudController
 
   private
 
-  def current_account
-    @acc ||= current_user.current_account
-  end
-
   def export_format_param
     params.require(:format)
   end
@@ -78,7 +74,7 @@ class DayRecordsController < GenericCrudController
   end
 
   def find_record
-    @day_record = DayRecord.find(day_record_id_param)
+    @day_record = current_account.day_records.find(day_record_id_param)
   end
 
   def day_record_id_param

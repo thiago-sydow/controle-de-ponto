@@ -3,7 +3,7 @@ class ClosuresController < GenericCrudController
   before_action :find_closure, only: [:edit, :update, :destroy]
 
   def index
-    @closures = current_user.current_account.closures.page params[:page]
+    @closures = current_account.closures.page params[:page]
   end
 
   def new
@@ -31,7 +31,7 @@ class ClosuresController < GenericCrudController
   private
 
   def find_closure
-    @closure = Closure.find(closure_id_param)
+    @closure = current_account.closures.find(closure_id_param)
   end
 
   def closure_id_param
@@ -41,5 +41,4 @@ class ClosuresController < GenericCrudController
   def model_params
     params.require(:closure).permit(:start_date, :end_date)
   end
-
 end

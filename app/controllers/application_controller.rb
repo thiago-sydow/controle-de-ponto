@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   around_action :set_time_zone, if: :current_user
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
   protected
 
   def set_presenter
@@ -13,6 +15,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def not_found
+    render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+  end
 
   def set_time_zone(&block)
     Time.use_zone(current_user.time_zone, &block)

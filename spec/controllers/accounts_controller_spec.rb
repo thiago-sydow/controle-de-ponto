@@ -28,7 +28,9 @@ describe AccountsController do
         it { expect(user.reload.current_account).to eq new_account }
 
         context 'and account id does not exist' do
-          it { expect { patch :change_current, params: { id: 99999 } }.to raise_error(ActiveRecord::RecordNotFound) }
+          before { patch :change_current, params: { id: 99999 } }
+
+          it { expect(response).to be_not_found }
         end
       end
     end
@@ -39,5 +41,4 @@ describe AccountsController do
       it_behaves_like 'a not authorized request'
     end
   end
-
 end
