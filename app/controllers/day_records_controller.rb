@@ -8,7 +8,7 @@ class DayRecordsController < GenericCrudController
     all_records = current_account.day_records.includes(:time_records).date_range(@from, @to)
     @day_records = all_records.page params[:page]
     @balance_period = all_records.inject(TimeBalance.new) { |sum_balance, day| sum_balance.sum(day.balance) }
-    @max_time_records = DayRecord.max_time_count_for_account(current_account)
+    @max_time_records = TimeRecord.max_time_count(@day_records)
   end
 
   def new
