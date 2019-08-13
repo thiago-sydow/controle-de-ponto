@@ -29,14 +29,6 @@ class DayRecord < ActiveRecord::Base
 
   after_destroy :touch_account
 
-  def self.max_time_count_for_account(account)
-    where(account: account)
-    .joins(:time_records)
-    .group(:id)
-    .select('day_records.*, count(time_records.id) as time_count')
-    .map { |day| day.time_count }.max || 0
-  end
-
   def total_worked
     @total_worked ||= calculate_total_worked_hours
   end

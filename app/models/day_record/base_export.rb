@@ -25,7 +25,7 @@ class DayRecord::BaseExport
   def entrance_exits
     headers = []
 
-    DayRecord.max_time_count_for_account(@account).times do |index|
+    TimeRecord.max_time_count(@data).times do |index|
       headers << h.get_time_label_from_number(index)
     end
 
