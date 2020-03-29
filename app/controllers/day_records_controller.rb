@@ -56,7 +56,9 @@ class DayRecordsController < GenericCrudController
 
   def add_now
     current_day = current_account.day_records.today.first_or_create
-    current_day.time_records.create(time: Time.current)
+    current_day.time_records.build(time: Time.current)
+    current_day.save
+
     flash[:success] =  t "day_records.create.success"
 
     redirect_to action: :index
