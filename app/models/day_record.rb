@@ -7,7 +7,7 @@ class DayRecord < ActiveRecord::Base
   enumerize :medical_certificate, in: { yes: 1, no: 0 }, default: :no
 
   belongs_to :account
-  has_many :time_records, inverse_of: :day_record, dependent: :delete_all
+  has_many :time_records, inverse_of: :day_record, dependent: :delete_all, after_remove: :recalculate
 
   accepts_nested_attributes_for :time_records, reject_if: :all_blank, allow_destroy: true
 
@@ -119,5 +119,10 @@ class DayRecord < ActiveRecord::Base
     query << '(:date >= start_date  AND :date <= end_date)'
     query << 'start_date = :date OR end_date = :date'
     account.closures.where(query.join(' OR '), date: reference_date).update_all(updated_at: Time.current)
+  end
+
+  def recalculate(_)
+    set_calculated_columns
+    save
   end
 end
