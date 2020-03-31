@@ -4,7 +4,7 @@ module CltWorkerAccountManipulable
   def clt_manipulate_balance(balance, allowance_time)
 
     if allowance_time
-      balance.reset if balance.to_seconds <= allowance_time
+      balance.reset if balance.negative? && balance.to_seconds <= allowance_time
     end
 
     balance.reset if medical_certificate.yes?

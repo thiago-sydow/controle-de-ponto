@@ -218,14 +218,31 @@ RSpec.describe DayRecord do
       end
 
       context 'when account has allowance_time set' do
-        it 'reset balance if it is between allowance period' do
-          account.update_attributes(allowance_time: (4.hours + 4.minutes))
-          expect(day.balance.cleared?).to be_truthy
+        context 'and balance is positive' do
+          let!(:time_3) { build(:time_record, time: base_time.change(hour:  13, min: 1)) }
+          let!(:time_4) { build(:time_record, time: base_time.change(hour: 20, min: 1)) }
+
+          before do
+            day.time_records += [time_3, time_4]
+            day.save
+          end
+
+          it 'does not reset balance' do
+            account.update_attributes(allowance_time: (4.hours + 4.minutes))
+            expect(day.balance.cleared?).to be_falsey
+          end
         end
 
-        it 'does not reset balance if it is not between allowance period' do
-          account.update_attributes(allowance_time: (4.hours + 3.minutes))
-          expect(day.balance.cleared?).to be_falsey
+        context 'and balance is negative' do
+          it 'reset balance if it is between allowance period' do
+            account.update_attributes(allowance_time: (4.hours + 4.minutes))
+            expect(day.balance.cleared?).to be_truthy
+          end
+
+          it 'does not reset balance if it is not between allowance period' do
+            account.update_attributes(allowance_time: (4.hours + 3.minutes))
+            expect(day.balance.cleared?).to be_falsey
+          end
         end
       end
     end
