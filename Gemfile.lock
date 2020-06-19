@@ -185,7 +185,7 @@ GEM
     pry-byebug (3.8.0)
       byebug (~> 11.0)
       pry (~> 0.10)
-    puma (4.3.3)
+    puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.2)
     rack-mini-profiler (1.1.6)
