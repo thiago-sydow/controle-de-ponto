@@ -23,7 +23,7 @@ gem 'enumerize'
 gem 'cocoon', github: 'thiago-sydow/cocoon'
 gem 'twitter-bootstrap-rails-confirm'
 gem 'jquery-datatables-rails'
-gem 'kaminari', '~> 1.0.1'
+gem 'kaminari', '~> 1.2.1'
 
 gem 'burgundy'
 gem 'rollbar'
