@@ -10,6 +10,7 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
 require "active_record/typed_store/identity_coder"
+require_relative '../lib/cloudflare_proxy'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,7 +19,10 @@ Bundler.require(*Rails.groups)
 module ControleDePonto
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.0
+    config.load_defaults 6.0
+
+    config.middleware.use Rack::Deflater
+    config.middleware.use CloudflareProxy
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

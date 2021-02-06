@@ -131,7 +131,7 @@ describe ClosuresController do
 
       context ' and an error occured while updating' do
         before do
-          allow_any_instance_of(Closure).to receive(:update_attributes).and_return(false)
+          allow_any_instance_of(Closure).to receive(:update).and_return(false)
           patch :update, params: { id: closure.id, closure: attrs }
         end
 

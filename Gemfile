@@ -1,14 +1,15 @@
 source 'https://rubygems.org'
+git_source(:github) { |name| "https://github.com/#{name}.git" }
 
-ruby '2.6.5'
+ruby '2.7.2'
 
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 6.1'
 gem 'pg'
 
 gem 'jquery-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
-
+gem 'bigdecimal'
 gem 'uglifier'
 
 gem 'devise'
@@ -36,13 +37,14 @@ gem 'prawn-table'
 
 gem 'mail_form'
 
-gem 'axlsx', '~> 3.0.0.pre'
-gem 'rubyzip', '~> 1.2'
+gem 'caxlsx'
+gem 'rubyzip', '~> 2.3'
 gem 'roo'
 gem 'lograge'
 
-gem 'redis-rails'
-
+gem 'redis'
+gem 'hiredis'
+gem 'webpacker'
 gem 'activerecord-typedstore'
 
 group :development do

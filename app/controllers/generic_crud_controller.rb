@@ -25,7 +25,7 @@ class GenericCrudController < ApplicationController
 
   def update
 
-    if get_instance_variable.update_attributes(model_params)
+    if get_instance_variable.update(model_params)
       flash[:success] = t "#{controller_name}.update.success"
       redirect_to action: :index
     else

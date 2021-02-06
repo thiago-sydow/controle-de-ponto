@@ -166,7 +166,7 @@ describe DayRecordsController do
 
       context ' and an error occured while updating' do
         before do
-          allow_any_instance_of(DayRecord).to receive(:update_attributes).and_return(false)
+          allow_any_instance_of(DayRecord).to receive(:update).and_return(false)
           patch :update, params: { id: day.id, day_record: attrs }
         end
 
@@ -281,20 +281,20 @@ describe DayRecordsController do
       let!(:time_1) { create(:time_record, time: 3.hours.ago, day_record: day) }
       let(:from) { subject.instance_variable_get(:@from)}
       let(:to) { subject.instance_variable_get(:@to)}
-      let(:file_name) { "#{user.first_name} - #{user.current_account.name} - #{from.strftime('%d/%m/%Y')} à #{to.strftime('%d/%m/%Y')}" }
+      let(:file_name) { "#{user.first_name} - #{user.current_account.name} - #{from.strftime('%d-%m-%Y')} a #{to.strftime('%d-%m-%Y')}" }
 
       context 'type PDF' do
         before { get :export, params: { format: 'pdf' } }
 
         it { expect(response.headers["Content-Type"]).to eq "application/pdf"}
-        it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{file_name}.pdf\"" }
+        it { expect(response.headers["Content-Disposition"]).to include "attachment; filename=\"#{file_name}.pdf\"" }
       end
 
       context 'type XLSX' do
         before { get :export, params: { format: 'xlsx' } }
 
         it { expect(response.headers["Content-Type"]).to eq "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
-        it { expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"#{file_name}.xlsx\"" }
+        it { expect(response.headers["Content-Disposition"]).to include "attachment; filename=\"#{file_name}.xlsx\"" }
       end
 
       context 'with date range' do

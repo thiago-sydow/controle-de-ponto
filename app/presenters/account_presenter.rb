@@ -50,7 +50,7 @@ class AccountPresenter < Burgundy::Item
   end
 
   def get_earns_sum(sum, day)
-    earns_by_second = BigDecimal.new(hourly_rate.to_s) / 3600
+    earns_by_second = BigDecimal(hourly_rate.to_s) / 3600
     sum + (earns_by_second * day.total_worked)
   end
 
