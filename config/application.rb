@@ -19,7 +19,7 @@ Bundler.require(*Rails.groups)
 module ControleDePonto
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.0
+    config.load_defaults 6.0
 
     config.middleware.use Rack::Deflater
     config.middleware.use CloudflareProxy

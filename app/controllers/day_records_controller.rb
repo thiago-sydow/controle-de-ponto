@@ -50,7 +50,7 @@ class DayRecordsController < GenericCrudController
     end
 
     send_data file.generate,
-      filename: "#{current_user.first_name} - #{current_user.current_account.name} - #{@from.strftime('%d/%m/%Y')} à #{@to.strftime('%d/%m/%Y')}.#{export_format_param}",
+      filename: "#{current_user.first_name} - #{current_user.current_account.name} - #{@from.strftime('%d-%m-%Y')} a #{@to.strftime('%d-%m-%Y')}.#{export_format_param}",
       type: file_type
   end
 

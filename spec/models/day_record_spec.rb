@@ -212,7 +212,7 @@ RSpec.describe DayRecord do
 
       context 'when has medical certificate' do
         it 'reset balance' do
-          day.update_attributes(medical_certificate: :yes)
+          day.update(medical_certificate: :yes)
           expect(day.balance.cleared?).to be_truthy
         end
       end
@@ -228,19 +228,19 @@ RSpec.describe DayRecord do
           end
 
           it 'does not reset balance' do
-            account.update_attributes(allowance_time: (4.hours + 4.minutes))
+            account.update(allowance_time: (4.hours + 4.minutes))
             expect(day.balance.cleared?).to be_falsey
           end
         end
 
         context 'and balance is negative' do
           it 'reset balance if it is between allowance period' do
-            account.update_attributes(allowance_time: (4.hours + 4.minutes))
+            account.update(allowance_time: (4.hours + 4.minutes))
             expect(day.balance.cleared?).to be_truthy
           end
 
           it 'does not reset balance if it is not between allowance period' do
-            account.update_attributes(allowance_time: (4.hours + 3.minutes))
+            account.update(allowance_time: (4.hours + 3.minutes))
             expect(day.balance.cleared?).to be_falsey
           end
         end
