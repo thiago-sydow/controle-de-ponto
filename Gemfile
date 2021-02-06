@@ -3,7 +3,7 @@ git_source(:github) { |name| "https://github.com/#{name}.git" }
 
 ruby '2.7.2'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.1'
 gem 'pg'
 
 gem 'jquery-rails'
@@ -42,7 +42,8 @@ gem 'rubyzip', '~> 2.3'
 gem 'roo'
 gem 'lograge'
 
-gem 'redis-rails'
+gem 'redis'
+gem 'hiredis'
 gem 'webpacker'
 gem 'activerecord-typedstore'
 
