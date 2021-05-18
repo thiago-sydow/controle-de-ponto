@@ -5,7 +5,15 @@
 
 Aplicação para controle pessoal de horas trabalhadas. Relatórios, visualização de horário de saída, total trabalhado no dia.
 
-Disponível gratuitamente em [http://www.meucontroledeponto.com.br](http://www.meucontroledeponto.com.br/)
+Disponível gratuitamente em [https://www.meucontroledeponto.com.br](https://www.meucontroledeponto.com.br/)
+
+
+## :warning: Aviso ⚠️
+
+O código aqui disponível representa como a aplicação existia até 15/04/2021. O repositório não receberá mais atualizaçōes.
+
+O site ([https://www.meucontroledeponto.com.br](https://www.meucontroledeponto.com.br/)) continuará existindo e sendo atualizado/modificado.
+
 
 ## Instalação
 A aplicação utiliza [PostgreSQL](http://www.postgresql.org/), portanto será necessário instalá-lo no ambiente,
