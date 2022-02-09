@@ -10,10 +10,7 @@ class Contact < MailForm::Base
   # in ActionMailer accepts.
   def headers
     {
-      subject: "#{subject} - Contato do Site",
-      to: 'contato@meucontroledeponto.com.br',
-      from: 'info@meucontroledeponto.com.br',
-      reply_to: %("#{name}" <#{email}>)
+
     }
   end
 end

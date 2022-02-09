@@ -24,7 +24,7 @@ class DayRecord::ExportPdf < DayRecord::BaseExport
     inline_format: true,
     color: '438eb9'
 
-    pdf.text 'www.meucontroledeponto.com.br | Controle suas horas trabalhadas',
+    pdf.text 'www..com.br | Controle suas horas trabalhadas',
     size: 10,
     align: :left,
     inline_format: true,

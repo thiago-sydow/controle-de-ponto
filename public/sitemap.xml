@@ -6,23 +6,23 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 <url>
-  <loc>http://www.meucontroledeponto.com.br/</loc>
+  <loc>http://www..com.br/</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.meucontroledeponto.com.br/users/sign_in</loc>
+  <loc>http://www..com.br/users/sign_in</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.meucontroledeponto.com.br/users/sign_up</loc>
+  <loc>http://www..com.br/users/sign_up</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.meucontroledeponto.com.br/users/password/new</loc>
+  <loc>http://www..com.br/users/password/new</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.meucontroledeponto.com.br/users/confirmation/new</loc>
+  <loc>http://www..com.br/users/confirmation/new</loc>
   <changefreq>monthly</changefreq>
 </url>
 </urlset>

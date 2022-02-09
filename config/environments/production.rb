@@ -88,15 +88,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.lograge.enabled = true
-  config.action_mailer.default_url_options = { host: 'http://www.meucontroledeponto.com.br' }
+  config.action_mailer.default_url_options = { host: 'http://www.com.br' }
 end
 
-ActionMailer::Base.smtp_settings = {
-  address: 'smtp.sendgrid.net',
-  port: '587',
-  authentication: :plain,
-  enable_starttls_auto: true,
-  user_name: ENV['SENDGRID_USER'],
-  password: ENV['SENDGRID_PASS'],
-  domain: 'meucontroledeponto.com.br'
-}
